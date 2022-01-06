@@ -25,16 +25,19 @@ def draw_board(gridsize):
         coords[chr(i+97)+str(i)] = ""
     return coords
 
-def place_ships(lengths):
+def place_ships(ship_data):
     ship_coords = {}
-    for val in lengths:
-        for i in range(val):
-            ship_coords[chr(val+97)+str(i)] = "S" + str(val)
+    for i in range(len(ship_data)):
+        for j in range(ship_data[i]):
+            ship_coords[chr(j+97)+str(i)] = "S" + str(i)
     return ship_coords
 
 # Initializing variables to play game
-ccords_ships_player = place_ships([2,4,5])
-ccords_ships_computer = place_ships([2,4,5])
+ship_data = {'S0':2, 'S1':3, 'S2':4}
+coords_ships_player = place_ships([2,4,5])
+ship_hits_player = {'S0': 0, 'S1': 0, 'S2':0}
+coords_ships_computer = place_ships([2,4,5])
+ship_hits_computer = {'S0': 0, 'S1': 0, 'S2':0}
 coords_targets_player = {}
 coords_targets_computer = {}
 
@@ -59,7 +62,16 @@ def get_target(coords_dict):
     coords_dict[target] = 'X'
     return target
 
-
+def check_hit(target, coords_ships, ship_hits):
+    if target in coords_ships:
+        print("It's a hit!")
+        ship_name = coords_ships[target]
+        ship_hits[ship_name] += 1
+        coords_targets_player[target] = 'X'
+    else:
+        print("It's a miss....")
+        coords_targets_player[target] = 'O'
+    
 # Steps to Execute Game:
     # generate empty board
     # place ships
@@ -74,6 +86,10 @@ def get_target(coords_dict):
 
 board = draw_board(10)
 print(board)
-get_target(coords_targets_player)
-get_target(coords_targets_player)
+print('Ship hits for player\n')
+print(ship_hits_player)
+target = get_target(coords_targets_player)
 print(coords_targets_player)
+print(coords_ships_player)
+check_hit(target,coords_ships_player,ship_hits_player)
+print(ship_hits_player)
