@@ -2,6 +2,8 @@ from blessed import Terminal
 from random import randint
 import boards
 
+term = Terminal()
+
 scores = {"computer": 0, "player": 0}
 
 class board:
@@ -35,9 +37,9 @@ def place_ships(ship_data):
 
 # Initializing variables to play game
 ship_data = {'S0':2, 'S1':3, 'S2':4}
-coords_ships_player = place_ships(ship_data)
+
 ship_hits_player = {'S0': 0, 'S1': 0, 'S2':0}
-coords_ships_computer = place_ships(ship_data)
+
 ship_hits_computer = {'S0': 0, 'S1': 0, 'S2':0}
 coords_targets_player = {}
 coords_targets_computer = {}
@@ -51,6 +53,7 @@ def get_target(coords_dict):
     Check is completed to see if the target has already been selected
     Target is also appended to the dictionary of prior targets
     """
+    print(term.home + term.clear + term.move(60,0))
     target = input('Select your next target:')
 
     while check_input(target):
@@ -65,6 +68,7 @@ def get_target(coords_dict):
 
 def check_hit(target, coords_ships, ship_hits):
     if target in coords_ships:
+        print(term.clear + term.move(59,0))
         print("It's a hit!")
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
@@ -82,9 +86,27 @@ def check_victory(ship_hits, ship_data):
     return sum(ship_hits.values()) == sum(ship_data.values())
 
 
+# *************************************************
+# Splash Screen
+# *************************************************
+
+# prints content to the screen
+print(term.home + term.clear + term.move_y(term.height - term.height // 5))
+print(term.black_on_darkgreen(term.center('press any key to continue.')))
+with term.cbreak(), term.hidden_cursor():
+    inp = term.inkey()
+print(term.home + term.clear)
+
+
 # Steps to Execute Game:
-    # generate empty board
-    # place ships
+
+# generate empty board
+board = draw_board(10)
+
+# place ships
+coords_ships_player = place_ships(ship_data)
+coords_ships_computer = place_ships(ship_data)
+
     # add ships to board
     # Loop:
         # print board
@@ -93,22 +115,23 @@ def check_victory(ship_hits, ship_data):
         # update dict of ships
         # redraw board
 
-
-board = draw_board(10)
-print(board)
-print('Ship hits for player\n')
-print(ship_hits_player)
-#target = get_target(coords_targets_player)
-print(coords_targets_player)
-print(coords_ships_player)
-#check_hit(target,coords_ships_player,ship_hits_player)
-print(ship_hits_player)
-print(check_victory(ship_hits_player, ship_data))
-
-
 while not check_victory(ship_hits_player, ship_data):
     target = get_target(coords_targets_player)
     check_hit(target,coords_ships_player,ship_hits_player)
     print(ship_hits_player)
 
+
+#board = draw_board(10)
+#print(board)
+#print('Ship hits for player\n')
+#print(ship_hits_player)
+#target = get_target(coords_targets_player)
+#print(coords_targets_player)
+#print(coords_ships_player)
+#check_hit(target,coords_ships_player,ship_hits_player)
+#print(ship_hits_player)
+#print(check_victory(ship_hits_player, ship_data))
+
 print('You have defeated the computer!')
+
+
