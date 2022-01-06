@@ -59,7 +59,7 @@ def get_target(coords_dict):
     while target in coords_dict:
         print('This target has already been selected; please select an alternative target.')
         target = input('Select your next target:') 
-    coords_dict[target] = 'X'
+    coords_dict[target] = 'X' # adding the value to the dictionary of shots
     return target
 
 def check_hit(target, coords_ships, ship_hits):
@@ -67,11 +67,18 @@ def check_hit(target, coords_ships, ship_hits):
         print("It's a hit!")
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
-        coords_targets_player[target] = 'X'
     else:
         print("It's a miss....")
-        coords_targets_player[target] = 'O'
-    
+
+def check_victory(ship_hits, ship_data):
+    """
+    Function to check if player is victorious
+    Sum up the total number of successful hits from the ship hit register 
+    and checks this against the total ship footprint
+    """
+    return ship_hits.values() == ship_data.values()
+
+
 # Steps to Execute Game:
     # generate empty board
     # place ships
@@ -93,3 +100,4 @@ print(coords_targets_player)
 print(coords_ships_player)
 check_hit(target,coords_ships_player,ship_hits_player)
 print(ship_hits_player)
+print(check_victory(ship_hits_player, ship_data))
