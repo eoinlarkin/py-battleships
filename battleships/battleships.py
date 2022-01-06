@@ -27,16 +27,17 @@ def draw_board(gridsize):
 
 def place_ships(ship_data):
     ship_coords = {}
-    for i in range(len(ship_data)):
-        for j in range(ship_data[i]):
+    ship_lengths = list(ship_data.values())
+    for i in range(len(ship_lengths)):
+        for j in range(ship_lengths[i]):
             ship_coords[chr(j+97)+str(i)] = "S" + str(i)
     return ship_coords
 
 # Initializing variables to play game
 ship_data = {'S0':2, 'S1':3, 'S2':4}
-coords_ships_player = place_ships([2,4,5])
+coords_ships_player = place_ships(ship_data)
 ship_hits_player = {'S0': 0, 'S1': 0, 'S2':0}
-coords_ships_computer = place_ships([2,4,5])
+coords_ships_computer = place_ships(ship_data)
 ship_hits_computer = {'S0': 0, 'S1': 0, 'S2':0}
 coords_targets_player = {}
 coords_targets_computer = {}
@@ -67,6 +68,8 @@ def check_hit(target, coords_ships, ship_hits):
         print("It's a hit!")
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
+        if ship_hits[ship_name] == ship_data[ship_name]:
+            print(f"Ship {ship_name} is sunk...!")
     else:
         print("It's a miss....")
 
@@ -76,7 +79,7 @@ def check_victory(ship_hits, ship_data):
     Sum up the total number of successful hits from the ship hit register 
     and checks this against the total ship footprint
     """
-    return ship_hits.values() == ship_data.values()
+    return sum(ship_hits.values()) == sum(ship_data.values())
 
 
 # Steps to Execute Game:
@@ -95,9 +98,17 @@ board = draw_board(10)
 print(board)
 print('Ship hits for player\n')
 print(ship_hits_player)
-target = get_target(coords_targets_player)
+#target = get_target(coords_targets_player)
 print(coords_targets_player)
 print(coords_ships_player)
-check_hit(target,coords_ships_player,ship_hits_player)
+#check_hit(target,coords_ships_player,ship_hits_player)
 print(ship_hits_player)
 print(check_victory(ship_hits_player, ship_data))
+
+
+while not check_victory(ship_hits_player, ship_data):
+    target = get_target(coords_targets_player)
+    check_hit(target,coords_ships_player,ship_hits_player)
+    print(ship_hits_player)
+
+print('You have defeated the computer!')
