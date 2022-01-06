@@ -53,7 +53,7 @@ def get_target(coords_dict):
     Check is completed to see if the target has already been selected
     Target is also appended to the dictionary of prior targets
     """
-    print(term.home + term.clear + term.move(60,0))
+    print(term.move(60,0))
     target = input('Select your next target:')
 
     while check_input(target):
@@ -68,8 +68,8 @@ def get_target(coords_dict):
 
 def check_hit(target, coords_ships, ship_hits):
     if target in coords_ships:
-        print(term.clear + term.move(59,0))
-        print("It's a hit!")
+        with term.location():
+            print(term.move(15,0) + "It's a hit!")
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
         if ship_hits[ship_name] == ship_data[ship_name]:
