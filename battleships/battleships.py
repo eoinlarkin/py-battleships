@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 from blessed import Terminal
 from random import randint
 import boards
@@ -14,8 +16,6 @@ class board:
         self.name = name
         self.guesses = []
         self.ships=[]
-
-print(boards.mini_board)
 
 # Code for generating a coordinate dictionary
 def draw_board(gridsize):
@@ -37,9 +37,7 @@ def place_ships(ship_data):
 
 # Initializing variables to play game
 ship_data = {'S0':2, 'S1':3, 'S2':4}
-
 ship_hits_player = {'S0': 0, 'S1': 0, 'S2':0}
-
 ship_hits_computer = {'S0': 0, 'S1': 0, 'S2':0}
 coords_targets_player = {}
 coords_targets_computer = {}
@@ -53,15 +51,16 @@ def get_target(coords_dict):
     Check is completed to see if the target has already been selected
     Target is also appended to the dictionary of prior targets
     """
-    print(term.move(60,0))
+    print(term.move(TERM_INPUT_LINE,0))
     target = input('Select your next target:')
 
     while check_input(target):
-        print('Invalid coordinate selected; please try again...!')
+        print(term.move(TERM_STATUS_LINE,0) + 'Invalid coordinate selected; please try again...!')
         target = input('Select your next target:') 
     
     while target in coords_dict:
-        print('This target has already been selected; please select an alternative target.')
+        print(term.move(TERM_STATUS_LINE,0) + 'This target has already been selected; please select an alternative target.')
+        print(term.move(TERM_INPUT_LINE,0))
         target = input('Select your next target:') 
     coords_dict[target] = 'X' # adding the value to the dictionary of shots
     return target
@@ -69,13 +68,13 @@ def get_target(coords_dict):
 def check_hit(target, coords_ships, ship_hits):
     if target in coords_ships:
         with term.location():
-            print(term.move(15,0) + "It's a hit!")
+            print(term.move(TERM_STATUS_LINE,0) + "It's a hit!")
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
         if ship_hits[ship_name] == ship_data[ship_name]:
-            print(f"Ship {ship_name} is sunk...!")
+            print(term.move(TERM_STATUS_LINE-1,0) + f"Ship {ship_name} is sunk...!")
     else:
-        print("It's a miss....")
+        print(term.move(TERM_STATUS_LINE,0) + "It's a miss....")
 
 def check_victory(ship_hits, ship_data):
     """
@@ -89,6 +88,15 @@ def check_victory(ship_hits, ship_data):
 # *************************************************
 # Splash Screen
 # *************************************************
+TERM_INPUT_LINE = 38
+TERM_STATUS_LINE = 35
+BOARD_X = 1
+BOARD_Y = 1
+
+# Checks line height and waits for user input
+print(f'Term height is {term.height},Term width is {term.width}')
+with term.cbreak(), term.hidden_cursor():
+    inp = term.inkey()
 
 # prints content to the screen
 print(term.home + term.clear + term.move_y(term.height - term.height // 5))
@@ -102,6 +110,9 @@ print(term.home + term.clear)
 
 # generate empty board
 board = draw_board(10)
+
+# print board
+print(term.move(BOARD_Y, BOARD_X) + boards.mini_board)
 
 # place ships
 coords_ships_player = place_ships(ship_data)
@@ -118,7 +129,7 @@ coords_ships_computer = place_ships(ship_data)
 while not check_victory(ship_hits_player, ship_data):
     target = get_target(coords_targets_player)
     check_hit(target,coords_ships_player,ship_hits_player)
-    print(ship_hits_player)
+    # print(ship_hits_player)
 
 
 #board = draw_board(10)
@@ -132,6 +143,6 @@ while not check_victory(ship_hits_player, ship_data):
 #print(ship_hits_player)
 #print(check_victory(ship_hits_player, ship_data))
 
-print('You have defeated the computer!')
+print(term.move(TERM_STATUS_LINE,0) + 'You have defeated the computer!')
 
 
