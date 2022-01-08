@@ -150,7 +150,7 @@ board = draw_board(10)
 #print(term.move(BOARD_Y, BOARD_X) + layout.player_board)
 
 with term.location(x=1, y=0):
-    print(layout.player_board)
+    print(term.green + layout.player_board)
 
 print(term.move(BOARD_Y+21, BOARD_X) + layout.computer_board)
 
