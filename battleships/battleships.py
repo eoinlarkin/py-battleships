@@ -68,13 +68,14 @@ def check_hit(target, coords_ships, ship_hits):
     if target in coords_ships:
         with term.location():
             print(term.move(TERM_STATUS_LINE,0) + "It's a hit!")
-            printTerminal('OO',5,4,term.red)
+            printTerminal('X',termLocations[target][0],termLocations[target][1],term.red)
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
         if ship_hits[ship_name] == ship_data[ship_name]:
             print(term.move(TERM_STATUS_LINE-1,0) + f"Ship {ship_name} is sunk...!")
     else:
         print(term.move(TERM_STATUS_LINE,0) + "It's a miss....")
+        printTerminal('O',termLocations[target][0],termLocations[target][1],term.blue)
 
 def check_victory(ship_hits, ship_data):
     """
@@ -86,6 +87,7 @@ def check_victory(ship_hits, ship_data):
 
 
 def printTerminal(text, xcoords, ycoords, color):
+    term.home
     with term.location(x=xcoords, y=ycoords):
        print(color + text)
 
@@ -100,7 +102,14 @@ import layout
 # *************************************************
 # Splash Screen
 # *************************************************
-termLocations = {'A0': [4,5]}
+termLocations = {'a1': [19,4],'a2': [23,4],'a3': [27,4],'a4': [31,4],'a5': [35,4],'a6': [39,4],'a7': [43,4],'a8': [47,4],
+'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],
+'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],
+'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],
+'E1': [19,12],'E2': [23,12],'E3': [27,12],'E4': [31,12],'E5': [35,12],'E6': [39,12],'E7': [43,12],'E8': [47,12],
+'F1': [19,14],'F2': [23,14],'F3': [27,14],'F4': [31,14],'F5': [35,14],'F6': [39,14],'F7': [43,14],'F8': [47,14],
+'G1': [19,16],'G2': [23,16],'G3': [27,16],'G4': [31,16],'G5': [35,16],'G6': [39,16],'G7': [43,16],'G8': [47,16],
+'H1': [19,18],'H2': [23,18],'H3': [27,18],'H4': [31,18],'H5': [35,18],'H6': [39,18],'H7': [43,18],'H8': [47,18]}
 
 
 # *************************************************
@@ -140,10 +149,10 @@ board = draw_board(10)
 # print board
 #print(term.move(BOARD_Y, BOARD_X) + layout.player_board)
 
-with term.location(x=1, y=1):
+with term.location(x=1, y=0):
     print(layout.player_board)
 
-print(term.move(BOARD_Y+20, BOARD_X) + layout.computer_board)
+print(term.move(BOARD_Y+21, BOARD_X) + layout.computer_board)
 
 # place ships
 coords_ships_player = place_ships(ship_data)
@@ -156,6 +165,48 @@ coords_ships_computer = place_ships(ship_data)
         # update dict of targets
         # update dict of ships
         # redraw board
+
+
+
+### Testing term coordinates:
+
+# printTerminal('a',termLocations['A1'][0],termLocations['A1'][1],term.red)
+# printTerminal('B',termLocations['A2'][0],termLocations['A2'][1],term.red)
+# printTerminal('C',termLocations['A3'][0],termLocations['A3'][1],term.red)
+# printTerminal('0',termLocations['A4'][0],termLocations['A4'][1],term.red)
+# printTerminal('0',termLocations['A5'][0],termLocations['A5'][1],term.red)
+# printTerminal('0',termLocations['A6'][0],termLocations['A6'][1],term.red)
+# printTerminal('0',termLocations['A7'][0],termLocations['A7'][1],term.red)
+# printTerminal('0',termLocations['A8'][0],termLocations['A8'][1],term.red)
+
+
+# printTerminal('0',termLocations['B1'][0],termLocations['B1'][1],term.red)
+# printTerminal('0',termLocations['B2'][0],termLocations['B2'][1],term.red)
+# printTerminal('0',termLocations['B3'][0],termLocations['B3'][1],term.red)
+# printTerminal('0',termLocations['B4'][0],termLocations['B4'][1],term.red)
+# printTerminal('0',termLocations['B5'][0],termLocations['B5'][1],term.red)
+# printTerminal('0',termLocations['B6'][0],termLocations['B6'][1],term.red)
+# printTerminal('0',termLocations['B7'][0],termLocations['B7'][1],term.red)
+# printTerminal('0',termLocations['B8'][0],termLocations['B8'][1],term.red)
+
+# printTerminal('0',termLocations['G1'][0],termLocations['G1'][1],term.red)
+# printTerminal('0',termLocations['G2'][0],termLocations['G2'][1],term.red)
+# printTerminal('0',termLocations['G3'][0],termLocations['G3'][1],term.red)
+# printTerminal('0',termLocations['G4'][0],termLocations['G4'][1],term.red)
+# printTerminal('0',termLocations['G5'][0],termLocations['G5'][1],term.red)
+# printTerminal('0',termLocations['G6'][0],termLocations['G6'][1],term.red)
+# printTerminal('0',termLocations['G7'][0],termLocations['G7'][1],term.red)
+# printTerminal('0',termLocations['G8'][0],termLocations['G8'][1],term.red)
+
+# printTerminal('1',termLocations['H1'][0],termLocations['H1'][1],term.red)
+# printTerminal('2',termLocations['H2'][0],termLocations['H2'][1],term.red)
+# printTerminal('3',termLocations['H3'][0],termLocations['H3'][1],term.red)
+# printTerminal('0',termLocations['H4'][0],termLocations['H4'][1],term.red)
+# printTerminal('0',termLocations['H5'][0],termLocations['H5'][1],term.red)
+# printTerminal('0',termLocations['H6'][0],termLocations['H6'][1],term.red)
+# printTerminal('0',termLocations['H7'][0],termLocations['H7'][1],term.red)
+# printTerminal('0',termLocations['H8'][0],termLocations['H8'][1],term.red)
+
 
 while not check_victory(ship_hits_player, ship_data):
     target = get_target(coords_targets_player)
