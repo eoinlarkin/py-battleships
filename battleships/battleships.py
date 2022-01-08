@@ -68,6 +68,7 @@ def check_hit(target, coords_ships, ship_hits):
     if target in coords_ships:
         with term.location():
             print(term.move(TERM_STATUS_LINE,0) + "It's a hit!")
+            printTerminal('OO',5,4,term.red)
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
         if ship_hits[ship_name] == ship_data[ship_name]:
@@ -88,10 +89,19 @@ def printTerminal(text, xcoords, ycoords, color):
     with term.location(x=xcoords, y=ycoords):
        print(color + text)
 
+def clearTerminal():
+    print(term.home + term.clear)
 # *************************************************
 # Import Boards
 # *************************************************
 import layout
+
+
+# *************************************************
+# Splash Screen
+# *************************************************
+termLocations = {'A0': [4,5]}
+
 
 # *************************************************
 # Splash Screen
@@ -107,16 +117,19 @@ BOARD_Y = 1
 #    inp = term.inkey()
 
 # prints splash screen to the screen
-print(term.home + term.clear)
+clearTerminal()
 
 
-printTerminal(layout.logo, 5,4,term.orangered)
+printTerminal(term.center(layout.logo), 1,5,term.orangered)
 
-term.move_y(term.height - term.height // 5)
-print(term.black_on_darkgreen(term.center('press any key to continue.')))
+printTerminal(term.center('press and key to continue'),5,30,term.black_on_green)
+
+#term.move_y(term.height - term.height // 5)
+#print(term.black_on_darkgreen(term.center('press any key to continue.')))
 with term.cbreak(), term.hidden_cursor():
     inp = term.inkey()
-print(term.home + term.clear)
+
+clearTerminal()
 
 
 # Steps to Execute Game:
@@ -149,17 +162,6 @@ while not check_victory(ship_hits_player, ship_data):
     check_hit(target,coords_ships_player,ship_hits_player)
     # print(ship_hits_player)
 
-
-#board = draw_board(10)
-#print(board)
-#print('Ship hits for player\n')
-#print(ship_hits_player)
-#target = get_target(coords_targets_player)
-#print(coords_targets_player)
-#print(coords_ships_player)
-#check_hit(target,coords_ships_player,ship_hits_player)
-#print(ship_hits_player)
-#print(check_victory(ship_hits_player, ship_data))
 
 print(term.move(TERM_STATUS_LINE,0) + 'You have defeated the computer!')
 
