@@ -2,6 +2,8 @@
 testing/**
 battleships/__pycache__/**
 
-# env file; only used for local deployment
+# Files only required for local deployment:
 .env
 node_modules/**
+index.js.json
+package-lock.json
