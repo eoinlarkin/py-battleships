@@ -86,6 +86,11 @@ def check_victory(ship_hits, ship_data):
 
 
 # *************************************************
+# Import Boards
+# *************************************************
+import layout
+
+# *************************************************
 # Splash Screen
 # *************************************************
 TERM_INPUT_LINE = 38
@@ -94,12 +99,18 @@ BOARD_X = 1
 BOARD_Y = 1
 
 # Checks line height and waits for user input
-print(f'Term height is {term.height},Term width is {term.width}')
-with term.cbreak(), term.hidden_cursor():
-    inp = term.inkey()
+#print(f'Term height is {term.height},Term width is {term.width}')
+#with term.cbreak(), term.hidden_cursor():
+#    inp = term.inkey()
 
-# prints content to the screen
-print(term.home + term.clear + term.move_y(term.height - term.height // 5))
+# prints splash screen to the screen
+print(term.home + term.clear)
+
+
+with term.location(x=5, y=5):
+    print(term.orangered + layout.logo)
+
+term.move_y(term.height - term.height // 5)
 print(term.black_on_darkgreen(term.center('press any key to continue.')))
 with term.cbreak(), term.hidden_cursor():
     inp = term.inkey()
@@ -112,7 +123,12 @@ print(term.home + term.clear)
 board = draw_board(10)
 
 # print board
-print(term.move(BOARD_Y, BOARD_X) + boards.mini_board)
+#print(term.move(BOARD_Y, BOARD_X) + layout.player_board)
+
+with term.location(x=1, y=1):
+    print(layout.player_board)
+
+print(term.move(BOARD_Y+20, BOARD_X) + layout.computer_board)
 
 # place ships
 coords_ships_player = place_ships(ship_data)
