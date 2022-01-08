@@ -2,7 +2,6 @@
 
 from blessed import Terminal
 from random import randint
-import boards
 
 term = Terminal()
 
@@ -85,6 +84,10 @@ def check_victory(ship_hits, ship_data):
     return sum(ship_hits.values()) == sum(ship_data.values())
 
 
+def printTerminal(text, xcoords, ycoords, color):
+    with term.location(x=xcoords, y=ycoords):
+       print(color + text)
+
 # *************************************************
 # Import Boards
 # *************************************************
@@ -107,8 +110,7 @@ BOARD_Y = 1
 print(term.home + term.clear)
 
 
-with term.location(x=5, y=5):
-    print(term.orangered + layout.logo)
+printTerminal(layout.logo, 5,4,term.orangered)
 
 term.move_y(term.height - term.height // 5)
 print(term.black_on_darkgreen(term.center('press any key to continue.')))
