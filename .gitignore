@@ -1,6 +1,7 @@
 # The following files will be ignored for deployment
 testing/**
 battleships/__pycache__/**
+.vscode/
 
 # Files only required for local deployment:
 .env
