@@ -12,11 +12,29 @@
     <style>
         body {
             font-family: Courier;
-        }
+            background-color: #191970;
+         }
+
+        .bubble::after {
+            content: '';
+            border-top-left-radius: 50% 100%;
+            border-top-right-radius: 50% 100%;
+            position: absolute;
+            bottom: 0;
+            z-index: -1;
+            width: 100%;
+            background-color: #0f0f10;
+            height: 85%;
+        }   
 
         /**
         * Default styles for xterm.js
         */
+        #terminal {
+            margin: 0 auto;
+            width: 650px;
+        }
+
 
         .xterm {
             font-feature-settings: "liga"0;
@@ -162,12 +180,33 @@
             border: 1px solid grey;
             color: white;
             text-transform: uppercase;
-            margin: 10px;
+            margin: 10px auto;
             border-radius: 8px;
+            display: block;
         }
+
+        /* **************************************** */
+        /* Credits, located below Footer */
+        /* **************************************** */
+
+        #credits {
+        text-align: center;
+        color:var(--color-light);
+        font-size: 1.5rem;
+        line-height: 2.25rem;
+        margin-bottom: 6rem;
+        }
+
+        #credits i {
+        color: darkgreen
+        }
+
+        #credits p {
+        margin-bottom: 0rem; /* removing the margin bottom styling */
+        }
+
+
     </style>
-</head>
-
-@{body}
-
+</head>   
+    @{body}
 </html>
