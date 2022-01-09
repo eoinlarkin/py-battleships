@@ -17,9 +17,9 @@ function socket() {
 
         // Spawn terminal
         client.tty = Pty.spawn('python3', ['battleships/run.py'], {
-            name: 'xterm-color',
-            cols: 80,
-            rows: 24,
+            name: 'xterm-256color',
+            cols: 90,
+            rows: 40,
             cwd: process.env.PWD,
             env: process.env
         });

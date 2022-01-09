@@ -36,3 +36,7 @@ ___
 ## Credits & Attributions
 
 ASCII Art Generator [link](http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Battleships)
+
+Vertical Line in terminal: [link](https://unix.stackexchange.com/questions/559708/how-to-draw-a-continuous-line-in-terminal)
+
+Setting font size: [link](https://github.com/xtermjs/xterm.js/blob/4.14.1/typings/xterm.d.ts#L1031)

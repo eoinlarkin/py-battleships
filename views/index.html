@@ -5,8 +5,12 @@
     <script>
         var term = new Terminal({
             cols: 90,
-            rows: 60
+            rows: 50,
+            cursorBlink: true
         });
+        //self.term.setOption('theme', theme);
+        term.setOption('fontSize', 13);
+        term.setOption('fontFamily', 'Courier' );
         term.open(document.getElementById('terminal'));
         term.writeln('Running startup command: python3 run.py');
         term.writeln('');

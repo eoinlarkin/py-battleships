@@ -51,14 +51,22 @@ def get_target(coords_dict):
     Target is also appended to the dictionary of prior targets
     """
     print(term.move(TERM_INPUT_LINE,0))
-    target = input('Select your next target:')
+     
+    target = input(term.black_on_blue + term.center('Select your next target:'))
 
     while check_input(target):
-        print(term.move(TERM_STATUS_LINE,0) + 'Invalid coordinate selected; please try again...!')
+        printTerminal(term.center('Invalid coordinate selected; please try again...!'),
+        termStatus['statusloc'][0],termStatus['statusloc'][1],
+        term.black_on_yellow)
         target = input('Select your next target:') 
     
     while target in coords_dict:
-        print(term.move(TERM_STATUS_LINE,0) + 'This target has already been selected; please select an alternative target.')
+        printTerminal(term.center('This target has already been selected; please select an alternative target.'),
+        termStatus['statusloc'][0],termStatus['statusloc'][1],
+        term.black_on_yellow)
+
+
+        #print(term.move(TERM_STATUS_LINE,0) + 'This target has already been selected; please #select an alternative target.')
         print(term.move(TERM_INPUT_LINE,0))
         target = input('Select your next target:') 
     coords_dict[target] = 'X' # adding the value to the dictionary of shots
@@ -91,6 +99,8 @@ def printTerminal(text, xcoords, ycoords, color):
     with term.location(x=xcoords, y=ycoords):
        print(color + text)
 
+
+
 def clearTerminal():
     print(term.home + term.clear)
 # *************************************************
@@ -115,10 +125,13 @@ termLocations = {'a1': [19,4],'a2': [23,4],'a3': [27,4],'a4': [31,4],'a5': [35,4
 # *************************************************
 # Splash Screen
 # *************************************************
-TERM_INPUT_LINE = 38
-TERM_STATUS_LINE = 35
+TERM_INPUT_LINE = 41
+TERM_STATUS_LINE = 42
 BOARD_X = 1
 BOARD_Y = 1
+
+termStatus = {'inputloc': [0,38], 'statusloc': [0,35]}
+
 
 # Checks line height and waits for user input
 #print(f'Term height is {term.height},Term width is {term.width}')
@@ -131,7 +144,7 @@ clearTerminal()
 
 printTerminal(term.center(layout.logo), 1,5,term.orangered)
 
-printTerminal(term.center('press and key to continue'),5,30,term.black_on_green)
+printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
 
 #term.move_y(term.height - term.height // 5)
 #print(term.black_on_darkgreen(term.center('press any key to continue.')))
@@ -149,10 +162,16 @@ board = draw_board(10)
 # print board
 #print(term.move(BOARD_Y, BOARD_X) + layout.player_board)
 
-with term.location(x=1, y=0):
-    print(term.green + layout.player_board)
+with term.location():
+    print(term.home + term.move_xy(1, 0)  + term.green + layout.player_board)
 
-print(term.move(BOARD_Y+21, BOARD_X) + layout.computer_board)
+with term.location():
+    print(term.home + term.move_xy(1, 20)  + term.orange + layout.computer_board)
+
+#with term.location(x=1, y=19):
+#    print(term.home+ term.orange + layout.computer_board)
+
+# print(term.move(BOARD_Y+19, BOARD_X) + layout.computer_board)
 
 # place ships
 coords_ships_player = place_ships(ship_data)
