@@ -2,6 +2,7 @@
 
 from blessed import Terminal
 from random import randint
+from time import sleep
 
 term = Terminal()
 
@@ -33,7 +34,7 @@ def draw_board(gridsize):
     """
     coords = {}
     for i in range(gridsize):
-        coords[chr(i+97)+str(i)] = ""
+        coords[chr(i+65)+str(i+1)] = ""
     return coords
 
 def place_ships(ship_data):
@@ -41,13 +42,13 @@ def place_ships(ship_data):
     ship_lengths = list(ship_data.values())
     for i in range(len(ship_lengths)):
         for j in range(ship_lengths[i]):
-            ship_coords[chr(j+97)+str(i)] = "S" + str(i)
+            ship_coords[chr(j+65)+str(i+1)] = "S" + str(i+1)
     return ship_coords
 
 # Initializing variables to play game
-ship_data = {'S0':2, 'S1':3, 'S2':4}
-ship_hits_player = {'S0': 0, 'S1': 0, 'S2':0}
-ship_hits_computer = {'S0': 0, 'S1': 0, 'S2':0}
+ship_data = {'S1':2, 'S2':3, 'S3':4}
+ship_hits_player = {'S1': 0, 'S2': 0, 'S3':0}
+ship_hits_computer = {'S1': 0, 'S2': 0, 'S3':0}
 coords_targets_player = {}
 coords_targets_computer = {}
 
@@ -61,20 +62,16 @@ def get_target(coords_dict):
     Target is also appended to the dictionary of prior targets
     """   
     target = print_target_request()
-
     while check_input(target):
-        printTerminal(term.center('Invalid coordinate selected; please try again...!'),
-        termStatus['statusloc'][0],termStatus['statusloc'][1],
+        printTerminal(term.center('Invalid coordinate selected; please try again...!'),0,
+        TERM_STATUS_LINE,
         term.black_on_yellow)
-        target = input('Select your next target:') 
+        target = print_target_request()
     
     while target in coords_dict:
-        printTerminal(term.center('This target has already been selected; please select an alternative target.'),
-        termStatus['statusloc'][0],termStatus['statusloc'][1],
+        printTerminal(term.center('This target has already been selected; please select an alternative target.'),0,
+        TERM_STATUS_LINE,
         term.black_on_yellow)
-
-
-        #print(term.move(TERM_STATUS_LINE,0) + 'This target has already been selected; please #select an alternative target.')
         target = print_target_request()
     coords_dict[target] = 'X' # adding the value to the dictionary of shots
     return target
@@ -87,10 +84,10 @@ def check_hit(target, coords_ships, ship_hits):
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
         if ship_hits[ship_name] == ship_data[ship_name]:
-            print(term.move(TERM_STATUS_LINE-1,0) + f"Ship {ship_name} is sunk...!")
+            sleep(1) # Time in seconds
+            printTerminal(term.center(f"Ship {ship_name} is sunk...!"), 0, TERM_STATUS_LINE, term.black_on_green)
     else:
         printTerminal(term.center("It's a miss......"), 0, TERM_STATUS_LINE, term.white_on_red)
-        #print(term.move(TERM_STATUS_LINE,0) + "It's a miss....")
         printTerminal('O',termLocations[target][0],termLocations[target][1],term.blue)
 
 def check_victory(ship_hits, ship_data):
@@ -107,20 +104,17 @@ def printTerminal(text, xcoords, ycoords, color):
     with term.location(x=xcoords, y=ycoords):
        print(color + text)
 
-
 def print_target_request():
     print(term.move(TERM_INPUT_LINE,0)+term.normal)
-    target = input(term.black_on_blue + term.center('Select your next target:')+term.move(TERM_INPUT_LINE+1,58)+term.normal)
+    target = input(term.white_on_blue + term.center('Select your next target:')+term.move(TERM_INPUT_LINE+1,58)+term.normal)
     return target
-
-
 
 def clearTerminal():
     print(term.home + term.clear)
 # *************************************************
 # Import Boards
 # *************************************************
-import battleships.layout as layout
+
 
 
 # *************************************************
@@ -144,18 +138,18 @@ TERM_STATUS_LINE = 43
 BOARD_X = 1
 BOARD_Y = 1
 
-# Code to print terminal locations:
-#termStatus = {'inputloc': [0,41], 'statusloc': [0,43]}
+
+def print_boards():
+    import battleships.layout as layout
+    with term.location():
+        print(term.home + term.move_xy(1, 0)  + term.green + layout.player_board)
+
+    with term.location():
+        print(term.home + term.move_xy(1, 20)  + term.orange + layout.computer_board)
 
 
-# Checks line height and waits for user input
-#print(f'Term height is {term.height},Term width is {term.width}')
-#with term.cbreak(), term.hidden_cursor():
-#    inp = term.inkey()
-
-
-def rungame():
-    # prints splash screen to the screen
+def print_intro():
+    import battleships.layout as layout
     clearTerminal()
     printTerminal(term.center(layout.logo), 1,5,term.orangered)
     printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
@@ -168,44 +162,23 @@ def rungame():
     clearTerminal()
 
 
-    # Steps to Execute Game:
+
+def rungame():
+    print_intro()
 
     # generate empty board
     board = draw_board(10)
+    
+    print_boards()
 
-    # print board
-    #print(term.move(BOARD_Y, BOARD_X) + layout.player_board)
-
-    with term.location():
-        print(term.home + term.move_xy(1, 0)  + term.green + layout.player_board)
-
-    with term.location():
-        print(term.home + term.move_xy(1, 20)  + term.orange + layout.computer_board)
-
-    #with term.location(x=1, y=19):
-    #    print(term.home+ term.orange + layout.computer_board)
-
-    # print(term.move(BOARD_Y+19, BOARD_X) + layout.computer_board)
-
-    # place ships
     coords_ships_player = place_ships(ship_data)
     coords_ships_computer = place_ships(ship_data)
-
-        # add ships to board
-        # Loop:
-            # print board
-            # ask user for target
-            # update dict of targets
-            # update dict of ships
-            # redraw board
 
     while not check_victory(ship_hits_player, ship_data):
         target = get_target(coords_targets_player)
         check_hit(target,coords_ships_player,ship_hits_player)
-        # print(ship_hits_player)
 
-
-    print(term.move(TERM_STATUS_LINE,0) + 'You have defeated the computer!')
+    print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
 
 
 
