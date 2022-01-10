@@ -42,3 +42,6 @@ Vertical Line in terminal: [link](https://unix.stackexchange.com/questions/55970
 Setting font size: [link](https://github.com/xtermjs/xterm.js/blob/4.14.1/typings/xterm.d.ts#L1031)
 
 Tips on removing the scrollbar: [link](https://github.com/xtermjs/xterm.js/issues/3074)
+
+Tips on running code from run.py:
+https://github.com/MattBCoding/calico-jack

@@ -16,7 +16,7 @@ function socket() {
     this.on('open', function (client) {
 
         // Spawn terminal
-        client.tty = Pty.spawn('python3', ['battleships/run.py'], {
+        client.tty = Pty.spawn('python3', ['run.py'], {
             name: 'xterm-256color',
             cols: 90,
             rows: 40,

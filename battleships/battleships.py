@@ -7,14 +7,24 @@ term = Terminal()
 
 scores = {"computer": 0, "player": 0}
 
-class board:
-    def __init__(self, size, num_ships, name):
-        self.size = size
+class board():
+    def __init__(self, type):
+        #self.size = size
         #self.board == [["." for z in range(size)] for y in range(size)]
-        self.num_ships = num_ships
-        self.name = name
-        self.guesses = []
-        self.ships=[]
+        #self.num_ships = num_ships
+        #self.name = name
+        #self.guesses = []
+        #self.ships=[]
+        self.ship_data = {'S0':2, 'S1':3, 'S2':4}
+        self.ship_hits = {'S0': 0, 'S1': 0, 'S2':0}
+        self.coords_targets = {}
+        self.type = type
+
+        if type == 'player':
+            self.termLocations = {'A1': [19,4],'A2': [23,4],'A3': [27,4],'A4': [31,4],'A5': [35,4],'A6': [39,4],'A7': [43,4],'A8': [47,4],'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],'E1': [19,12],'E2': [23,12],'E3': [27,12],'E4': [31,12],'E5': [35,12],'E6': [39,12],'E7': [43,12],'E8': [47,12],'F1': [19,14],'F2': [23,14],'F3': [27,14],'F4': [31,14],'F5': [35,14],'F6': [39,14],'F7': [43,14],'F8': [47,14],'G1': [19,16],'G2': [23,16],'G3': [27,16],'G4': [31,16],'G5': [35,16],'G6': [39,16],'G7': [43,16],'G8': [47,16],'H1': [19,18],'H2': [23,18],'H3': [27,18],'H4': [31,18],'H5': [35,18],'H6': [39,18],'H7': [43,18],'H8': [47,18]}
+        elif type == 'computer':
+            self.termLocations = {'A1': [19,4],'A2': [23,4],'A3': [27,4],'A4': [31,4],'A5': [35,4],'A6': [39,4],'A7': [43,4],'A8': [47,4],'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],'E1': [19,12],'E2': [23,12],'E3': [27,12],'E4': [31,12],'E5': [35,12],'E6': [39,12],'E7': [43,12],'E8': [47,12],'F1': [19,14],'F2': [23,14],'F3': [27,14],'F4': [31,14],'F5': [35,14],'F6': [39,14],'F7': [43,14],'F8': [47,14],'G1': [19,16],'G2': [23,16],'G3': [27,16],'G4': [31,16],'G5': [35,16],'G6': [39,16],'G7': [43,16],'G8': [47,16],'H1': [19,18],'H2': [23,18],'H3': [27,18],'H4': [31,18],'H5': [35,18],'H6': [39,18],'H7': [43,18],'H8': [47,18]}
+
 
 # Code for generating a coordinate dictionary
 def draw_board(gridsize):
@@ -110,7 +120,7 @@ def clearTerminal():
 # *************************************************
 # Import Boards
 # *************************************************
-import layout
+import battleships.layout as layout
 
 
 # *************************************************
@@ -134,7 +144,8 @@ TERM_STATUS_LINE = 43
 BOARD_X = 1
 BOARD_Y = 1
 
-termStatus = {'inputloc': [0,41], 'statusloc': [0,43]}
+# Code to print terminal locations:
+#termStatus = {'inputloc': [0,41], 'statusloc': [0,43]}
 
 
 # Checks line height and waits for user input
@@ -142,57 +153,59 @@ termStatus = {'inputloc': [0,41], 'statusloc': [0,43]}
 #with term.cbreak(), term.hidden_cursor():
 #    inp = term.inkey()
 
-# prints splash screen to the screen
-clearTerminal()
-printTerminal(term.center(layout.logo), 1,5,term.orangered)
-printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
 
-#term.move_y(term.height - term.height // 5)
-#print(term.black_on_darkgreen(term.center('press any key to continue.')))
-with term.cbreak(), term.hidden_cursor():
-    inp = term.inkey()
+def rungame():
+    # prints splash screen to the screen
+    clearTerminal()
+    printTerminal(term.center(layout.logo), 1,5,term.orangered)
+    printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
 
-clearTerminal()
+    #term.move_y(term.height - term.height // 5)
+    #print(term.black_on_darkgreen(term.center('press any key to continue.')))
+    with term.cbreak(), term.hidden_cursor():
+        inp = term.inkey()
 
-
-# Steps to Execute Game:
-
-# generate empty board
-board = draw_board(10)
-
-# print board
-#print(term.move(BOARD_Y, BOARD_X) + layout.player_board)
-
-with term.location():
-    print(term.home + term.move_xy(1, 0)  + term.green + layout.player_board)
-
-with term.location():
-    print(term.home + term.move_xy(1, 20)  + term.orange + layout.computer_board)
-
-#with term.location(x=1, y=19):
-#    print(term.home+ term.orange + layout.computer_board)
-
-# print(term.move(BOARD_Y+19, BOARD_X) + layout.computer_board)
-
-# place ships
-coords_ships_player = place_ships(ship_data)
-coords_ships_computer = place_ships(ship_data)
-
-    # add ships to board
-    # Loop:
-        # print board
-        # ask user for target
-        # update dict of targets
-        # update dict of ships
-        # redraw board
-
-while not check_victory(ship_hits_player, ship_data):
-    target = get_target(coords_targets_player)
-    check_hit(target,coords_ships_player,ship_hits_player)
-    # print(ship_hits_player)
+    clearTerminal()
 
 
-print(term.move(TERM_STATUS_LINE,0) + 'You have defeated the computer!')
+    # Steps to Execute Game:
+
+    # generate empty board
+    board = draw_board(10)
+
+    # print board
+    #print(term.move(BOARD_Y, BOARD_X) + layout.player_board)
+
+    with term.location():
+        print(term.home + term.move_xy(1, 0)  + term.green + layout.player_board)
+
+    with term.location():
+        print(term.home + term.move_xy(1, 20)  + term.orange + layout.computer_board)
+
+    #with term.location(x=1, y=19):
+    #    print(term.home+ term.orange + layout.computer_board)
+
+    # print(term.move(BOARD_Y+19, BOARD_X) + layout.computer_board)
+
+    # place ships
+    coords_ships_player = place_ships(ship_data)
+    coords_ships_computer = place_ships(ship_data)
+
+        # add ships to board
+        # Loop:
+            # print board
+            # ask user for target
+            # update dict of targets
+            # update dict of ships
+            # redraw board
+
+    while not check_victory(ship_hits_player, ship_data):
+        target = get_target(coords_targets_player)
+        check_hit(target,coords_ships_player,ship_hits_player)
+        # print(ship_hits_player)
+
+
+    print(term.move(TERM_STATUS_LINE,0) + 'You have defeated the computer!')
 
 
 
