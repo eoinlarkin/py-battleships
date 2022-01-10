@@ -10,15 +10,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/attach/attach.js"></script>
     <title>Battleships Game</title>
     <style>
+        /* **************************************** */
+        /* Parameters to define the colors */
+        /* **************************************** */
+        :root {
+        /* Defining colors as variables */
+        --color-green: #32CD32;
+        --color-blue:#9CFFFA;
+        --color-burnt-orange: #B22222;
+        --color-stripe1: #1D3749;
+        --color-stripe2: #071A22;
+        --color-white: #FFF;
+        }
+
         body {
             font-family: 'Titillium Web', sans-serif;
-            --background-color: #121212;
             background: repeating-linear-gradient(
             to right,
-            #071A22,
-            #071A22 10px,
-            #1D3749 10px,
-            #1D3749 20px
+            var(--color-stripe1),
+            var(--color-stripe1) 10px,
+            var(--color-stripe2) 10px,
+            var(--color-stripe2) 20px
             );
          }
 
@@ -171,7 +183,7 @@
         button {
             width: 150px;
             height: 40px;
-            background-color: #B22222;
+            background-color: var(--color-stripe2);
             border: 1px solid grey;
             color: white;
             text-transform: uppercase;
@@ -182,7 +194,7 @@
 
         button:hover {
             transform: translateY(-3px); /* making the button move up*/
-            box-shadow: 0 5px 7.5px #32CD32; /* x, y and blur values */
+            box-shadow: 0 5px 7.5px var(--color-stripe1); /* x, y and blur values */
         }
 
         /* **************************************** */
@@ -191,13 +203,13 @@
 
         #credits {
         text-align: center;
-        color:#9CFFFA;
+        color:var(--color-blue);
         font-size: 12px;
         line-height: 17.5px;
         }
 
         #credits i {
-        color: #B22222
+        color: var(--color-burnt-orange)
         }
 
         #credits p {
@@ -209,6 +221,28 @@
         footer {
             margin-top: 30px;
             margin-bottom: 30px;
+        }
+
+        /* **************************************** */
+        /* Styling the links */
+        /* **************************************** */
+
+        /* unvisited link */
+        a:link {
+        color:var(--color-blue);
+        text-decoration: none;
+        }
+
+        /* visited link */
+        a:visited {
+        color:var(--color-white);
+        text-decoration: none;
+        }
+
+        /* mouse over link */
+        a:hover {
+        color:var(--color-green);
+        text-decoration: underline;
         }
 
     </style>

@@ -45,3 +45,6 @@ Tips on removing the scrollbar: [link](https://github.com/xtermjs/xterm.js/issue
 
 Tips on running code from run.py:
 https://github.com/MattBCoding/calico-jack
+
+Vertical stripes:
+https://css-tricks.com/stripes-css/
