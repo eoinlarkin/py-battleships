@@ -12,7 +12,7 @@
     <style>
         body {
             font-family: 'Titillium Web', sans-serif;
-            background-color: #3f3f3f;
+            background-color: #121212;
          }
 
         /**
@@ -162,15 +162,20 @@
         }
 
         button {
-            width: 200px;
+            width: 150px;
             height: 40px;
-            background-color: #E84610;
+            background-color: #B22222;
             border: 1px solid grey;
             color: white;
             text-transform: uppercase;
-            margin: 10px auto;
+            margin: 25px auto 0px auto;
             border-radius: 8px;
             display: block;
+        }
+
+        button:hover {
+            transform: translateY(-3px); /* making the button move up*/
+            box-shadow: 0 5px 7.5px #32CD32; /* x, y and blur values */
         }
 
         /* **************************************** */
@@ -180,8 +185,8 @@
         #credits {
         text-align: center;
         color:#32CD32;
-        font-size: 15px;
-        line-height: 20px;
+        font-size: 12px;
+        line-height: 15px;
         }
 
         #credits i {

@@ -1,13 +1,12 @@
 <body>
     <section>
-    <button onclick="window.location.reload()">Start Game !</button>
     <div id="terminal"></div>
 
     <script>
         
         var term = new Terminal({
             cols: 90,
-            rows: 50,
+            rows: 46,
             cursorBlink: true
         });
         //self.term.setOption('theme', theme);
@@ -30,6 +29,7 @@
         // Set focus in the terminal
         document.getElementsByClassName("xterm-helper-textarea")[0].focus();
     </script>
+    <button onclick="window.location.reload()">Restart Game !</button>
     </section>
 
     <footer>
