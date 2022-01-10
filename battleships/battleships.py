@@ -49,10 +49,8 @@ def get_target(coords_dict):
     Requests target from user and performs input validation
     Check is completed to see if the target has already been selected
     Target is also appended to the dictionary of prior targets
-    """
-    print(term.move(TERM_INPUT_LINE,0))
-     
-    target = input(term.black_on_blue + term.center('Select your next target:'))
+    """   
+    target = print_target_request()
 
     while check_input(target):
         printTerminal(term.center('Invalid coordinate selected; please try again...!'),
@@ -67,22 +65,22 @@ def get_target(coords_dict):
 
 
         #print(term.move(TERM_STATUS_LINE,0) + 'This target has already been selected; please #select an alternative target.')
-        print(term.move(TERM_INPUT_LINE,0))
-        target = input('Select your next target:') 
+        target = print_target_request()
     coords_dict[target] = 'X' # adding the value to the dictionary of shots
     return target
 
 def check_hit(target, coords_ships, ship_hits):
     if target in coords_ships:
         with term.location():
-            print(term.move(TERM_STATUS_LINE,0) + "It's a hit!")
+            printTerminal(term.center("It's a hit!"), 0, TERM_STATUS_LINE, term.yellow_on_black)
             printTerminal('X',termLocations[target][0],termLocations[target][1],term.red)
         ship_name = coords_ships[target]
         ship_hits[ship_name] += 1
         if ship_hits[ship_name] == ship_data[ship_name]:
             print(term.move(TERM_STATUS_LINE-1,0) + f"Ship {ship_name} is sunk...!")
     else:
-        print(term.move(TERM_STATUS_LINE,0) + "It's a miss....")
+        printTerminal(term.center("It's a miss......"), 0, TERM_STATUS_LINE, term.white_on_red)
+        #print(term.move(TERM_STATUS_LINE,0) + "It's a miss....")
         printTerminal('O',termLocations[target][0],termLocations[target][1],term.blue)
 
 def check_victory(ship_hits, ship_data):
@@ -100,6 +98,12 @@ def printTerminal(text, xcoords, ycoords, color):
        print(color + text)
 
 
+def print_target_request():
+    print(term.move(TERM_INPUT_LINE,0)+term.normal)
+    target = input(term.black_on_blue + term.center('Select your next target:')+term.move(TERM_INPUT_LINE+1,58)+term.normal)
+    return target
+
+
 
 def clearTerminal():
     print(term.home + term.clear)
@@ -112,7 +116,7 @@ import layout
 # *************************************************
 # Splash Screen
 # *************************************************
-termLocations = {'a1': [19,4],'a2': [23,4],'a3': [27,4],'a4': [31,4],'a5': [35,4],'a6': [39,4],'a7': [43,4],'a8': [47,4],
+termLocations = {'A1': [19,4],'A2': [23,4],'A3': [27,4],'A4': [31,4],'A5': [35,4],'A6': [39,4],'A7': [43,4],'A8': [47,4],
 'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],
 'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],
 'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],
@@ -126,11 +130,11 @@ termLocations = {'a1': [19,4],'a2': [23,4],'a3': [27,4],'a4': [31,4],'a5': [35,4
 # Splash Screen
 # *************************************************
 TERM_INPUT_LINE = 41
-TERM_STATUS_LINE = 42
+TERM_STATUS_LINE = 43
 BOARD_X = 1
 BOARD_Y = 1
 
-termStatus = {'inputloc': [0,38], 'statusloc': [0,35]}
+termStatus = {'inputloc': [0,41], 'statusloc': [0,43]}
 
 
 # Checks line height and waits for user input
@@ -140,10 +144,7 @@ termStatus = {'inputloc': [0,38], 'statusloc': [0,35]}
 
 # prints splash screen to the screen
 clearTerminal()
-
-
 printTerminal(term.center(layout.logo), 1,5,term.orangered)
-
 printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
 
 #term.move_y(term.height - term.height // 5)
@@ -185,6 +186,14 @@ coords_ships_computer = place_ships(ship_data)
         # update dict of ships
         # redraw board
 
+while not check_victory(ship_hits_player, ship_data):
+    target = get_target(coords_targets_player)
+    check_hit(target,coords_ships_player,ship_hits_player)
+    # print(ship_hits_player)
+
+
+print(term.move(TERM_STATUS_LINE,0) + 'You have defeated the computer!')
+
 
 
 ### Testing term coordinates:
@@ -225,14 +234,3 @@ coords_ships_computer = place_ships(ship_data)
 # printTerminal('0',termLocations['H6'][0],termLocations['H6'][1],term.red)
 # printTerminal('0',termLocations['H7'][0],termLocations['H7'][1],term.red)
 # printTerminal('0',termLocations['H8'][0],termLocations['H8'][1],term.red)
-
-
-while not check_victory(ship_hits_player, ship_data):
-    target = get_target(coords_targets_player)
-    check_hit(target,coords_ships_player,ship_hits_player)
-    # print(ship_hits_player)
-
-
-print(term.move(TERM_STATUS_LINE,0) + 'You have defeated the computer!')
-
-
