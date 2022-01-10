@@ -18,7 +18,7 @@ class board():
         if type == 'player':
             self.termLocations = {'A1': [19,4],'A2': [23,4],'A3': [27,4],'A4': [31,4],'A5': [35,4],'A6': [39,4],'A7': [43,4],'A8': [47,4],'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],'E1': [19,12],'E2': [23,12],'E3': [27,12],'E4': [31,12],'E5': [35,12],'E6': [39,12],'E7': [43,12],'E8': [47,12],'F1': [19,14],'F2': [23,14],'F3': [27,14],'F4': [31,14],'F5': [35,14],'F6': [39,14],'F7': [43,14],'F8': [47,14],'G1': [19,16],'G2': [23,16],'G3': [27,16],'G4': [31,16],'G5': [35,16],'G6': [39,16],'G7': [43,16],'G8': [47,16],'H1': [19,18],'H2': [23,18],'H3': [27,18],'H4': [31,18],'H5': [35,18],'H6': [39,18],'H7': [43,18],'H8': [47,18]}
         elif type == 'computer':
-            self.termLocations = {'A1': [19,24],'A2': [23,24],'A3': [27,24],'A4': [31,24],'A5': [35,24],'A6': [39,24],'A7': [43,24],'A8': [47,24],'B1': [19,26],'B2': [23,26],'B3': [27,26],'B4': [31,26],'B5': [35,26],'B6': [39,26],'B7': [43,26],'B8': [47,26],'C1': [19,28],'C2': [23,28],'C3': [27,28],'C4': [31,28],'C5': [35,28],'C6': [39,28],'C7': [43,28],'C8': [47,28],'D1': [19,30],'D2': [23,30],'D3': [27,30],'D4': [31,30],'D5': [35,30],'D6': [39,30],'D7': [43,30],'D8': [47,30],'E1': [19,32],'E2': [23,32],'E3': [27,32],'E4': [31,32],'E5': [35,32],'E6': [39,32],'E7': [43,32],'E8': [47,32],'F1': [19,34],'F2': [23,34],'F3': [27,34],'F4': [31,34],'F5': [35,34],'F6': [39,34],'F7': [43,34],'F8': [47,34],'G1': [19,36],'G2': [23,36],'G3': [27,36],'G4': [31,36],'G5': [35,36],'G6': [39,36],'G7': [43,36],'G8': [47,36],'H1': [19,38],'H2': [23,38],'H3': [27,38],'H4': [31,38],'H5': [35,38],'H6': [39,38],'H7': [43,38],'H8': [47,38]}
+            self.termLocations = {'A1': [47,24],'A2': [51,24],'A3': [55,24],'A4': [59,24],'A5': [63,24],'A6': [67,24],'A7': [71,24],'A8': [76,24],'B1': [47,26],'B2': [51,26],'B3': [55,26],'B4': [59,26],'B5': [63,26],'B6': [67,26],'B7': [71,26],'B8': [76,26],'C1': [47,28],'C2': [51,28],'C3': [55,28],'C4': [59,28],'C5': [63,28],'C6': [67,28],'C7': [71,28],'C8': [76,28],'D1': [47,30],'D2': [51,30],'D3': [55,30],'D4': [59,30],'D5': [63,30],'D6': [67,30],'D7': [71,30],'D8': [76,30],'E1': [47,32],'E2': [51,32],'E3': [55,32],'E4': [59,32],'E5': [63,32],'E6': [67,32],'E7': [71,32],'E8': [76,32],'F1': [47,34],'F2': [51,34],'F3': [55,34],'F4': [59,34],'F5': [63,34],'F6': [67,34],'F7': [71,34],'F8': [76,34],'G1': [47,36],'G2': [51,36],'G3': [55,36],'G4': [59,36],'G5': [63,36],'G6': [67,36],'G7': [71,36],'G8': [76,36],'H1': [47,38],'H2': [51,38],'H3': [55,38],'H4': [59,38],'H5': [63,38],'H6': [67,38],'H7': [71,38],'H8': [47,38]}
 
 
 def draw_board(gridsize):
@@ -111,7 +111,6 @@ def print_boards():
     import battleships.layout as layout
     with term.location():
         print(term.home + term.move_xy(1, 0)  + term.green + layout.player_board)
-
     with term.location():
         print(term.home + term.move_xy(1, 20)  + term.orange + layout.computer_board)
 
@@ -121,29 +120,25 @@ def print_intro():
     clearTerminal()
     printTerminal(term.center(layout.logo), 1,5,term.orangered)
     printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
-
-    #term.move_y(term.height - term.height // 5)
-    #print(term.black_on_darkgreen(term.center('press any key to continue.')))
     with term.cbreak(), term.hidden_cursor():
         inp = term.inkey()
-
     clearTerminal()
 
 
-
-    
-
 def rungame(player_board, computer_board):
     print_intro()
-    
     print_boards()
 
     player_board.coords_ships = place_ships(player_board.ship_data)
     player_board.coords_board = draw_board(8)
 
-    while not check_victory(player_board):
-        target = get_target(player_board)
-        check_hit(target,player_board)
+    computer_board.coords_ships = place_ships(computer_board.ship_data)
+    computer_board.coords_board = draw_board(8)
+
+    while not check_victory(computer_board):
+        target = get_target(computer_board)
+        check_hit(target,computer_board)
+        
 
     print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
 
