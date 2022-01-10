@@ -4,7 +4,9 @@
 #exec(open("/app/battleships/battleships.py").read())
 # exec(open("battleships/battleships.py").read())
 
-from battleships.battleships import rungame
+import battleships.battleships as battleships
 
 if __name__ == '__main__':
-    rungame()
+    player = battleships.board('player')
+    computer = battleships.board('computer')
+    battleships.rungame(player, computer)

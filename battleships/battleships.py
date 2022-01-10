@@ -6,35 +6,29 @@ from time import sleep
 
 term = Terminal()
 
-scores = {"computer": 0, "player": 0}
-
 class board():
     def __init__(self, type):
-        #self.size = size
-        #self.board == [["." for z in range(size)] for y in range(size)]
-        #self.num_ships = num_ships
-        #self.name = name
-        #self.guesses = []
-        #self.ships=[]
-        self.ship_data = {'S0':2, 'S1':3, 'S2':4}
-        self.ship_hits = {'S0': 0, 'S1': 0, 'S2':0}
+        self.ship_data = {'S1':2, 'S2':3, 'S3':4}
+        self.ship_hits = {'S1': 0, 'S2': 0, 'S3':0}
         self.coords_targets = {}
         self.type = type
+        self.coords_ships = {}
+        self.coords_board = {}
 
         if type == 'player':
             self.termLocations = {'A1': [19,4],'A2': [23,4],'A3': [27,4],'A4': [31,4],'A5': [35,4],'A6': [39,4],'A7': [43,4],'A8': [47,4],'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],'E1': [19,12],'E2': [23,12],'E3': [27,12],'E4': [31,12],'E5': [35,12],'E6': [39,12],'E7': [43,12],'E8': [47,12],'F1': [19,14],'F2': [23,14],'F3': [27,14],'F4': [31,14],'F5': [35,14],'F6': [39,14],'F7': [43,14],'F8': [47,14],'G1': [19,16],'G2': [23,16],'G3': [27,16],'G4': [31,16],'G5': [35,16],'G6': [39,16],'G7': [43,16],'G8': [47,16],'H1': [19,18],'H2': [23,18],'H3': [27,18],'H4': [31,18],'H5': [35,18],'H6': [39,18],'H7': [43,18],'H8': [47,18]}
         elif type == 'computer':
-            self.termLocations = {'A1': [19,4],'A2': [23,4],'A3': [27,4],'A4': [31,4],'A5': [35,4],'A6': [39,4],'A7': [43,4],'A8': [47,4],'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],'E1': [19,12],'E2': [23,12],'E3': [27,12],'E4': [31,12],'E5': [35,12],'E6': [39,12],'E7': [43,12],'E8': [47,12],'F1': [19,14],'F2': [23,14],'F3': [27,14],'F4': [31,14],'F5': [35,14],'F6': [39,14],'F7': [43,14],'F8': [47,14],'G1': [19,16],'G2': [23,16],'G3': [27,16],'G4': [31,16],'G5': [35,16],'G6': [39,16],'G7': [43,16],'G8': [47,16],'H1': [19,18],'H2': [23,18],'H3': [27,18],'H4': [31,18],'H5': [35,18],'H6': [39,18],'H7': [43,18],'H8': [47,18]}
+            self.termLocations = {'A1': [19,24],'A2': [23,24],'A3': [27,24],'A4': [31,24],'A5': [35,24],'A6': [39,24],'A7': [43,24],'A8': [47,24],'B1': [19,26],'B2': [23,26],'B3': [27,26],'B4': [31,26],'B5': [35,26],'B6': [39,26],'B7': [43,26],'B8': [47,26],'C1': [19,28],'C2': [23,28],'C3': [27,28],'C4': [31,28],'C5': [35,28],'C6': [39,28],'C7': [43,28],'C8': [47,28],'D1': [19,30],'D2': [23,30],'D3': [27,30],'D4': [31,30],'D5': [35,30],'D6': [39,30],'D7': [43,30],'D8': [47,30],'E1': [19,32],'E2': [23,32],'E3': [27,32],'E4': [31,32],'E5': [35,32],'E6': [39,32],'E7': [43,32],'E8': [47,32],'F1': [19,34],'F2': [23,34],'F3': [27,34],'F4': [31,34],'F5': [35,34],'F6': [39,34],'F7': [43,34],'F8': [47,34],'G1': [19,36],'G2': [23,36],'G3': [27,36],'G4': [31,36],'G5': [35,36],'G6': [39,36],'G7': [43,36],'G8': [47,36],'H1': [19,38],'H2': [23,38],'H3': [27,38],'H4': [31,38],'H5': [35,38],'H6': [39,38],'H7': [43,38],'H8': [47,38]}
 
 
-# Code for generating a coordinate dictionary
 def draw_board(gridsize):
     """
-    Generates an empty dictionary of targets for targeting
+    Generates an empty dictionary of all potential targets
     """
     coords = {}
     for i in range(gridsize):
-        coords[chr(i+65)+str(i+1)] = ""
+            for j in range(gridsize):
+                coords[chr(i+65)+str(j+1)] = ""
     return coords
 
 def place_ships(ship_data):
@@ -45,58 +39,49 @@ def place_ships(ship_data):
             ship_coords[chr(j+65)+str(i+1)] = "S" + str(i+1)
     return ship_coords
 
-# Initializing variables to play game
-ship_data = {'S1':2, 'S2':3, 'S3':4}
-ship_hits_player = {'S1': 0, 'S2': 0, 'S3':0}
-ship_hits_computer = {'S1': 0, 'S2': 0, 'S3':0}
-coords_targets_player = {}
-coords_targets_computer = {}
 
-def check_input(value):
-    return False
-
-def get_target(coords_dict):
+def get_target(board):
     """
     Requests target from user and performs input validation
     Check is completed to see if the target has already been selected
     Target is also appended to the dictionary of prior targets
     """   
     target = print_target_request()
-    while check_input(target):
+    while not(target in board.coords_board):
         printTerminal(term.center('Invalid coordinate selected; please try again...!'),0,
         TERM_STATUS_LINE,
         term.black_on_yellow)
         target = print_target_request()
     
-    while target in coords_dict:
+    while target in board.coords_targets:
         printTerminal(term.center('This target has already been selected; please select an alternative target.'),0,
         TERM_STATUS_LINE,
         term.black_on_yellow)
         target = print_target_request()
-    coords_dict[target] = 'X' # adding the value to the dictionary of shots
+    board.coords_targets[target] = 'X' # adding the value to the dictionary of shots
     return target
 
-def check_hit(target, coords_ships, ship_hits):
-    if target in coords_ships:
+def check_hit(target, board): 
+    if target in board.coords_ships:
         with term.location():
             printTerminal(term.center("It's a hit!"), 0, TERM_STATUS_LINE, term.yellow_on_black)
-            printTerminal('X',termLocations[target][0],termLocations[target][1],term.red)
-        ship_name = coords_ships[target]
-        ship_hits[ship_name] += 1
-        if ship_hits[ship_name] == ship_data[ship_name]:
+            printTerminal('X',board.termLocations[target][0],board.termLocations[target][1],term.red)
+        ship_name = board.coords_ships[target]
+        board.ship_hits[ship_name] += 1
+        if board.ship_hits[ship_name] == board.ship_data[ship_name]:
             sleep(1) # Time in seconds
             printTerminal(term.center(f"Ship {ship_name} is sunk...!"), 0, TERM_STATUS_LINE, term.black_on_green)
     else:
         printTerminal(term.center("It's a miss......"), 0, TERM_STATUS_LINE, term.white_on_red)
-        printTerminal('O',termLocations[target][0],termLocations[target][1],term.blue)
+        printTerminal('O',board.termLocations[target][0],board.termLocations[target][1],term.blue)
 
-def check_victory(ship_hits, ship_data):
+def check_victory(board):
     """
     Function to check if player is victorious
     Sum up the total number of successful hits from the ship hit register 
     and checks this against the total ship footprint
     """
-    return sum(ship_hits.values()) == sum(ship_data.values())
+    return sum(board.ship_hits.values()) == sum(board.ship_data.values())
 
 
 def printTerminal(text, xcoords, ycoords, color):
@@ -111,23 +96,6 @@ def print_target_request():
 
 def clearTerminal():
     print(term.home + term.clear)
-# *************************************************
-# Import Boards
-# *************************************************
-
-
-
-# *************************************************
-# Splash Screen
-# *************************************************
-termLocations = {'A1': [19,4],'A2': [23,4],'A3': [27,4],'A4': [31,4],'A5': [35,4],'A6': [39,4],'A7': [43,4],'A8': [47,4],
-'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],
-'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],
-'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],
-'E1': [19,12],'E2': [23,12],'E3': [27,12],'E4': [31,12],'E5': [35,12],'E6': [39,12],'E7': [43,12],'E8': [47,12],
-'F1': [19,14],'F2': [23,14],'F3': [27,14],'F4': [31,14],'F5': [35,14],'F6': [39,14],'F7': [43,14],'F8': [47,14],
-'G1': [19,16],'G2': [23,16],'G3': [27,16],'G4': [31,16],'G5': [35,16],'G6': [39,16],'G7': [43,16],'G8': [47,16],
-'H1': [19,18],'H2': [23,18],'H3': [27,18],'H4': [31,18],'H5': [35,18],'H6': [39,18],'H7': [43,18],'H8': [47,18]}
 
 
 # *************************************************
@@ -163,20 +131,19 @@ def print_intro():
 
 
 
-def rungame():
-    print_intro()
+    
 
-    # generate empty board
-    board = draw_board(10)
+def rungame(player_board, computer_board):
+    print_intro()
     
     print_boards()
 
-    coords_ships_player = place_ships(ship_data)
-    coords_ships_computer = place_ships(ship_data)
+    player_board.coords_ships = place_ships(player_board.ship_data)
+    player_board.coords_board = draw_board(8)
 
-    while not check_victory(ship_hits_player, ship_data):
-        target = get_target(coords_targets_player)
-        check_hit(target,coords_ships_player,ship_hits_player)
+    while not check_victory(player_board):
+        target = get_target(player_board)
+        check_hit(target,player_board)
 
     print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
 
