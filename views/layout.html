@@ -11,21 +11,9 @@
     <title>Battleships Game</title>
     <style>
         body {
-            font-family: Courier;
-            background-color: #191970;
+            font-family: 'Titillium Web', sans-serif;
+            background-color: #3f3f3f;
          }
-
-        .bubble::after {
-            content: '';
-            border-top-left-radius: 50% 100%;
-            border-top-right-radius: 50% 100%;
-            position: absolute;
-            bottom: 0;
-            z-index: -1;
-            width: 100%;
-            background-color: #0f0f10;
-            height: 85%;
-        }   
 
         /**
         * Default styles for xterm.js
@@ -191,20 +179,25 @@
 
         #credits {
         text-align: center;
-        color:var(--color-light);
-        font-size: 1.5rem;
-        line-height: 2.25rem;
-        margin-bottom: 6rem;
+        color:#32CD32;
+        font-size: 15px;
+        line-height: 20px;
         }
 
         #credits i {
-        color: darkgreen
+        color: #B22222
         }
 
         #credits p {
         margin-bottom: 0rem; /* removing the margin bottom styling */
+        margin-block-end: 0px;
+        margin-block-start: 0px;
         }
 
+        footer {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
 
     </style>
 </head>   
