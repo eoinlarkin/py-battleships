@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 from blessed import Terminal
-from random import randint
+import random
 from time import sleep
 
 term = Terminal()
@@ -40,7 +40,22 @@ def place_ships(ship_data):
     return ship_coords
 
 
-def get_target(board):
+def target_computer(board):
+    """
+    Randomly generates a target for the computer
+    Validation done to make sure target has not already been selected
+    """
+    target = random.choice(list(board.coords_board.keys()))
+    print(target)
+    while (target in board.coords_targets):
+        target = random.choice(list(board.coords_board.keys())) #selecting a new target if already chosen
+    board.coords_targets[target] = 'X' # adding the value to the dictionary of shots
+    print(target)
+    return target
+
+
+
+def target_player(board):
     """
     Requests target from user and performs input validation
     Check is completed to see if the target has already been selected
@@ -136,13 +151,58 @@ def rungame(player_board, computer_board):
     computer_board.coords_board = draw_board(8)
 
     while not check_victory(computer_board):
-        target = get_target(computer_board)
+        target = target_player(computer_board)
+        print(term.move(0,0) + target)
         check_hit(target,computer_board)
+        target = target_computer(player_board)
+        print(term.move(0,0) + target)
+        check_hit(target,player_board)
         
-
     print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
 
 
+# Testing Code:
+""" player_board = board('player')
+computer_board = board('computer')
+player_board.coords_ships = place_ships(player_board.ship_data)
+player_board.coords_board = draw_board(8)
+
+computer_board.coords_ships = place_ships(computer_board.ship_data)
+computer_board.coords_board = draw_board(8) """
+
+#target = target_computer(player_board)
+#print(target)
+
+# print('Values in board:')
+# for k,v in computer_board.coords_board.items():
+#     print(k, v)
+
+
+# target = random.choice(list(player_board.coords_board.keys()))
+# print(target)
+
+# print('Checking if target is list of previously selected targets:')
+# print(target in player_board.coords_targets)
+
+# print('Adding target to list of targets')
+# player_board.coords_targets[target] = 'X'
+
+# print('Values in target:')
+# for k,v in player_board.coords_targets.items():
+#     print(k, v)
+
+
+
+
+
+
+#print(target)
+
+#target = random.choice(list(board.coords_board.keys()))
+#while not(target in board.coords_targets):
+#    target = random.choice(list(board.coords_board.keys()))
+# board.coords_targets[target] = 'X' # adding the value to the dictionary of shots
+# return target
 
 ### Testing term coordinates:
 
