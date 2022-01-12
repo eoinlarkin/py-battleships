@@ -7,7 +7,6 @@ def wait():
 
 
 def rungame(board):
-
     termprint.intro()
     termprint.boards()
 
@@ -21,7 +20,8 @@ def rungame(board):
 
 
     while not battleships.check_victory(board):
-        
+        termprint.clear_status_line()
+                
         battleships.get_target_player(board)
         while board.active_target_invalid['p1'] or board.active_target_previous['p1']:
             if board.active_target_invalid['p1']:
@@ -29,6 +29,9 @@ def rungame(board):
             if board.active_target_previous['p1']:
                 termprint.target_previously_selected(0, 43)
             battleships.get_target_player(board)
+
+        wait()
+        termprint.clear_input_line()
 
         termprint.player_move_text(xcoords=0,
                         ycoords=termprint.TERM_INPUT_LINE,

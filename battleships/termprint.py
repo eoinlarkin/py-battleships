@@ -22,6 +22,14 @@ def print_target_request():
 def clear():
     print(term.home + term.clear)
 
+def clear_status_line():
+    with term.location(x=0, y=TERM_STATUS_LINE):
+       print(term.clear_eol)
+
+def clear_input_line():
+    with term.location(x=0, y=TERM_INPUT_LINE+1):
+       print(term.clear_eol)
+
 def target_invalid(xcoords,ycoords):
         term.home
         with term.location(x=xcoords, y=ycoords):
