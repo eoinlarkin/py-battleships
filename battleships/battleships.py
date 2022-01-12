@@ -17,6 +17,10 @@ class board():
         self.type = type
         self.coords_ships = {}
         self.coords_board = {}
+        self.current_target = ()
+        self.current_target_invalid = False
+        self.current_target_previous = False
+
 
         if type == 'player':
             self.termLocations = {'A1': [19,4],'A2': [23,4],'A3': [27,4],'A4': [31,4],'A5': [35,4],'A6': [39,4],'A7': [43,4],'A8': [47,4],'B1': [19,6],'B2': [23,6],'B3': [27,6],'B4': [31,6],'B5': [35,6],'B6': [39,6],'B7': [43,6],'B8': [47,6],'C1': [19,8],'C2': [23,8],'C3': [27,8],'C4': [31,8],'C5': [35,8],'C6': [39,8],'C7': [43,8],'C8': [47,8],'D1': [19,10],'D2': [23,10],'D3': [27,10],'D4': [31,10],'D5': [35,10],'D6': [39,10],'D7': [43,10],'D8': [47,10],'E1': [19,12],'E2': [23,12],'E3': [27,12],'E4': [31,12],'E5': [35,12],'E6': [39,12],'E7': [43,12],'E8': [47,12],'F1': [19,14],'F2': [23,14],'F3': [27,14],'F4': [31,14],'F5': [35,14],'F6': [39,14],'F7': [43,14],'F8': [47,14],'G1': [19,16],'G2': [23,16],'G3': [27,16],'G4': [31,16],'G5': [35,16],'G6': [39,16],'G7': [43,16],'G8': [47,16],'H1': [19,18],'H2': [23,18],'H3': [27,18],'H4': [31,18],'H5': [35,18],'H6': [39,18],'H7': [43,18],'H8': [47,18]}
@@ -43,54 +47,49 @@ def place_ships(ship_data):
     return ship_coords
 
 
-def target_computer(board):
+def target_computer(cboard,pboard):
     """
     Randomly generates a target for the computer
     Validation done to make sure target has not already been selected
     """
-    target = random.choice(list(board.coords_board.keys()))
-    while (target in board.coords_targets):
-        target = random.choice(list(board.coords_board.keys())) #selecting a new target if already chosen
-    board.coords_targets[target] = 'X' # adding the value to the dictionary of shots
-    return target
+    target = random.choice(list(pboard.coords_board.keys()))
+    while (target in pboard.coords_targets):
+        target = random.choice(list(pboard.coords_board.keys())) #selecting a new target if already chosen
+    cboard.current_target = target # adding the value to the dictionary of shots
+    pboard.coords_targets[target] = 'X' # adding the value to the dictionary of shots
 
 
-def get_target_player(board):
+def get_target_player(pboard, cboard):
     """
     Requests target from user and performs input validation
     Check is completed to see if the target has already been selected
     Target is also appended to the dictionary of prior targets
     """   
-    out = {'invalid': False, 'previous': False, 'target': ''}
-    out['target'] = print_term.print_target_request()
-    if out['target'] not in board.coords_board:
-        out['invalid'] = True
-        return out
-    if out['target'] in board.coords_targets:
-        out['previous'] = True
-        return out
+    pboard.current_target = print_term.print_target_request() 
+    #out['target'] = print_term.print_target_request()
+    if pboard.current_target not in cboard.coords_board:
+        pboard.current_target_invalid = True
+    if pboard.current_target in cboard.coords_targets:
+        pboard.current_target_previous = True
     else:
-        board.coords_targets[out['target']] = 'X' # adding the value to the dictionary of shots
-        return out
+        cboard.coords_targets[pboard.current_target] = 'X' # adding the value to the dictionary of shots
 
 
 
-
-
-
-def check_hit(target, board): 
-    if target in board.coords_ships:
-        with term.location():
-            print_term.printTerminal(term.center("It's a hit!"), 0, TERM_STATUS_LINE, term.yellow_on_black)
-            print_term.printTerminal('X',board.termLocations[target][0],board.termLocations[target][1],term.red)
-        ship_name = board.coords_ships[target]
+def check_target_hit(pboard, board): 
+    if pboard.current_target in board.coords_ships.keys():
+        print_term.confirm_hit(0, TERM_STATUS_LINE,'hit')
+        print_term.update_board(board.termLocations[pboard.current_target][0],board.termLocations[pboard.current_target][1],'hit')
+        ship_name = board.coords_ships[pboard.current_target]
         board.ship_hits[ship_name] += 1
         if board.ship_hits[ship_name] == board.ship_data[ship_name]:
             sleep(1) # Time in seconds
-            print_term.printTerminal(term.center(f"Ship {ship_name} is sunk...!"), 0, TERM_STATUS_LINE, term.black_on_green)
+            print_term.confirm_ship_sunk(0,TERM_STATUS_LINE,ship_name)
     else:
-        print_term.printTerminal(term.center("It's a miss......"), 0, TERM_STATUS_LINE, term.white_on_red)
-        print_term.printTerminal('O',board.termLocations[target][0],board.termLocations[target][1],term.blue)
+        print_term.confirm_hit(0, TERM_STATUS_LINE,'miss')
+        target = ''.join(pboard.current_target)
+        print(target)
+        print_term.update_board(board.termLocations[pboard.current_target][0],board.termLocations[pboard.current_target][1],'miss')
 
 def check_victory(board):
     """
@@ -107,28 +106,10 @@ TERM_INPUT_LINE = 41
 TERM_STATUS_LINE = 43
 
 
-def print_boards():
-    import battleships.layout as layout
-    with term.location():
-        print(term.home + term.move_xy(1, 0)  + term.green + layout.player_board)
-    with term.location():
-        print(term.home + term.move_xy(1, 20)  + term.orange + layout.computer_board)
-
-
-def print_intro():
-    import battleships.layout as layout
-    print_term.clearTerminal()
-    print_term.printTerminal(term.center(layout.logo), 1,5,term.orangered)
-    print_term.printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
-    with term.cbreak(), term.hidden_cursor():
-        inp = term.inkey()
-    print_term.clearTerminal()
-
-
 def rungame(player_board, computer_board):
     import battleships.print_term as print_term
-    print_intro()
-    print_boards()
+    print_term.intro()
+    print_term.boards()
 
     player_board.coords_ships = place_ships(player_board.ship_data)
     player_board.coords_board = draw_board(8)
@@ -138,99 +119,19 @@ def rungame(player_board, computer_board):
 
     while not check_victory(computer_board):
         
-        target = get_target_player(computer_board)
-        while target['invalid'] or target['previous']:
-            if target['invalid']:
+        get_target_player(player_board,computer_board)
+        while player_board.current_target_invalid or player_board.current_target_previous:
+            if player_board.current_target_invalid:
                 print_term.target_invalid(0, 43)
-            if target['previous']:
+            if player_board.current_target_previous:
                 print_term.target_previously_selected(0, 43)
-            target = get_target_player(computer_board)
+                get_target_player(player_board,computer_board)
 
-        check_hit(target['target'],computer_board)
-        target = target_computer(player_board)
-        check_hit(target,player_board)
+
+        check_target_hit(player_board,computer_board)
+        target_computer(computer_board,player_board)
+        check_target_hit(computer_board,player_board)
         
     print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
 
 
-# Testing Code:
-""" player_board = board('player')
-computer_board = board('computer')
-player_board.coords_ships = place_ships(player_board.ship_data)
-player_board.coords_board = draw_board(8)
-
-computer_board.coords_ships = place_ships(computer_board.ship_data)
-computer_board.coords_board = draw_board(8) """
-
-#target = target_computer(player_board)
-#print(target)
-
-# print('Values in board:')
-# for k,v in computer_board.coords_board.items():
-#     print(k, v)
-
-
-# target = random.choice(list(player_board.coords_board.keys()))
-# print(target)
-
-# print('Checking if target is list of previously selected targets:')
-# print(target in player_board.coords_targets)
-
-# print('Adding target to list of targets')
-# player_board.coords_targets[target] = 'X'
-
-# print('Values in target:')
-# for k,v in player_board.coords_targets.items():
-#     print(k, v)
-
-
-
-
-
-
-#print(target)
-
-#target = random.choice(list(board.coords_board.keys()))
-#while not(target in board.coords_targets):
-#    target = random.choice(list(board.coords_board.keys()))
-# board.coords_targets[target] = 'X' # adding the value to the dictionary of shots
-# return target
-
-### Testing term coordinates:
-
-# printTerminal('a',termLocations['A1'][0],termLocations['A1'][1],term.red)
-# printTerminal('B',termLocations['A2'][0],termLocations['A2'][1],term.red)
-# printTerminal('C',termLocations['A3'][0],termLocations['A3'][1],term.red)
-# printTerminal('0',termLocations['A4'][0],termLocations['A4'][1],term.red)
-# printTerminal('0',termLocations['A5'][0],termLocations['A5'][1],term.red)
-# printTerminal('0',termLocations['A6'][0],termLocations['A6'][1],term.red)
-# printTerminal('0',termLocations['A7'][0],termLocations['A7'][1],term.red)
-# printTerminal('0',termLocations['A8'][0],termLocations['A8'][1],term.red)
-
-
-# printTerminal('0',termLocations['B1'][0],termLocations['B1'][1],term.red)
-# printTerminal('0',termLocations['B2'][0],termLocations['B2'][1],term.red)
-# printTerminal('0',termLocations['B3'][0],termLocations['B3'][1],term.red)
-# printTerminal('0',termLocations['B4'][0],termLocations['B4'][1],term.red)
-# printTerminal('0',termLocations['B5'][0],termLocations['B5'][1],term.red)
-# printTerminal('0',termLocations['B6'][0],termLocations['B6'][1],term.red)
-# printTerminal('0',termLocations['B7'][0],termLocations['B7'][1],term.red)
-# printTerminal('0',termLocations['B8'][0],termLocations['B8'][1],term.red)
-
-# printTerminal('0',termLocations['G1'][0],termLocations['G1'][1],term.red)
-# printTerminal('0',termLocations['G2'][0],termLocations['G2'][1],term.red)
-# printTerminal('0',termLocations['G3'][0],termLocations['G3'][1],term.red)
-# printTerminal('0',termLocations['G4'][0],termLocations['G4'][1],term.red)
-# printTerminal('0',termLocations['G5'][0],termLocations['G5'][1],term.red)
-# printTerminal('0',termLocations['G6'][0],termLocations['G6'][1],term.red)
-# printTerminal('0',termLocations['G7'][0],termLocations['G7'][1],term.red)
-# printTerminal('0',termLocations['G8'][0],termLocations['G8'][1],term.red)
-
-# printTerminal('1',termLocations['H1'][0],termLocations['H1'][1],term.red)
-# printTerminal('2',termLocations['H2'][0],termLocations['H2'][1],term.red)
-# printTerminal('3',termLocations['H3'][0],termLocations['H3'][1],term.red)
-# printTerminal('0',termLocations['H4'][0],termLocations['H4'][1],term.red)
-# printTerminal('0',termLocations['H5'][0],termLocations['H5'][1],term.red)
-# printTerminal('0',termLocations['H6'][0],termLocations['H6'][1],term.red)
-# printTerminal('0',termLocations['H7'][0],termLocations['H7'][1],term.red)
-# printTerminal('0',termLocations['H8'][0],termLocations['H8'][1],term.red)
