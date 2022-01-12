@@ -1,9 +1,11 @@
 #! /usr/bin/env python3
 import random
-from time import sleep
 import battleships.termprint as termprint
 
 class board():
+    """
+    Class to store the game board and associated data model
+    """ 
     def __init__(self):
         self.ship_data = {
                           'p1':{'S1':2, 'S2':3, 'S3':4},
@@ -45,13 +47,15 @@ def draw_board(gridsize):
     return coords
 
 def place_ships(ship_data):
+    """
+    Randomly placing the ships on the game board
+    """ 
     ship_coords = {}
     ship_lengths = list(ship_data.values())
     for i in range(len(ship_lengths)):
         for j in range(ship_lengths[i]):
             ship_coords[chr(j+65)+str(i+1)] = "S" + str(i+1)
     return ship_coords
-
 
 def target_computer(board):
     """
@@ -63,7 +67,6 @@ def target_computer(board):
         target = random.choice(list(board.coords_board['p1'].keys())) #selecting a new target if already chosen
     board.active_target['p2'] = target # adding the value to the dictionary of shots
     board.coords_targets['p2'][target] = 'X' # adding the value to the dictionary of shots
-
 
 def get_target_player(board):
     """
@@ -81,9 +84,10 @@ def get_target_player(board):
     else:
         board.coords_targets['p1'][board.active_target['p1']] = 'X' # adding the value to the dictionary of shots
 
-
-
 def check_target_hit(active_player, board):
+    """
+    Checks if the target from the most recent shot by the active player has registered a hit
+    """ 
     if active_player == 'p1':
         player, opponent = 'p1','p2'
     else:
