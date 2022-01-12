@@ -35,8 +35,6 @@ class board():
                     out[player][chr(y+65)+str(x+1)] = [start_col +x*colgap,start_row+y*rowgap]
             return out
 
-gen_loc('p1',8,19,4,4,2)
-
 def draw_board(gridsize):
     """
     Generates an empty dictionary of all potential targets
