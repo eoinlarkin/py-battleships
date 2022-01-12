@@ -1,10 +1,13 @@
 #! /usr/bin/env python3
 
-from blessed import Terminal
+
 import random
 from time import sleep
-
+import battleships.print_term as print_term
+from blessed import Terminal
 term = Terminal()
+
+
 
 class board():
     def __init__(self, type):
@@ -46,49 +49,48 @@ def target_computer(board):
     Validation done to make sure target has not already been selected
     """
     target = random.choice(list(board.coords_board.keys()))
-    print(target)
     while (target in board.coords_targets):
         target = random.choice(list(board.coords_board.keys())) #selecting a new target if already chosen
     board.coords_targets[target] = 'X' # adding the value to the dictionary of shots
-    print(target)
     return target
 
 
-
-def target_player(board):
+def get_target_player(board):
     """
     Requests target from user and performs input validation
     Check is completed to see if the target has already been selected
     Target is also appended to the dictionary of prior targets
     """   
-    target = print_target_request()
-    while not(target in board.coords_board):
-        printTerminal(term.center('Invalid coordinate selected; please try again...!'),0,
-        TERM_STATUS_LINE,
-        term.black_on_yellow)
-        target = print_target_request()
-    
-    while target in board.coords_targets:
-        printTerminal(term.center('This target has already been selected; please select an alternative target.'),0,
-        TERM_STATUS_LINE,
-        term.black_on_yellow)
-        target = print_target_request()
-    board.coords_targets[target] = 'X' # adding the value to the dictionary of shots
-    return target
+    out = {'invalid': False, 'previous': False, 'target': ''}
+    out['target'] = print_term.print_target_request()
+    if out['target'] not in board.coords_board:
+        out['invalid'] = True
+        return out
+    if out['target'] in board.coords_targets:
+        out['previous'] = True
+        return out
+    else:
+        board.coords_targets[out['target']] = 'X' # adding the value to the dictionary of shots
+        return out
+
+
+
+
+
 
 def check_hit(target, board): 
     if target in board.coords_ships:
         with term.location():
-            printTerminal(term.center("It's a hit!"), 0, TERM_STATUS_LINE, term.yellow_on_black)
-            printTerminal('X',board.termLocations[target][0],board.termLocations[target][1],term.red)
+            print_term.printTerminal(term.center("It's a hit!"), 0, TERM_STATUS_LINE, term.yellow_on_black)
+            print_term.printTerminal('X',board.termLocations[target][0],board.termLocations[target][1],term.red)
         ship_name = board.coords_ships[target]
         board.ship_hits[ship_name] += 1
         if board.ship_hits[ship_name] == board.ship_data[ship_name]:
             sleep(1) # Time in seconds
-            printTerminal(term.center(f"Ship {ship_name} is sunk...!"), 0, TERM_STATUS_LINE, term.black_on_green)
+            print_term.printTerminal(term.center(f"Ship {ship_name} is sunk...!"), 0, TERM_STATUS_LINE, term.black_on_green)
     else:
-        printTerminal(term.center("It's a miss......"), 0, TERM_STATUS_LINE, term.white_on_red)
-        printTerminal('O',board.termLocations[target][0],board.termLocations[target][1],term.blue)
+        print_term.printTerminal(term.center("It's a miss......"), 0, TERM_STATUS_LINE, term.white_on_red)
+        print_term.printTerminal('O',board.termLocations[target][0],board.termLocations[target][1],term.blue)
 
 def check_victory(board):
     """
@@ -99,27 +101,10 @@ def check_victory(board):
     return sum(board.ship_hits.values()) == sum(board.ship_data.values())
 
 
-def printTerminal(text, xcoords, ycoords, color):
-    term.home
-    with term.location(x=xcoords, y=ycoords):
-       print(color + text)
-
-def print_target_request():
-    print(term.move(TERM_INPUT_LINE,0)+term.normal)
-    target = input(term.white_on_blue + term.center('Select your next target:')+term.move(TERM_INPUT_LINE+1,58)+term.normal)
-    return target
-
-def clearTerminal():
-    print(term.home + term.clear)
-
-
-# *************************************************
-# Splash Screen
-# *************************************************
-TERM_INPUT_LINE = 41
-TERM_STATUS_LINE = 43
 BOARD_X = 1
 BOARD_Y = 1
+TERM_INPUT_LINE = 41
+TERM_STATUS_LINE = 43
 
 
 def print_boards():
@@ -132,15 +117,16 @@ def print_boards():
 
 def print_intro():
     import battleships.layout as layout
-    clearTerminal()
-    printTerminal(term.center(layout.logo), 1,5,term.orangered)
-    printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
+    print_term.clearTerminal()
+    print_term.printTerminal(term.center(layout.logo), 1,5,term.orangered)
+    print_term.printTerminal(term.center('press and key to continue'),0,30,term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
         inp = term.inkey()
-    clearTerminal()
+    print_term.clearTerminal()
 
 
 def rungame(player_board, computer_board):
+    import battleships.print_term as print_term
     print_intro()
     print_boards()
 
@@ -151,11 +137,17 @@ def rungame(player_board, computer_board):
     computer_board.coords_board = draw_board(8)
 
     while not check_victory(computer_board):
-        target = target_player(computer_board)
-        print(term.move(0,0) + target)
-        check_hit(target,computer_board)
+        
+        target = get_target_player(computer_board)
+        while target['invalid'] or target['previous']:
+            if target['invalid']:
+                print_term.target_invalid(0, 43)
+            if target['previous']:
+                print_term.target_previously_selected(0, 43)
+            target = get_target_player(computer_board)
+
+        check_hit(target['target'],computer_board)
         target = target_computer(player_board)
-        print(term.move(0,0) + target)
         check_hit(target,player_board)
         
     print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
