@@ -1,10 +1,8 @@
 from blessed import Terminal
 term = Terminal()
 
-
 TERM_INPUT_LINE = 41
-TERM_STATUS_LINE = 43
-
+TERM_STATUS_LINE = 41
 
 def printTerminal(text, xcoords, ycoords, color):
     term.home
@@ -55,6 +53,11 @@ def update_board(xcoords,ycoords,hit_type):
             else:
                 print(term.blue + ("0"))
 
+def opponent_move(xcoords,ycoords,target):
+        term.home
+        with term.location(x=xcoords, y=ycoords):
+            print(term.black_on_green + term.center(f"The Computer has selected target {target}....")+term.normal)
+
 def boards():
     import battleships.layout as layout
     xy(layout.player_board, 1,0,term.green)
@@ -69,4 +72,20 @@ def intro():
     with term.cbreak(), term.hidden_cursor():
         inp = term.inkey()
     clear()
+
+def victory():
+    print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
+
+
+
+
+
+        # termprint.confirm_hit(0, TERM_STATUS_LINE,'hit')
+        # termprint.update_board(x,y,'hit')
+
+        # termprint.confirm_hit(0, TERM_STATUS_LINE,'miss')
+        # termprint.update_board(x,y,'miss')
+        #         if board.ship_hits[opponent][ship_name] == board.ship_data[opponent][ship_name]:
+        #     sleep(1) # Time in seconds
+        #     termprint.confirm_ship_sunk(0,TERM_STATUS_LINE,ship_name)
 
