@@ -1,4 +1,5 @@
 from blessed import Terminal
+import battleships.layout as layout
 term = Terminal()
 
 TERM_INPUT_LINE = 41
@@ -79,13 +80,21 @@ def boards():
     
 
 def intro():
-    import battleships.layout as layout
     clear()
     xy(term.center(layout.logo), 1,5,term.orangered)
     xy(term.center('press and key to continue'),0,30,term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
         inp = term.inkey()
     clear()
+
+def instruct():
+    clear()
+    xy(term.center(layout.instruct_text), 1,5,term.orangered)
+    xy(term.center('press and key to continue'),0,30,term.black_on_green)
+    with term.cbreak(), term.hidden_cursor():
+        inp = term.inkey()
+    clear()
+
 
 def victory():
     print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
