@@ -39,6 +39,7 @@ def confirm_hit(xcoords,ycoords,hit_type):
                print(term.yellow_on_black + term.center("It's a hit!" )+term.normal)
             else:
                print(term.white_on_red + term.center("It's a miss!" )+term.normal)
+        
 
 def confirm_ship_sunk(xcoords,ycoords,ship):
         term.home
@@ -53,10 +54,15 @@ def update_board(xcoords,ycoords,hit_type):
             else:
                 print(term.blue + ("0"))
 
-def opponent_move(xcoords,ycoords,target):
+def opponent_move_text(xcoords,ycoords,target):
         term.home
         with term.location(x=xcoords, y=ycoords):
-            print(term.black_on_green + term.center(f"The Computer has selected target {target}....")+term.normal)
+            print(term.black_on_orange + term.center(f"The Computer has selected target {target}....")+term.normal)
+
+def player_move_text(xcoords,ycoords,target):
+        term.home
+        with term.location(x=xcoords, y=ycoords):
+            print(term.white_on_purple + term.center(f"Checking target {target}....")+term.normal)
 
 def boards():
     import battleships.layout as layout
@@ -75,17 +81,3 @@ def intro():
 
 def victory():
     print(term.clear+term.move(TERM_STATUS_LINE,0) + term.center('You have defeated the computer!'))
-
-
-
-
-
-        # termprint.confirm_hit(0, TERM_STATUS_LINE,'hit')
-        # termprint.update_board(x,y,'hit')
-
-        # termprint.confirm_hit(0, TERM_STATUS_LINE,'miss')
-        # termprint.update_board(x,y,'miss')
-        #         if board.ship_hits[opponent][ship_name] == board.ship_data[opponent][ship_name]:
-        #     sleep(1) # Time in seconds
-        #     termprint.confirm_ship_sunk(0,TERM_STATUS_LINE,ship_name)
-
