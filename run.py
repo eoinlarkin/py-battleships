@@ -7,6 +7,5 @@
 import battleships.battleships as battleships
 
 if __name__ == '__main__':
-    player = battleships.board('player')
-    computer = battleships.board('computer')
-    battleships.rungame(player, computer)
+    board = battleships.board()
+    battleships.rungame(board)
