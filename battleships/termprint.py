@@ -1,12 +1,13 @@
+# pylint: disable=E0611
 from blessed import Terminal
-import layout
+from battleships import layout
 term = Terminal()
 
 TERM_INPUT_LINE = 41
 TERM_STATUS_LINE = 41
 
 SHIP_INTEG_LOC = {
-            'p1': {'S1': [74,6], 'S2': [74,7], 'S3': [74,8]},
+            'p1': {'S1': [73,6], 'S2': [73,7], 'S3': [73,8]},
             'p2': {'S1': [31,35], 'S2': [31,36], 'S3': [31,37]}
             }
 
