@@ -19,6 +19,7 @@ def rungame(board):
     termprint.instruct()
     termprint.boards()
     termprint.printships(board, 'p1')
+    termprint.print_integ(board)
 
     while not battleships.check_victory(board):
         termprint.clear_status_line()

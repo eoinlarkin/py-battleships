@@ -18,6 +18,11 @@ class board():
             'p2': {'S1': 0, 'S2': 0, 'S3': 0}
         }
 
+        self.ship_integ = {
+            'p1': {'S1': 100, 'S2': 100, 'S3': 100},
+            'p2': {'S1': 100, 'S2': 100, 'S3': 100}
+        }
+
         self.coords_targets = {'p1': {}, 'p2': {}}
         self.type = {'p1': "player", 'p2': "computer"}
         self.coords_ships = {'p1': {}, 'p2': {}}
@@ -31,7 +36,7 @@ class board():
         self.loc = {}
         self.loc_ships = {'p1':{'S1':{'direction':"t2b",'size':2,'start':'A1'},
                               'S2':{'direction':"t2b",'size':3,'start':'A2'},
-                              'S3':{'direction':"l2r",'size':4,'start':'A3'}},
+                              'S3':{'direction':"t2b",'size':4,'start':'A3'}},
                         'p2':{'S1':{'direction':"t2b",'size':2,'start':'A1'},
                               'S2':{'direction':"t2b",'size':3,'start':'A2'},
                               'S3':{'direction':"t2b",'size':4,'start':'A3'}}

@@ -5,6 +5,10 @@ term = Terminal()
 TERM_INPUT_LINE = 41
 TERM_STATUS_LINE = 41
 
+SHIP_INTEG_LOC = {
+            'p1': {'S1': [74,6], 'S2': [74,7], 'S3': [74,8]},
+            'p2': {'S1': [31,35], 'S2': [31,36], 'S3': [31,37]}
+            }
 
 def printTerminal(text, xcoords, ycoords, color):
     print(term.home)
@@ -17,6 +21,14 @@ def xy(text, xcoords, ycoords, color):
     with term.location(x=xcoords, y=ycoords):
         print(color + text)
 
+def print_integ(board):
+    for player in SHIP_INTEG_LOC:
+        for ship in SHIP_INTEG_LOC[player]:
+            value = board.ship_integ[player][ship]
+            xcoords = SHIP_INTEG_LOC[player][ship][0]
+            ycoords = SHIP_INTEG_LOC[player][ship][1]
+            with term.location(x=xcoords, y=ycoords):
+                print(term.gold + str(value) + '%')
 
 def print_target_request():
     print(term.move(TERM_INPUT_LINE, 0)+term.normal)
