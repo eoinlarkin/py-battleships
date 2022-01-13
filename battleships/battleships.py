@@ -3,6 +3,7 @@ import random
 
 
 class board():
+    # pylint: disable=too-many-instance-attributes
     """
     Class to store the game board and associated data model
     """
@@ -34,13 +35,13 @@ class board():
         self.active_target_loc = {'p1': [], 'p2': []}
         self.victory = {'p1': False, 'p2': False}
         self.loc = {}
-        self.loc_ships = {'p1':{'S1':{'direction':"t2b",'size':2,'start':'A1'},
-                              'S2':{'direction':"t2b",'size':3,'start':'A2'},
-                              'S3':{'direction':"t2b",'size':4,'start':'A3'}},
-                        'p2':{'S1':{'direction':"t2b",'size':2,'start':'A1'},
-                              'S2':{'direction':"t2b",'size':3,'start':'A2'},
-                              'S3':{'direction':"t2b",'size':4,'start':'A3'}}
-                              }
+        self.loc_ships = {'p1': {'S1': {'direction': "t2b", 'size': 2, 'start': 'A1'},
+                                 'S2': {'direction': "t2b", 'size': 3, 'start': 'A2'},
+                                 'S3': {'direction': "t2b", 'size': 4, 'start': 'A3'}},
+                          'p2': {'S1': {'direction': "t2b", 'size': 2, 'start': 'A1'},
+                                 'S2': {'direction': "t2b", 'size': 3, 'start': 'A2'},
+                                 'S3': {'direction': "t2b", 'size': 4, 'start': 'A3'}}
+                          }
 
     @staticmethod
     def gen_loc(size, start_x, start_y, ygap, xgap):
@@ -121,10 +122,22 @@ def check_target_hit(active_player, gameboard):
 
     if target in gameboard.coords_ships[opponent].keys():
         gameboard.active_target_status[player] = 'hit'
-        ship_name = gameboard.coords_ships[player][gameboard.active_target[player]]
+        ship_name = gameboard.coords_ships[opponent][gameboard.active_target[player]]
         gameboard.ship_hits[opponent][ship_name] += 1
+        update_ship_integ(gameboard)
     else:
         gameboard.active_target_status[player] = 'miss'
+
+
+def update_ship_integ(gb):
+    """
+    Update the ship integrity status
+    Function directly updates the ship_integ for the board class
+    """
+    for player in gb.ship_integ:
+        for ship in gb.ship_integ[player]:
+            damage = int(100 * (gb.ship_hits[player][ship] / gb.ship_data[player][ship]))
+            gb.ship_integ[player][ship] = max(100 - damage, 0)
 
 
 def check_victory(gameboard):

@@ -7,9 +7,10 @@ TERM_INPUT_LINE = 41
 TERM_STATUS_LINE = 41
 
 SHIP_INTEG_LOC = {
-            'p1': {'S1': [73,6], 'S2': [73,7], 'S3': [73,8]},
-            'p2': {'S1': [31,35], 'S2': [31,36], 'S3': [31,37]}
-            }
+    'p1': {'S1': [73, 6], 'S2': [73, 7], 'S3': [73, 8]},
+    'p2': {'S1': [31, 35], 'S2': [31, 36], 'S3': [31, 37]}
+}
+
 
 def printTerminal(text, xcoords, ycoords, color):
     print(term.home)
@@ -22,6 +23,7 @@ def xy(text, xcoords, ycoords, color):
     with term.location(x=xcoords, y=ycoords):
         print(color + text)
 
+
 def print_integ(board):
     for player in SHIP_INTEG_LOC:
         for ship in SHIP_INTEG_LOC[player]:
@@ -29,7 +31,8 @@ def print_integ(board):
             xcoords = SHIP_INTEG_LOC[player][ship][0]
             ycoords = SHIP_INTEG_LOC[player][ship][1]
             with term.location(x=xcoords, y=ycoords):
-                print(term.gold + str(value) + '%')
+                print(term.gold + str(value) + '% ')
+
 
 def print_target_request():
     print(term.move(TERM_INPUT_LINE, 0)+term.normal)
@@ -98,7 +101,7 @@ def opponent_move_text(xcoords, ycoords, target):
               term.center(f"The Computer has selected target {target}....")+term.normal)
 
 
-def player_move_text(xcoords, ycoords, target):
+def print_checking_move(xcoords, ycoords, target):
     print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(term.white_on_purple +
@@ -132,6 +135,7 @@ def victory():
     print(term.clear+term.move(TERM_STATUS_LINE, 0) +
           term.center('You have defeated the computer!'))
 
+
 def printships(board, player):
     ship_pos = board.loc_ships[player]
     grid_pos = board.loc[player]
@@ -140,7 +144,9 @@ def printships(board, player):
         start_pos = grid_pos[ship_pos[ship]['start']]
         if ship_pos[ship]['direction'] == 't2b':
             for length in range(ship_pos[ship]['size']*2-1):
-                print(term.home+term.deepskyblue4 + term.move(start_pos[1]+length, start_pos[0]) + "█")
+                print(term.home+term.deepskyblue4 +
+                      term.move(start_pos[1]+length, start_pos[0]) + "█")
         elif ship_pos[ship]['direction'] == 'l2r':
             for length in range(ship_pos[ship]['size']*4-2):
-                print(term.home+term.deepskyblue4 + term.move(start_pos[1], start_pos[0]+length) + "█")
+                print(term.home+term.deepskyblue4 +
+                      term.move(start_pos[1], start_pos[0]+length) + "█")
