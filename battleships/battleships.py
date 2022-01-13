@@ -74,39 +74,39 @@ def place_ships(ship_data):
     return ship_coords
 
 
-def target_computer(board):
+def target_computer(gameboard):
     """
     Randomly generates a target for the computer
     Validation done to make sure target has not already been selected
     """
-    target = random.choice(list(board.coords_board['p1'].keys()))
-    while (target in board.coords_targets['p2']):
+    target = random.choice(list(gameboard.coords_board['p1'].keys()))
+    while (target in gameboard.coords_targets['p2']):
         # selecting a new target if already chosen
-        target = random.choice(list(board.coords_board['p1'].keys()))
+        target = random.choice(list(gameboard.coords_board['p1'].keys()))
     # adding the value to the dictionary of shots
-    board.active_target['p2'] = target
+    gameboard.active_target['p2'] = target
     # adding the value to the dictionary of shots
-    board.coords_targets['p2'][target] = 'X'
+    gameboard.coords_targets['p2'][target] = 'X'
 
 
-def validate_target(board):
+def validate_target(gameboard):
     """
     Requests target from user and performs input validation
     Check is completed to see if the target has already been selected
     Target is also appended to the dictionary of prior targets
     """
-    board.active_target_invalid['p1'] = False
-    board.active_target_previous['p1'] = False
-    if board.active_target['p1'] not in board.coords_board['p2']:
-        board.active_target_invalid['p1'] = True
-    if board.active_target['p1'] in board.coords_targets['p1']:
-        board.active_target_previous['p1'] = True
+    gameboard.active_target_invalid['p1'] = False
+    gameboard.active_target_previous['p1'] = False
+    if gameboard.active_target['p1'] not in gameboard.coords_board['p2']:
+        gameboard.active_target_invalid['p1'] = True
+    if gameboard.active_target['p1'] in gameboard.coords_targets['p1']:
+        gameboard.active_target_previous['p1'] = True
     else:
         # adding the value to the dictionary of shots
-        board.coords_targets['p1'][board.active_target['p1']] = 'X'
+        gameboard.coords_targets['p1'][gameboard.active_target['p1']] = 'X'
 
 
-def check_target_hit(active_player, board):
+def check_target_hit(active_player, gameboard):
     """
     Checks if the target from the most recent shot by
     the active player has registered a hit
@@ -116,26 +116,26 @@ def check_target_hit(active_player, board):
     else:
         player, opponent = 'p2', 'p1'
 
-    target = board.active_target[player]
-    board.active_target_loc[player] = board.loc[opponent][target]
+    target = gameboard.active_target[player]
+    gameboard.active_target_loc[player] = gameboard.loc[opponent][target]
 
-    if target in board.coords_ships[opponent].keys():
-        board.active_target_status[player] = 'hit'
-        ship_name = board.coords_ships[player][board.active_target[player]]
-        board.ship_hits[opponent][ship_name] += 1
+    if target in gameboard.coords_ships[opponent].keys():
+        gameboard.active_target_status[player] = 'hit'
+        ship_name = gameboard.coords_ships[player][gameboard.active_target[player]]
+        gameboard.ship_hits[opponent][ship_name] += 1
     else:
-        board.active_target_status[player] = 'miss'
+        gameboard.active_target_status[player] = 'miss'
 
 
-def check_victory(board):
+def check_victory(gameboard):
     """
     Function to check if player is victorious. Returns True or False.
     Sum up the total number of successful hits from the ship hit register
     and checks this against the total ship footprint
     """
-    victoryp1 = (sum(board.ship_hits['p2'].values()) == sum(
-        board.ship_data['p2'].values()))
-    victoryp2 = (sum(board.ship_hits['p1'].values()) == sum(
-        board.ship_data['p1'].values()))
-    board.victory['p1'] = victoryp1
-    board.victory['p2'] = victoryp2
+    victoryp1 = (sum(gameboard.ship_hits['p2'].values()) == sum(
+        gameboard.ship_data['p2'].values()))
+    victoryp2 = (sum(gameboard.ship_hits['p1'].values()) == sum(
+        gameboard.ship_data['p1'].values()))
+    gameboard.victory['p1'] = victoryp1
+    gameboard.victory['p2'] = victoryp2

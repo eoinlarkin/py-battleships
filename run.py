@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
-import battleships.battleships as battleships
-import battleships.game as game
+from battleships import battleships
+from battleships import game
 
 if __name__ == '__main__':
     board = battleships.board()

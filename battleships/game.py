@@ -1,6 +1,10 @@
-import battleships.battleships as battleships
-import battleships.termprint as termprint
+#import battleships.battleships as battleships
+#import battleships.termprint as termprint
+#from battleships import battleships
+import battleships
 from time import sleep
+#from battleships import termprint
+import termprint
 
 def wait():
     sleep(1) # time in seconds

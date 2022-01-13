@@ -1,5 +1,5 @@
 from blessed import Terminal
-import battleships.layout as layout
+import layout
 term = Terminal()
 
 TERM_INPUT_LINE = 41
