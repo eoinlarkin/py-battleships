@@ -7,18 +7,18 @@ def wait():
 
 
 def rungame(board):
+
+    board.coords_ships['p1'] = battleships.place_ships(board.ship_data['p1'])
+    board.coords_board['p1'] = battleships.gen_board(8)
+    board.loc['p1'] = board.gen_loc(size=8, start_x=21, start_y=4, ygap=2, xgap=4)
+    board.coords_ships['p2'] = battleships.place_ships(board.ship_data['p2'])
+    board.coords_board['p2'] = battleships.gen_board(8)
+    board.loc['p2'] = board.gen_loc(size=8, start_x=49, start_y=24, ygap=2, xgap=4)
+
     termprint.intro()
     termprint.instruct()
     termprint.boards()
-
-    board.coords_ships['p1'] = battleships.place_ships(board.ship_data['p1'])
-    board.coords_board['p1'] = battleships.draw_board(8)
-    board.loc['p1'] = board.gen_loc(size=8, start_x=21, start_y=4, ygap=2, xgap=4)
-    
-    board.coords_ships['p2'] = battleships.place_ships(board.ship_data['p2'])
-    board.coords_board['p2'] = battleships.draw_board(8)
-    board.loc['p2'] = board.gen_loc(size=8, start_x=49, start_y=24, ygap=2, xgap=4)
-
+    termprint.printships(board, 'p1')
 
     while not battleships.check_victory(board):
         termprint.clear_status_line()

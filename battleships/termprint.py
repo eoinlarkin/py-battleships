@@ -1,5 +1,5 @@
 from blessed import Terminal
-from battleships.layout import layout
+import battleships.layout as layout
 term = Terminal()
 
 TERM_INPUT_LINE = 41
@@ -7,13 +7,13 @@ TERM_STATUS_LINE = 41
 
 
 def printTerminal(text, xcoords, ycoords, color):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(color + text)
 
 
 def xy(text, xcoords, ycoords, color):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(color + text)
 
@@ -40,21 +40,21 @@ def clear_input_line():
 
 
 def target_invalid(xcoords, ycoords):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(term.black_on_yellow +
               term.center('Invalid coordinate selected; please try again...!') + term.normal)
 
 
 def target_previously_selected(xcoords, ycoords):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(term.black_on_yellow + term.center(
             'This target has already been selected; please select an alternative target.')+term.normal)
 
 
 def confirm_hit(xcoords, ycoords, hit_type):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         if hit_type == 'hit':
             print(term.yellow_on_black + term.center("It's a hit!")+term.normal)
@@ -63,14 +63,14 @@ def confirm_hit(xcoords, ycoords, hit_type):
 
 
 def confirm_ship_sunk(xcoords, ycoords, ship):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(term.black_on_green +
               term.center(f"Ship {ship} is sunk...!")+term.normal)
 
 
 def update_board(xcoords, ycoords, hit_type):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         if hit_type == 'hit':
             print(term.red + ("X"))
@@ -79,21 +79,20 @@ def update_board(xcoords, ycoords, hit_type):
 
 
 def opponent_move_text(xcoords, ycoords, target):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(term.black_on_orange +
               term.center(f"The Computer has selected target {target}....")+term.normal)
 
 
 def player_move_text(xcoords, ycoords, target):
-    term.home
+    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(term.white_on_purple +
               term.center(f"Checking target {target}....")+term.normal)
 
 
 def boards():
-    import battleships.layout as layout
     xy(layout.player_board, 1, 0, term.green)
     xy(layout.computer_board, 1, 20, term.orange)
 
@@ -103,7 +102,7 @@ def intro():
     xy(term.center(layout.logo), 1, 5, term.orangered)
     xy(term.center('press and key to continue'), 0, 30, term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
-        inp = term.inkey()
+        term.inkey()
     clear()
 
 
@@ -112,10 +111,23 @@ def instruct():
     xy(term.center(layout.instruct_text), 1, 5, term.orangered)
     xy(term.center('press and key to continue'), 0, 30, term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
-        inp = term.inkey()
+        term.inkey()
     clear()
 
 
 def victory():
     print(term.clear+term.move(TERM_STATUS_LINE, 0) +
           term.center('You have defeated the computer!'))
+
+def printships(board, player):
+    ship_pos = board.loc_ships[player]
+    grid_pos = board.loc[player]
+
+    for ship in ship_pos:
+        start_pos = grid_pos[ship_pos[ship]['start']]
+        if ship_pos[ship]['direction'] == 't2b':
+            for length in range(ship_pos[ship]['size']*2-1):
+                print(term.home+term.deepskyblue4 + term.move(start_pos[1]+length, start_pos[0]) + "█")
+        elif ship_pos[ship]['direction'] == 'l2r':
+            for length in range(ship_pos[ship]['size']*4-2):
+                print(term.home+term.deepskyblue4 + term.move(start_pos[1], start_pos[0]+length) + "█")

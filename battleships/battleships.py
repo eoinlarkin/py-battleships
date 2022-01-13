@@ -29,6 +29,13 @@ class board():
         self.active_target_loc = {'p1': [], 'p2': []}
         self.victory = {'p1': False, 'p2': False}
         self.loc = {}
+        self.loc_ships = {'p1':{'S1':{'direction':"t2b",'size':2,'start':'A1'},
+                              'S2':{'direction':"t2b",'size':3,'start':'A2'},
+                              'S3':{'direction':"l2r",'size':4,'start':'A3'}},
+                        'p2':{'S1':{'direction':"t2b",'size':2,'start':'A1'},
+                              'S2':{'direction':"t2b",'size':3,'start':'A2'},
+                              'S3':{'direction':"t2b",'size':4,'start':'A3'}}
+                              }
 
     @staticmethod
     def gen_loc(size, start_x, start_y, ygap, xgap):
@@ -39,7 +46,7 @@ class board():
         return out
 
 
-def draw_board(gridsize):
+def gen_board(gridsize):
     """
     Generates an empty dictionary of all potential targets
     """
@@ -99,13 +106,12 @@ def check_target_hit(active_player, board):
     Checks if the target from the most recent shot by
     the active player has registered a hit
     """
-    target = board.active_target[player]
-
     if active_player == 'p1':
         player, opponent = 'p1', 'p2'
     else:
         player, opponent = 'p2', 'p1'
 
+    target = board.active_target[player]
     board.active_target_loc[player] = board.loc[opponent][target]
 
     if target in board.coords_ships[opponent].keys():
