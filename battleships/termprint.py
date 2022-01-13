@@ -1,5 +1,4 @@
 from blessed import Terminal
-import battleships.layout as layout
 term = Terminal()
 
 TERM_INPUT_LINE = 41
@@ -49,7 +48,6 @@ def confirm_hit(xcoords,ycoords,hit_type):
             else:
                print(term.white_on_red + term.center("It's a miss!" )+term.normal)
         
-
 def confirm_ship_sunk(xcoords,ycoords,ship):
         term.home
         with term.location(x=xcoords, y=ycoords):

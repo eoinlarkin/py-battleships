@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 import random
-import battleships.termprint as termprint
 
 class board():
     """
@@ -26,6 +25,7 @@ class board():
         self.active_target_previous = {'p1':False, 'p2':False}
         self.active_target_status = {'p1':[], 'p2':[]}
         self.active_target_loc = {'p1':[], 'p2':[]}
+        self.victory = {'p1':False, 'p2':False}
         self.loc = {}
 
     @staticmethod
@@ -68,7 +68,7 @@ def target_computer(board):
     board.active_target['p2'] = target # adding the value to the dictionary of shots
     board.coords_targets['p2'][target] = 'X' # adding the value to the dictionary of shots
 
-def get_target_player(board):
+def validate_target(board):
     """
     Requests target from user and performs input validation
     Check is completed to see if the target has already been selected
@@ -76,7 +76,6 @@ def get_target_player(board):
     """ 
     board.active_target_invalid['p1'] = False
     board.active_target_previous['p1'] = False  
-    board.active_target['p1'] = termprint.print_target_request() 
     if board.active_target['p1'] not in board.coords_board['p2']:
         board.active_target_invalid['p1'] = True
     if board.active_target['p1'] in board.coords_targets['p1']:
@@ -104,7 +103,10 @@ def check_target_hit(active_player, board):
 
 def check_victory(board):
     """
-    Function to check if player is victorious
+    Function to check if player is victorious. Returns True or False.
     Sum up the total number of successful hits from the ship hit register and checks this against the total ship footprint
     """
-    return sum(board.ship_hits['p2'].values()) == sum(board.ship_data['p2'].values())
+    victoryp1 = (sum(board.ship_hits['p2'].values()) == sum(board.ship_data['p2'].values()))
+    victoryp2 = (sum(board.ship_hits['p1'].values()) == sum(board.ship_data['p1'].values()))
+    board.victory['p1'] =  victoryp1
+    board.victory['p2'] =  victoryp2
