@@ -24,7 +24,7 @@ def xy(text, xcoords, ycoords, color):
         print(color + text)
 
 
-def print_integ(board):
+def ship_status(board):
     for player in SHIP_INTEG_LOC:
         for ship in SHIP_INTEG_LOC[player]:
             value = board.ship_integ[player][ship]
@@ -45,13 +45,13 @@ def clear():
     print(term.home + term.clear)
 
 
-def clear_status_line():
-    with term.location(x=0, y=TERM_STATUS_LINE):
+def clear_status_line(x, y):
+    with term.location(x=x, y=y):
         print(term.clear_eol)
 
 
-def clear_input_line():
-    with term.location(x=0, y=TERM_INPUT_LINE+1):
+def clear_input_line(x, y):
+    with term.location(x=x, y=y):
         print(term.clear_eol)
 
 
@@ -78,9 +78,9 @@ def confirm_hit(xcoords, ycoords, hit_type):
             print(term.white_on_red + term.center("It's a miss!")+term.normal)
 
 
-def confirm_ship_sunk(xcoords, ycoords, ship):
+def ship_sunk(x, y, ship):
     print(term.home)
-    with term.location(x=xcoords, y=ycoords):
+    with term.location(x=x, y=y):
         print(term.black_on_green +
               term.center(f"Ship {ship} is sunk...!")+term.normal)
 

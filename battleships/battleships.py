@@ -80,10 +80,12 @@ def target_computer(gameboard):
     Randomly generates a target for the computer
     Validation done to make sure target has not already been selected
     """
-    target = random.choice(list(gameboard.coords_board['p1'].keys()))
+    #target = random.choice(list(gameboard.coords_board['p1'].keys())) 
+    target = random.choice(list(gameboard.coords_ships['p1'].keys())) # for testing
     while (target in gameboard.coords_targets['p2']):
         # selecting a new target if already chosen
-        target = random.choice(list(gameboard.coords_board['p1'].keys()))
+        #target = random.choice(list(gameboard.coords_board['p1'].keys()))
+        target = random.choice(list(gameboard.coords_ships['p1'].keys())) # for testing
     # adding the value to the dictionary of shots
     gameboard.active_target['p2'] = target
     # adding the value to the dictionary of shots
@@ -152,3 +154,4 @@ def check_victory(gameboard):
         gameboard.ship_data['p1'].values()))
     gameboard.victory['p1'] = victoryp1
     gameboard.victory['p2'] = victoryp2
+    return victoryp1 or victoryp2
