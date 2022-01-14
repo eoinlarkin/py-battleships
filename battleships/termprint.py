@@ -13,14 +13,12 @@ SHIP_INTEG_LOC = {
 
 
 def printTerminal(text, xcoords, ycoords, color):
-    print(term.home)
     with term.location(x=xcoords, y=ycoords):
         print(color + text)
 
 
 def xy(text, xcoords, ycoords, color):
-    print(term.home)
-    with term.location(x=xcoords, y=ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(color + text)
 
 
@@ -38,7 +36,10 @@ def print_target_request():
     print(term.move(TERM_INPUT_LINE, 0)+term.normal)
     target = input(term.white_on_blue + term.center('Select your next target:') +
                    term.move(TERM_INPUT_LINE+1, 58)+term.normal)
+    term.hidden_cursor()
+    term.move(TERM_INPUT_LINE+1, 58)
     return target
+    
 
 
 def clear():
@@ -51,27 +52,24 @@ def clear_status_line(x, y):
 
 
 def clear_input_line(x, y):
-    with term.location(x=x, y=y):
+    with term.location(x=x, y=y), term.hidden_cursor():
         print(term.clear_eol)
 
 
 def target_invalid(xcoords, ycoords):
-    print(term.home)
-    with term.location(x=xcoords, y=ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(term.black_on_yellow +
               term.center('Invalid coordinate selected; please try again...!') + term.normal)
 
 
 def target_previously_selected(xcoords, ycoords):
-    print(term.home)
-    with term.location(x=xcoords, y=ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(term.black_on_yellow + term.center(
             'This target has already been selected; please select an alternative target.')+term.normal)
 
 
 def confirm_hit(xcoords, ycoords, hit_type):
-    print(term.home)
-    with term.location(x=xcoords, y=ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         if hit_type == 'hit':
             print(term.yellow_on_black + term.center("It's a hit!")+term.normal)
         else:
@@ -79,15 +77,13 @@ def confirm_hit(xcoords, ycoords, hit_type):
 
 
 def ship_sunk(x, y, ship):
-    print(term.home)
-    with term.location(x=x, y=y):
+    with term.location(x=x, y=y), term.hidden_cursor():
         print(term.black_on_green +
               term.center(f"Ship {ship} is sunk...!")+term.normal)
 
 
 def update_board(xcoords, ycoords, hit_type):
-    print(term.home)
-    with term.location(x=xcoords, y=ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         if hit_type == 'hit':
             print(term.red + ("X"))
         else:
@@ -95,15 +91,13 @@ def update_board(xcoords, ycoords, hit_type):
 
 
 def opponent_move_text(xcoords, ycoords, target):
-    print(term.home)
-    with term.location(x=xcoords, y=ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(term.black_on_orange +
               term.center(f"The Computer has selected target {target}....")+term.normal)
 
 
 def print_checking_move(xcoords, ycoords, target):
-    print(term.home)
-    with term.location(x=xcoords, y=ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(term.white_on_purple +
               term.center(f"Checking target {target}....")+term.normal)
 
@@ -131,7 +125,7 @@ def instruct():
     clear()
 
 
-def victory():
+def victory_message():
     print(term.clear+term.move(TERM_STATUS_LINE, 0) +
           term.center('You have defeated the computer!'))
 
@@ -144,9 +138,9 @@ def printships(board, player):
         start_pos = grid_pos[ship_pos[ship]['start']]
         if ship_pos[ship]['direction'] == 't2b':
             for length in range(ship_pos[ship]['size']*2-1):
-                print(term.home+term.deepskyblue4 +
+                print(term.deepskyblue4 +
                       term.move(start_pos[1]+length, start_pos[0]) + "█")
         elif ship_pos[ship]['direction'] == 'l2r':
             for length in range(ship_pos[ship]['size']*4-2):
-                print(term.home+term.deepskyblue4 +
+                print(term.deepskyblue4 +
                       term.move(start_pos[1], start_pos[0]+length) + "█")

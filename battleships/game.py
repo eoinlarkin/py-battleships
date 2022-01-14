@@ -55,8 +55,6 @@ def rungame(board):
         user_input_request(board)
         
         wait()
-        termprint.clear_input_line(x=0,y=termprint.TERM_INPUT_LINE)
-
         termprint.print_checking_move(xcoords=0,
                                       ycoords=termprint.TERM_INPUT_LINE,
                                       target=board.active_target['p1'])
