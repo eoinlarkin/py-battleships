@@ -95,6 +95,7 @@ class board():
             self.ship_size['p1'].values()))
         self.victory['p1'] = victoryp1
         self.victory['p2'] = victoryp2
+        return victoryp1 or victoryp2
 
 
 def target_computer(gameboard):
@@ -147,6 +148,7 @@ def check_target_hit(active_player, gameboard):
     if target in gameboard.coords_ships[opponent].keys():
         gameboard.active_target_status[player] = 'hit'
         ship_name = gameboard.coords_ships[opponent][gameboard.active_target[player]]
+        gameboard.active_target_shipname[player] = ship_name
         gameboard.ship_hits[opponent][ship_name] += 1
         update_ship_integ(gameboard)
     else:
@@ -163,20 +165,4 @@ def update_ship_integ(gb):
             damage = int(
                 100 * (gb.ship_hits[player][ship] / gb.ship_size[player][ship]))
             gb.ship_integ[player][ship] = max(100 - damage, 0)
-
-
-def check_victory(gameboard):
-    """
-    Function to check if player is victorious. Returns True or False.
-    Sum up the total number of successful hits from the ship hit register
-    and checks this against the total ship footprint
-    """
-    victoryp1 = (sum(gameboard.ship_hits['p2'].values()) == sum(
-        gameboard.ship_size['p2'].values()))
-    victoryp2 = (sum(gameboard.ship_hits['p1'].values()) == sum(
-        gameboard.ship_size['p1'].values()))
-    gameboard.victory['p1'] = victoryp1
-    gameboard.victory['p2'] = victoryp2
-    return victoryp1 or victoryp2
-
 
