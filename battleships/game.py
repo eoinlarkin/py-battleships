@@ -65,7 +65,8 @@ def rungame(board):
     termprint.ship_status(board)
 
     while True:
-        termprint.clear_status_line(x=0, y=termprint.TERM_STATUS_LINE)
+        termprint.clear_status_line(xcoords=0, 
+                                    ycoords=termprint.TERM_STATUS_LINE)
         board.active_player['p1'],board.active_player['p2']  = True, False
         user_input_request(board)
 

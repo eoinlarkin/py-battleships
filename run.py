@@ -1,5 +1,8 @@
 #! /usr/bin/env python3
-
+"""
+Module to run the battleships game
+The Board class is initialised and the rungame() function is call from the game module
+"""
 from battleships import battleships
 from battleships import game
 

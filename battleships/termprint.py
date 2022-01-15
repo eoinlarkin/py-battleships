@@ -1,4 +1,12 @@
-# pylint: disable=E0611
+# pylint: disable=missing-function-docstring
+# pylint: disable=no-name-in-module
+# pylint: disable=unexpected-keyword-arg
+# pylint: disable=invalid-name
+# pylint: disable=consider-using-dict-items
+"""
+Module to define functions for printing and updating the terminal
+Module leverages the blessed library for printing functions
+"""
 from blessed import Terminal
 from battleships import layout
 term = Terminal()
@@ -12,10 +20,9 @@ SHIP_INTEG_LOC = {
 }
 
 
-def printTerminal(text, xcoords, ycoords, color):
-    with term.location(x=xcoords, y=ycoords):
-        print(color + text)
-
+# def print_terminal(text, xcoords, ycoords, color):
+#     with term.location(x=xcoords, y=ycoords):
+#         print(color + text)
 
 def xy(text, xcoords, ycoords, color):
     with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
@@ -36,9 +43,8 @@ def print_target_request():
     print(term.move(TERM_INPUT_LINE, 0)+term.normal)
     target = input(term.white_on_blue + term.center('Select your next target:') +
                    term.move(TERM_INPUT_LINE+1, 58)+term.normal)
-    term.hidden_cursor()
-    term.move(TERM_INPUT_LINE+1, 58)
-    return target
+    with term.hidden_cursor(), term.cbreak():
+            return target
     
 
 
@@ -46,13 +52,13 @@ def clear():
     print(term.home + term.clear)
 
 
-def clear_status_line(x, y):
-    with term.location(x=x, y=y):
+def clear_status_line(xcoords, ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(term.clear_eol)
 
 
-def clear_input_line(x, y):
-    with term.location(x=x, y=y), term.hidden_cursor():
+def clear_input_line(xcoords, ycoords):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(term.clear_eol)
 
 
@@ -65,7 +71,8 @@ def target_invalid(xcoords, ycoords):
 def target_previously_selected(xcoords, ycoords):
     with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(term.black_on_yellow + term.center(
-            'This target has already been selected; please select an alternative target.')+term.normal)
+            'This target has already been selected; please select an alternative target.') +
+            term.normal)
 
 
 def confirm_hit(xcoords, ycoords, hit_type):
@@ -76,8 +83,8 @@ def confirm_hit(xcoords, ycoords, hit_type):
             print(term.white_on_red + term.center("It's a miss!")+term.normal)
 
 
-def ship_sunk(x, y, ship):
-    with term.location(x=x, y=y), term.hidden_cursor():
+def ship_sunk(xcoords, ycoords, ship):
+    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
         print(term.black_on_green +
               term.center(f"Ship {ship} is sunk...!")+term.normal)
 
