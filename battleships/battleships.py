@@ -97,6 +97,17 @@ class board():
         self.victory['p2'] = victoryp2
         return victoryp1 or victoryp2
 
+    def update_ship_integ(self):
+        """
+        Update the ship integrity status
+        Function directly updates the ship_integ for the board class
+        """
+        for player in self.ship_integ:
+            for ship in self.ship_integ[player]:
+                damage = int(
+                    100 * (self.ship_hits[player][ship] / self.ship_size[player][ship]))
+                self.ship_integ[player][ship] = max(100 - damage, 0)
+
 
 def target_computer(gameboard):
     """
@@ -155,14 +166,5 @@ def check_target_hit(active_player, gameboard):
         gameboard.active_target_status[player] = 'miss'
 
 
-def update_ship_integ(gb):
-    """
-    Update the ship integrity status
-    Function directly updates the ship_integ for the board class
-    """
-    for player in gb.ship_integ:
-        for ship in gb.ship_integ[player]:
-            damage = int(
-                100 * (gb.ship_hits[player][ship] / gb.ship_size[player][ship]))
-            gb.ship_integ[player][ship] = max(100 - damage, 0)
+
 
