@@ -11,16 +11,14 @@ from blessed import Terminal
 from battleships import layout
 term = Terminal()
 
-TERM_INPUT_LINE = 41
-TERM_STATUS_LINE = 42
-
 SHIP_INTEG_LOC = {
     'p1': {'S1': [73, 6], 'S2': [73, 7], 'S3': [73, 8]},
     'p2': {'S1': [31, 35], 'S2': [31, 36], 'S3': [31, 37]}
 }
 
+
 def xy(text, xcoords, ycoords, color):
-    with term.location(x=xcoords, y=ycoords), term.hidden_cursor():
+    with term.location(x=xcoords, y=ycoords):
         print(color + text)
 
 
@@ -33,56 +31,47 @@ def ship_status(board):
             with term.location(x=xcoords, y=ycoords):
                 print(term.gold + str(value) + '% ')
 
-def print_target_request():
-    print(term.move(TERM_INPUT_LINE, 0)+
-                    term.white_on_blue + 
-                    term.center('Select your next target:') +
-                    term.normal)
-    print(term.move(TERM_INPUT_LINE, 58)+term.normal)
-    with term.hidden_cursor(), term.cbreak():
+
+def print_target_request(ycoord):
+    print(term.move(ycoord, 0) +
+          term.white_on_blue +
+          term.center('Select your next target:') +
+          term.normal)
+    print(term.move(ycoord, 58)+term.normal)
+    with term.cbreak():
         target, inp, i = '', term.inkey(), 1
-        print(term.move(TERM_INPUT_LINE, 58+i)+inp)
+        print(term.move(ycoord, 58+i)+inp)
         while inp.name != 'KEY_ENTER' and i <= 2:
             target += inp
             inp = term.inkey()
             i += 1
             if i <= 2:
-                print(term.move(TERM_INPUT_LINE, 58+i)+inp)
-    return target
-    
-
-
-
+                print(term.move(ycoord, 58+i)+inp)
+        print(term.move(ycoord-1,0))
+        return target
 
 
 def clear():
     print(term.home + term.clear)
 
-
-def clear_status_line(xcoords, ycoords):
-    with term.hidden_cursor(),term.location(x=xcoords, y=ycoords), term.cbreak():
+def clear_line(ycoords):
+    with term.location(x=0, y=ycoords), term.cbreak():
         print(term.clear_eol)
-
-
-def clear_input_line(xcoords, ycoords):
-    with term.hidden_cursor(),term.location(x=xcoords, y=ycoords), term.cbreak():
-        print(term.clear_eol)
-
 
 def target_invalid(xcoords, ycoords):
-    with term.hidden_cursor(), term.location(x=xcoords, y=ycoords), term.cbreak():
+    with term.location(x=xcoords, y=ycoords):
         print(term.black_on_yellow +
               term.center('Invalid coordinate selected; please try again...!'))
 
 
 def target_previously_selected(xcoords, ycoords):
-    with term.location(x=xcoords, y=ycoords), term.hidden_cursor(), term.cbreak():
+    with term.location(x=xcoords, y=ycoords):
         print(term.black_on_yellow + term.center(
             'This target has already been selected; please select an alternative target.'))
 
 
 def confirm_hit(xcoords, ycoords, hit_type):
-    with term.hidden_cursor(), term.location(x=xcoords, y=ycoords), term.cbreak():
+    with term.location(x=xcoords, y=ycoords):
         if hit_type == 'hit':
             print(term.yellow_on_black + term.center("It's a hit!"))
         else:
@@ -90,13 +79,13 @@ def confirm_hit(xcoords, ycoords, hit_type):
 
 
 def ship_sunk(xcoords, ycoords, ship):
-    with term.hidden_cursor(), term.location(x=xcoords, y=ycoords), term.cbreak():
+    with term.location(x=xcoords, y=ycoords):
         print(term.black_on_green +
               term.center(f"Ship {ship} is sunk...!"))
 
 
 def update_board(xcoords, ycoords, hit_type):
-    with term.location(x=xcoords, y=ycoords), term.hidden_cursor(), term.cbreak():
+    with term.location(x=xcoords, y=ycoords):
         if hit_type == 'hit':
             print(term.red + ("X"))
         else:
@@ -104,15 +93,15 @@ def update_board(xcoords, ycoords, hit_type):
 
 
 def opponent_move_text(xcoords, ycoords, target):
-    with term.location(x=xcoords, y=ycoords), term.hidden_cursor(), term.cbreak():
+    with term.location(x=xcoords, y=ycoords):
         print(term.black_on_orange +
-              term.center(f"The Computer has selected target {target}....")+term.normal)
+              term.center(f"The Computer has selected target {target}...."))
 
 
 def print_checking_move(xcoords, ycoords, target):
-    with term.location(x=xcoords, y=ycoords), term.hidden_cursor(), term.cbreak():
+    with term.location(x=xcoords, y=ycoords):
         print(term.white_on_purple +
-              term.center(f"Checking target {target}....")+term.normal)
+              term.center(f"Checking target {target}...."))
 
 
 def boards():
@@ -139,7 +128,7 @@ def instruct():
 
 
 def victory_message():
-    print(term.clear+term.move(TERM_STATUS_LINE, 0) +
+    print(term.clear+
           term.center('You have defeated the computer!'))
 
 

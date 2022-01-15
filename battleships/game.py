@@ -7,6 +7,8 @@ termprint module is used to print the output to the screen
 from time import sleep
 from battleships import termprint
 
+TERM_INPUT_LINE = 41
+TERM_STATUS_LINE = 42
 
 def wait():
     """
@@ -21,14 +23,14 @@ def user_input_request(gameboard):
     If a valid target is entered, the 'active_target' object is updated
     Otherwise the user is asked for a valid target
     """
-    gameboard.active_target['p1'] = termprint.print_target_request()
+    gameboard.active_target['p1'] = termprint.print_target_request(TERM_INPUT_LINE)
     gameboard.validate_target()
     while gameboard.active_target_invalid['p1'] or gameboard.active_target_previous['p1']:
         if gameboard.active_target_invalid['p1']:
-            termprint.target_invalid(0, termprint.TERM_STATUS_LINE)
+            termprint.target_invalid(0, TERM_STATUS_LINE)
         if gameboard.active_target_previous['p1']:
-            termprint.target_previously_selected(0, termprint.TERM_STATUS_LINE)
-        gameboard.active_target['p1'] = termprint.print_target_request()
+            termprint.target_previously_selected(0, TERM_STATUS_LINE)
+        gameboard.active_target['p1'] = termprint.print_target_request(TERM_INPUT_LINE)
         gameboard.validate_target()
 
 
@@ -46,7 +48,7 @@ def confirm_ship_sunk(gameboard, active_player):
         ship = gameboard.active_target_shipname[player]
         if gameboard.ship_sunk[opponent][ship]:
             wait()
-            termprint.ship_sunk(x=0, y=termprint.TERM_STATUS_LINE, ship=ship)
+            termprint.ship_sunk(x=0, y=TERM_STATUS_LINE, ship=ship)
 
 
 def rungame(board):
@@ -65,55 +67,55 @@ def rungame(board):
     termprint.ship_status(board)
 
     while True:
-        termprint.clear_status_line(xcoords=0, 
-                                    ycoords=termprint.TERM_STATUS_LINE)
-        board.active_player['p1'],board.active_player['p2']  = True, False
-        user_input_request(board)
+        with termprint.term.hidden_cursor(): # hiding the cursor
+            board.active_player['p1'],board.active_player['p2']  = True, False
+            user_input_request(board)
 
-        wait()
-        termprint.print_checking_move(xcoords=0,
-                                      ycoords=termprint.TERM_INPUT_LINE,
-                                      target=board.active_target['p1'])
+            wait()
+            termprint.clear_line(TERM_STATUS_LINE)
+            termprint.print_checking_move(xcoords=0,
+                                        ycoords=TERM_INPUT_LINE,
+                                        target=board.active_target['p1'])
 
-        wait()
-        board.check_target_hit('p1')
-        termprint.confirm_hit(xcoords=0,
-                              ycoords=termprint.TERM_INPUT_LINE,
-                              hit_type=board.active_target_status['p1'])
-        termprint.update_board(xcoords=board.active_target_loc['p1'][0],
-                               ycoords=board.active_target_loc['p1'][1],
-                               hit_type=board.active_target_status['p1'])
+            wait()
+            board.check_target_hit('p1')
+            termprint.confirm_hit(xcoords=0,
+                                ycoords=TERM_INPUT_LINE,
+                                hit_type=board.active_target_status['p1'])
+            termprint.update_board(xcoords=board.active_target_loc['p1'][0],
+                                ycoords=board.active_target_loc['p1'][1],
+                                hit_type=board.active_target_status['p1'])
 
-        board.update_ship_sunk_status()
-        confirm_ship_sunk(board, 'p1')
+            board.update_ship_sunk_status()
+            confirm_ship_sunk(board, 'p1')
 
-        wait()
-        termprint.ship_status(board)
-        if board.check_victory():
-            break
+            wait()
+            termprint.ship_status(board)
+            if board.check_victory():
+                break
 
-        wait()
-        board.active_player['p1'],board.active_player['p2']  = False, True
-        board.generate_target('p2')
-        termprint.opponent_move_text(xcoords=0,
-                                     ycoords=termprint.TERM_INPUT_LINE,
-                                     target=board.active_target['p2'])
+            wait()
+            board.active_player['p1'],board.active_player['p2']  = False, True
+            board.generate_target('p2')
+            termprint.opponent_move_text(xcoords=0,
+                                        ycoords=TERM_INPUT_LINE,
+                                        target=board.active_target['p2'])
 
-        wait()
-        board.check_target_hit(board)
-        termprint.confirm_hit(xcoords=0,
-                              ycoords=termprint.TERM_INPUT_LINE,
-                              hit_type=board.active_target_status['p2'])
-        termprint.update_board(xcoords=board.active_target_loc['p2'][0],
-                               ycoords=board.active_target_loc['p2'][1],
-                               hit_type=board.active_target_status['p2'])
+            wait()
+            board.check_target_hit(board)
+            termprint.confirm_hit(xcoords=0,
+                                ycoords=TERM_INPUT_LINE,
+                                hit_type=board.active_target_status['p2'])
+            termprint.update_board(xcoords=board.active_target_loc['p2'][0],
+                                ycoords=board.active_target_loc['p2'][1],
+                                hit_type=board.active_target_status['p2'])
 
-        board.update_ship_sunk_status()
-        confirm_ship_sunk(board, 'p2')
+            board.update_ship_sunk_status()
+            confirm_ship_sunk(board, 'p2')
 
-        wait()
-        termprint.ship_status(board)
-        if board.check_victory():
-            break
+            wait()
+            termprint.ship_status(board)
+            if board.check_victory():
+                break
 
     termprint.victory_message()
