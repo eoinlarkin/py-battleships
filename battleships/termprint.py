@@ -39,13 +39,34 @@ def ship_status(board):
                 print(term.gold + str(value) + '% ')
 
 
-def print_target_request():
-    print(term.move(TERM_INPUT_LINE, 0)+term.normal)
-    target = input(term.white_on_blue + term.center('Select your next target:') +
-                   term.move(TERM_INPUT_LINE+1, 58)+term.normal)
-    with term.hidden_cursor(), term.cbreak():
-            return target
+# def print_target_request():
+#     print(term.move(TERM_INPUT_LINE, 0)+term.normal)
+#     target = input(term.white_on_blue + term.center('Select your next target:') +
+#                    term.move(TERM_INPUT_LINE+1, 58)+term.normal)
+#     with term.hidden_cursor(), term.cbreak():
+#             return target
     
+
+def print_target_request():
+    print(term.move(TERM_INPUT_LINE, 0)+
+                    term.white_on_blue + 
+                    term.center('Select your next target:') +
+                    term.normal)
+    print(term.move(TERM_INPUT_LINE, 58)+term.normal)
+    with term.hidden_cursor(), term.cbreak():
+        target, inp, i = '', term.inkey(), 1
+        print(term.move(TERM_INPUT_LINE, 58+i)+inp)
+        while inp.name != 'KEY_ENTER' and i <= 2:
+            target += inp
+            inp = term.inkey()
+            i += 1
+            if i <= 2:
+                print(term.move(TERM_INPUT_LINE, 58+i)+inp)
+    return target
+    
+
+
+
 
 
 def clear():
