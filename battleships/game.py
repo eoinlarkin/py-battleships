@@ -37,12 +37,10 @@ def rungame(board):
     """
     Function to run Battleship game with output printed to the terminal
     """
-    board.coords_ships['p1'] = battleships.place_ships(board.ship_data['p1'])
-    board.coords_board['p1'] = battleships.gen_board(8)
-    board.loc['p1'] = board.gen_loc(size=8, start_x=21, start_y=4, ygap=2, xgap=4)
-    board.coords_ships['p2'] = battleships.place_ships(board.ship_data['p2'])
-    board.coords_board['p2'] = battleships.gen_board(8)
-    board.loc['p2'] = board.gen_loc(size=8, start_x=49, start_y=24, ygap=2, xgap=4)
+    board.gen_board(8)
+    board.place_ships()
+    board.gen_loc('p1',size=8, start_x=21, start_y=4, ygap=2, xgap=4)
+    board.gen_loc('p2',size=8, start_x=49, start_y=24, ygap=2, xgap=4)
 
     termprint.intro()
     termprint.instruct()
