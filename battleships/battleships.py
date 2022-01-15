@@ -9,6 +9,14 @@ class board():
     """
 
     def __init__(self):
+        self.type = {'p1': "player", 'p2': "computer"}
+        
+        # Coordinate objects
+        self.coords_board = {'p1': [], 'p2': []}
+        self.coords_targets = {'p1': {}, 'p2': {}}
+        self.coords_ships = {'p1': {}, 'p2': {}}
+
+        # Objects detailing ship sizes, hits and status
         self.ship_size = {
             'p1': {'S1': 2, 'S2': 3, 'S3': 4},
             'p2': {'S1': 2, 'S2': 3, 'S3': 4}
@@ -24,16 +32,20 @@ class board():
             'p2': {'S1': 100, 'S2': 100, 'S3': 100}
         }
 
-        self.coords_targets = {'p1': {}, 'p2': {}}
-        self.type = {'p1': "player", 'p2': "computer"}
-        self.coords_ships = {'p1': {}, 'p2': {}}
-        self.coords_board = {'p1': [], 'p2': []}
+        self.ship_status = {
+            'p1': {'S1': 'active', 'S2': 'active', 'S3': 'active'},
+            'p2': {'S1': 'active', 'S2': 'active', 'S3': 'active'}
+        }
+
+        # Objects recording status of the active target
         self.active_target = {'p1': (), 'p2': ()}
         self.active_target_invalid = {'p1': False, 'p2': False}
         self.active_target_previous = {'p1': False, 'p2': False}
         self.active_target_status = {'p1': [], 'p2': []}
+        self.active_target_shipname = {'p1': '', 'p2': ''}
         self.active_target_loc = {'p1': [], 'p2': []}
-        self.victory = {'p1': False, 'p2': False}
+        
+        # Objects recording ship locaation
         self.loc = {'p1':{},'p2':{}}
         self.loc_ships = {'p1': {'S1': {'direction': "t2b", 'size': 2, 'start': 'A1'},
                                  'S2': {'direction': "t2b", 'size': 3, 'start': 'A2'},
@@ -42,6 +54,9 @@ class board():
                                  'S2': {'direction': "t2b", 'size': 3, 'start': 'A2'},
                                  'S3': {'direction': "t2b", 'size': 4, 'start': 'A3'}}
                           }
+        # obejct to record whether plany is victorious
+        self.victory = {'p1': False, 'p2': False}
+
 
     def gen_loc(self,player,size, start_x, start_y, ygap, xgap):
         for y in range(size):
@@ -67,6 +82,19 @@ class board():
             for i in range(gridsize):
                 for j in range(gridsize):
                     self.coords_board[player].append(chr(i+65)+str(j+1))
+
+    def check_victory(self):
+        """
+        Function to check if player is victorious. Returns True or False.
+        Sum up the total number of successful hits from the ship hit register
+        and checks this against the total ship footprint
+        """
+        victoryp1 = (sum(self.ship_hits['p2'].values()) == sum(
+            self.ship_size['p2'].values()))
+        victoryp2 = (sum(self.ship_hits['p1'].values()) == sum(
+            self.ship_size['p1'].values()))
+        self.victory['p1'] = victoryp1
+        self.victory['p2'] = victoryp2
 
 
 def target_computer(gameboard):

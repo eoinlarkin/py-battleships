@@ -71,7 +71,7 @@ def rungame(board):
 
         wait()
         termprint.ship_status(board)
-        if battleships.check_victory(board):
+        if board.check_victory():
             break
 
         wait()
@@ -93,7 +93,7 @@ def rungame(board):
 
         wait()
         termprint.ship_status(board)
-        if battleships.check_victory(board):
+        if board.check_victory():
             break
 
     termprint.victory_message()
