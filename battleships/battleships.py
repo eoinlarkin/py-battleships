@@ -14,7 +14,7 @@ class Board():
     """
 
     def __init__(self):
-        self.type = {'p1': "player", 'p2': "computer"}
+        self.active_player = {'p1': False, 'p2': False}
 
         # Coordinate objects
         self.coords_board = {'p1': [], 'p2': []}
@@ -137,7 +137,7 @@ class Board():
         # adding the value to the dictionary of shots
         self.coords_targets[player][target] = 'X'
 
-    def update_ship_sunk(self):
+    def update_ship_sunk_status(self):
         """
         Checks the active target and updates the ship status if it
         has been sunk

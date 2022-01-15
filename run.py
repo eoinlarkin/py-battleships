@@ -4,5 +4,5 @@ from battleships import battleships
 from battleships import game
 
 if __name__ == '__main__':
-    board = battleships.board()
+    board = battleships.Board()
     game.rungame(board)
