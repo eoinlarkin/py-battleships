@@ -27,14 +27,14 @@ class board():
         self.coords_targets = {'p1': {}, 'p2': {}}
         self.type = {'p1': "player", 'p2': "computer"}
         self.coords_ships = {'p1': {}, 'p2': {}}
-        self.coords_board = {'p1': {}, 'p2': {}}
+        self.coords_board = {'p1': [], 'p2': []}
         self.active_target = {'p1': (), 'p2': ()}
         self.active_target_invalid = {'p1': False, 'p2': False}
         self.active_target_previous = {'p1': False, 'p2': False}
         self.active_target_status = {'p1': [], 'p2': []}
         self.active_target_loc = {'p1': [], 'p2': []}
         self.victory = {'p1': False, 'p2': False}
-        self.loc = {}
+        self.loc = {'p1':{},'p2':{}}
         self.loc_ships = {'p1': {'S1': {'direction': "t2b", 'size': 2, 'start': 'A1'},
                                  'S2': {'direction': "t2b", 'size': 3, 'start': 'A2'},
                                  'S3': {'direction': "t2b", 'size': 4, 'start': 'A3'}},
@@ -43,36 +43,30 @@ class board():
                                  'S3': {'direction': "t2b", 'size': 4, 'start': 'A3'}}
                           }
 
-    @staticmethod
-    def gen_loc(size, start_x, start_y, ygap, xgap):
-        out = {}
+    def gen_loc(self,player,size, start_x, start_y, ygap, xgap):
         for y in range(size):
             for x in range(size):
-                out[chr(y+65)+str(x+1)] = [start_x + x*xgap, start_y+y*ygap]
-        return out
+                self.loc[player][chr(y+65)+str(x+1)] = [start_x + x*xgap, start_y+y*ygap]
 
+    def place_ships(self):
+        """
+        Randomly placing the ships on the game board
+        """
+        for player in self.coords_ships:
+            number_ships = len(self.ship_data[player])
+            for i in range(number_ships):
+                length_ships = list(self.ship_data[player].values()) 
+                for j in range(length_ships[i]):
+                    self.coords_ships[player][chr(j+65)+str(i+1)] = "S" + str(i+1)
 
-def gen_board(gridsize):
-    """
-    Generates an empty dictionary of all potential targets
-    """
-    coords = {}
-    for i in range(gridsize):
-        for j in range(gridsize):
-            coords[chr(i+65)+str(j+1)] = ""
-    return coords
-
-
-def place_ships(ship_data):
-    """
-    Randomly placing the ships on the game board
-    """
-    ship_coords = {}
-    ship_lengths = list(ship_data.values())
-    for i in range(len(ship_lengths)):
-        for j in range(ship_lengths[i]):
-            ship_coords[chr(j+65)+str(i+1)] = "S" + str(i+1)
-    return ship_coords
+    def gen_board(self, gridsize):
+        """
+        Generates an empty dictionary of all potential targets
+        """
+        for player in self.coords_board:
+            for i in range(gridsize):
+                for j in range(gridsize):
+                    self.coords_board[player].append(chr(i+65)+str(j+1))
 
 
 def target_computer(gameboard):
@@ -80,12 +74,12 @@ def target_computer(gameboard):
     Randomly generates a target for the computer
     Validation done to make sure target has not already been selected
     """
-    target = random.choice(list(gameboard.coords_board['p1'].keys())) 
-    #target = random.choice(list(gameboard.coords_ships['p1'].keys())) # for testing
+    target = random.choice(list(gameboard.coords_board['p1'].keys()))
+    # target = random.choice(list(gameboard.coords_ships['p1'].keys())) # for testing
     while (target in gameboard.coords_targets['p2']):
         # selecting a new target if already chosen
         target = random.choice(list(gameboard.coords_board['p1'].keys()))
-        #target = random.choice(list(gameboard.coords_ships['p1'].keys())) # for testing
+        # target = random.choice(list(gameboard.coords_ships['p1'].keys())) # for testing
     # adding the value to the dictionary of shots
     gameboard.active_target['p2'] = target
     # adding the value to the dictionary of shots
@@ -138,7 +132,8 @@ def update_ship_integ(gb):
     """
     for player in gb.ship_integ:
         for ship in gb.ship_integ[player]:
-            damage = int(100 * (gb.ship_hits[player][ship] / gb.ship_data[player][ship]))
+            damage = int(
+                100 * (gb.ship_hits[player][ship] / gb.ship_data[player][ship]))
             gb.ship_integ[player][ship] = max(100 - damage, 0)
 
 
@@ -155,3 +150,13 @@ def check_victory(gameboard):
     gameboard.victory['p1'] = victoryp1
     gameboard.victory['p2'] = victoryp2
     return victoryp1 or victoryp2
+
+
+gb = board()
+gb.gen_board(8)
+gb.place_ships()
+#print(gb.coords_board)
+print(gb.coords_ships)
+print('\n\n')
+gb.gen_loc('p1',size=8, start_x=21, start_y=4, ygap=2, xgap=4)
+print(gb.loc)
