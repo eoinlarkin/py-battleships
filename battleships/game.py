@@ -29,7 +29,7 @@ def confirm_ship_sunk(gameboard, active_player):
 
     if gameboard.active_target_status[player] == 'hit':
         ship = gameboard.coords_ships[opponent][gameboard.active_target[player]]
-        if gameboard.ship_hits[opponent][ship] == gameboard.ship_data[opponent][ship]:
+        if gameboard.ship_hits[opponent][ship] == gameboard.ship_size[opponent][ship]:
             wait()
             termprint.ship_sunk(x=0,y=termprint.TERM_STATUS_LINE,ship=ship)
 

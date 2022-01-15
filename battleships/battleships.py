@@ -9,7 +9,7 @@ class board():
     """
 
     def __init__(self):
-        self.ship_data = {
+        self.ship_size = {
             'p1': {'S1': 2, 'S2': 3, 'S3': 4},
             'p2': {'S1': 2, 'S2': 3, 'S3': 4}
         }
@@ -53,9 +53,9 @@ class board():
         Randomly placing the ships on the game board
         """
         for player in self.coords_ships:
-            number_ships = len(self.ship_data[player])
+            number_ships = len(self.ship_size[player])
             for i in range(number_ships):
-                length_ships = list(self.ship_data[player].values()) 
+                length_ships = list(self.ship_size[player].values()) 
                 for j in range(length_ships[i]):
                     self.coords_ships[player][chr(j+65)+str(i+1)] = "S" + str(i+1)
 
@@ -133,7 +133,7 @@ def update_ship_integ(gb):
     for player in gb.ship_integ:
         for ship in gb.ship_integ[player]:
             damage = int(
-                100 * (gb.ship_hits[player][ship] / gb.ship_data[player][ship]))
+                100 * (gb.ship_hits[player][ship] / gb.ship_size[player][ship]))
             gb.ship_integ[player][ship] = max(100 - damage, 0)
 
 
@@ -144,9 +144,9 @@ def check_victory(gameboard):
     and checks this against the total ship footprint
     """
     victoryp1 = (sum(gameboard.ship_hits['p2'].values()) == sum(
-        gameboard.ship_data['p2'].values()))
+        gameboard.ship_size['p2'].values()))
     victoryp2 = (sum(gameboard.ship_hits['p1'].values()) == sum(
-        gameboard.ship_data['p1'].values()))
+        gameboard.ship_size['p1'].values()))
     gameboard.victory['p1'] = victoryp1
     gameboard.victory['p2'] = victoryp2
     return victoryp1 or victoryp2
