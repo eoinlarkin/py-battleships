@@ -127,4 +127,7 @@ def rungame(board):
             if board.check_victory():
                 break
 
-    termprint.victory_message()
+    if board.victory['p1']:
+        termprint.victory_message()
+    else:
+        termprint.defeat_message()

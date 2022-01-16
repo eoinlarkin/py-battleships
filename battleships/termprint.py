@@ -136,8 +136,16 @@ def instruct():
 
 
 def victory_message():
-    print(term.clear +
-          term.center('You have defeated the computer!'))
+    clear()
+    for line in layout.victory_text.split('\n'):
+        print(term.green + term.center(line))
+    xy(term.center('press the RESTART GAME button to play again'), 0, 40, term.black_on_green)
+
+def defeat_message():
+    clear()
+    for line in layout.defeat_text.split('\n'):
+        print(term.orangered + term.center(line))
+    xy(term.center('press the RESTART GAME button to play again'), 0, 40, term.black_on_green)
 
 
 def printships(board, player):
