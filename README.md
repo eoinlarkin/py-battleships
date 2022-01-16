@@ -54,6 +54,7 @@ The key features of the application are outlined below:
         <img src="./docs/images/game-demo.gif" alt="dynamic-terminal-output"/>
         </details>
 
+
 - Data Validation
     - Given the game is terminal based it was important to have robust validation of the user input. This prevents game breaking errors as well as ensuring the user has clear feedback on their input
     - In order to support the validation of the user input, two `attributes` were defined in the `Board()` class:
@@ -62,31 +63,32 @@ The key features of the application are outlined below:
         - _`active_target_previous`_  
             Used to record whether the target selected by the user has already been selected
 
+
 - User Friendly Interface
     - Care was taken the ensure that the user interface of the game provides unambiguous information to the user in order to deliver a more immersive experience
-    - Instructions are provided at the start of the game:
-        - <details>
-            <summary><strong style="color:skyblue">Game Instructions:</strong></summary>
-            <img src="./docs/images/screenshots-instructions.png" alt="screenshot-instructions"/>
-            </details>
-    - Input validation messages are displayed for invalid moves:
-    - <details>
-        <summary><strong style="color:skyblue">Input Validation:</strong></summary>
-        <img src="./docs/images/screenshots-input-validation.png" alt="screenshot input validations"/>
+    - Instructions are provided at the start of the game:  
+        <details>
+        <summary><strong style="color:skyblue">Game Instructions:</strong></summary>
+        <img src="./docs/images/screenshot-instructions.png" alt="screenshot-instructions"/>
         </details>
-    - During the game, the status dashboard provides details of the current status of each ship:
-        - <details>
+    - Input validation messages are displayed for invalid moves:  
+        <details>
+        <summary><strong style="color:skyblue">Input Validation:</strong></summary>
+        <img src="./docs/images/screenshot-input-validation.png" alt="screenshot input validations"/>
+        </details>
+    - During the game, the status dashboard provides details of the current status of each ship:  
+            <details>
             <summary><strong style="color:skyblue">Status Dashbaord:</strong></summary>
-            <img src="./docs/images/screenshots-ship-status.png" alt="screenshot-ship-status"/>
+            <img src="./docs/images/screenshot-ship-status.png" alt="screenshot-ship-status"/>
             </details>
     - Depending on whether the user is victorious or defeated, different game over status messages are displayed at the end of the game:
-           - <details>
+            <details>
             <summary><strong style="color:skyblue">Victory / Defeat Messages:</strong></summary>
             <img src="./docs/images/screenshot-defeat-message.png" alt="screenshot-defeat"/>
             <img src="./docs/images/screenshot-victory-message.png" alt="screenshot-victory"/>
-            </details>
+            </details>  
 
-
+  
 - Robust Data Model
     - The game used Object Orienttated Programming to ensure there is a robust data model that is flexible enough to extend to future projects. Further detail is provided in the _Data Model_ section
 
@@ -153,7 +155,7 @@ The repoitory can be deployed as follows:
 - Create a new Heroku application
 - For deployment, the `Python` and `NodeJS` buildpacks are required
 - The foowing `Config Vars` are required:
-    - PORT=8000
+    - `PORT=8000`
 - Link the Heroku application to the repository
 - Click *Deploy*
 
@@ -163,6 +165,7 @@ ___
 ___
 
 ## Development
+In developing this application, the following programming languages, tools and libraries were used:
 
 ### Languages
 - Python
@@ -171,7 +174,7 @@ ___
 - JavaScript
 - jQuery
 
-### Tools / Technologies
+### Tools
 
 - **[VScode](https://code.visualstudio.com/)**  
 All coding was completed in VS Code.
@@ -200,6 +203,7 @@ Used to provide the custom fonts for the site
 
 ## Credits & Attributions
 
+### Attributions:
 - **[blessed Python library](https://github.com/jquast/blessed)**
 Example applications and reference documentation for the `blessed` library was used to help implement the library features 
 - **[How to draw a continuous line in terminal?](https://unix.stackexchange.com/questions/559708/how-to-draw-a-continuous-line-in-terminal)**
@@ -211,3 +215,7 @@ The `xterm.js` documentation was referenced to understand how to modify the Term
 - **[CSS Vertical Stripes](https://css-tricks.com/stripes-css/)**
 The followign tutorial was used to help implement the vertical stripes for the Terminal background
 
+## Other
+- The CodeInstitue Modules on Python and in particular cloud deployment to Heroku
+- My friends for supporting the testing of the game
+- [Jeff Quast](https://github.com/jquast) for developing the `blessed` package which made developing this application much easier !
