@@ -116,7 +116,7 @@ def intro():
     clear()
     for line in layout.logo.split('\n'):
         print(term.orangered + term.center(line))
-    xy(term.center('press and key to continue'), 0, 40, term.black_on_green)
+    xy(term.center('press any key to continue'), 0, 40, term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
         term.inkey()
     clear()
@@ -129,7 +129,7 @@ def instruct():
     for line in layout.instruct_text.split('\n'):
         print(term.orangered + term.center(line))
     xy(term.center(layout.goodluck_text), 0, 39, term.black_on_green)
-    xy(term.center('press and key to continue'), 0, 40, term.black_on_green)
+    xy(term.center('press any key to continue'), 0, 40, term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
         term.inkey()
     clear()
@@ -140,6 +140,7 @@ def victory_message():
     for line in layout.victory_text.split('\n'):
         print(term.green + term.center(line))
     xy(term.center('press the RESTART GAME button to play again'), 0, 40, term.black_on_green)
+
 
 def defeat_message():
     clear()
