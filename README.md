@@ -1,17 +1,32 @@
 # py-battleships
 ![game-gif](/docs/images/game-demo.gif)
 
+- [py-battleships](#py-battleships)
+  * [Overview](#overview)
+  * [Objective](#objective)
+  * [Features](#features)
+    + [Future Features](#future-features)
+  * [Data Model](#data-model)
+  * [Testing](#testing)
+    + [Unfixed Bugs](#unfixed-bugs)
+    + [Validator Testing](#validator-testing)
+  * [Deployment](#deployment)
+  * [Development](#development)
+    + [Languages](#languages)
+    + [Tools](#tools)
+  * [Credits & Attributions](#credits---attributions)
+    + [Attributions:](#attributions-)
+  * [Other](#other)
+
 ## Overview
 `py-battleships` is an interactive terminal based Battleships game implemented in Python.
 
 The game has a number of features, including:
-- The `blessed` Python library for manipulation and control of the terminal
 - A rich data model with a flexible and modular `Board()` class to store both game parammeters and game state
-- Dashboard that provides an overview of the state of play of the current game
-- A UX which provides a clear overview of the state of play of the current game and delivers rich user interaction
+- Usage of the `blessed` Python library for manipulation and control of the terminal
+- A UX which provides an overview of the current game state and provides clear user feedback to the user on the outcome of each move
 
 ___
-
 ## Objective
 
 The objective of the game was to develop a rich and fully featured Python application. In developing the game, I carefully considered the user experience, which led to the following user stories:
@@ -106,12 +121,9 @@ The following schematic provides an overview of the application data model:
 
 ![data-model](./docs/images/screenshot-data-model.png)
 
-
-
-
 Further information on each of the functions is as follows:
 
-**battleships.py**
+**battleships.py**  
 This is the most complex module; the entire module is used to define the `Board()` class. This class contains the relevant attributes and methods to:
 - Define the starting game state
 - Generate the coordinates for the placement of the ships in the game space
@@ -121,13 +133,13 @@ This is the most complex module; the entire module is used to define the `Board(
 
 By sparating the module from the game logic, the overall code complexity is decreased. In addition the portability of the code is improved with potential to use the `Board()` class in different `battleship games.
 
-**termprint.py**
+**termprint.py**  
 The `termprint` module is the one that is used to update and draw output to the terminal in place. Within this moduke a number of different functions are defined for printing different types of output. 
 
-**layout.py**
+**layout.py**  
 This is a simple module containing static strings that are used to create the game board and display game instructions and victory / defeat messages. 
 
-**game.py**
+**game.py**  
 This script contains the game logic and calls the `battlehships.py` `termprint.py` and `layout.py` scripts to run the game.
 The game logic is as follows:
 
