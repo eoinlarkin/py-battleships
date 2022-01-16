@@ -92,10 +92,64 @@ ___
 
 
 ## Data Model
+Within the application, the following python script files are defined:
 
-The following schematic provides an overview of the game Data Model:
+- battlehships.py
+- termprint.py
+- layout.py
+- game.py
+- run.py
+
+By defining the functions in a separate module there is a clear spearation between code used to define the game data model, update the terminal and define the game logic. This increase the modularity of the code and makes it easier to extend in future.
+
+The following schematic provides an overview of the application data model:
 
 ![data-model](./docs/images/screenshot-data-model.png)
+
+
+
+
+Further information on each of the functions is as follows:
+
+**battleships.py**
+This is the most complex module; the entire module is used to define the `Board()` class. This class contains the relevant attributes and methods to:
+- Define the starting game state
+- Generate the coordinates for the placement of the ships in the game space
+- Generate random targets
+- Validate user targets
+- Record the status of the current target and the outcome of the current move
+
+By sparating the module from the game logic, the overall code complexity is decreased. In addition the portability of the code is improved with potential to use the `Board()` class in different `battleship games.
+
+**termprint.py**
+The `termprint` module is the one that is used to update and draw output to the terminal in place. Within this moduke a number of different functions are defined for printing different types of output. 
+
+**layout.py**
+This is a simple module containing static strings that are used to create the game board and display game instructions and victory / defeat messages. 
+
+**game.py**
+This script contains the game logic and calls the `battlehships.py` `termprint.py` and `layout.py` scripts to run the game.
+The game logic is as follows:
+
+- Step 1: Initialise the Board Object
+- Step 2: Draw Terminal Output
+- Step 3: Run Game until victor:
+    - Step 3-1-1: Set P1 as Active Player
+    - Step 3-1-2: Get P1 Move
+    - Step 3-1-3: Check Move and Update Board
+    - Step 3-1-4: Check if ship has sunk
+    - Step 3-1-5: Check if player victorious
+    - Step 3-2-1: Set P2 as Active Player
+    - Step 3-2-2: Get P2 Move
+    - Step 3-2-3: Check Move and Update Board
+    - Step 3-2-4: Check if ship has sunk
+    - Step 3-2-5: Check if player victorious
+- Step 4: Print Victory Message:
+
+The `game.py` file also features two functions; one to check whether a ship has sunk (`confirm_ship_sunk()`) and another to request user input (`user_input_request()`). These are compound functions are require methods from both the `termprint` and `battleships` modules.
+
+**run.py**
+This is a very simple script which simply initialises an instance of the game. Potentially this logic could be integrated with the `game.py` script, however this was separated as the `run.py` is the script that intialises the game for the Heroku deployment.
 ___
 
 ## Testing
@@ -144,7 +198,7 @@ Each of the Python scripts were validated against PEP8 validation, with the foll
 
 For the `layout.py` file, the PEP8 validator indicated that several lines exceeded the recommended length of 80 characters. However, this file is solely used to store the string constants which define the game boards and instruction text that is printed during the game. It was decided not to modify this file to resolve the validator errors. 
 
-No issues were detected. Results from the validation were as follows:
+No further issues were detected. Results from the validation were as follows:
 
 - <details>
   <summary><strong style="color:skyblue">run.py:</strong></summary>
