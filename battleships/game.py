@@ -15,7 +15,7 @@ def wait():
     """
     Shorthand function to trigger sleep
     """
-    sleep(1)  # time in seconds
+    sleep(0.85)  # time in seconds
 
 
 def user_input_request(gameboard):

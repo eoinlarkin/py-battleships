@@ -1,4 +1,6 @@
 # Battleships Game
+![game-gif](/docs/images/game-demo.gif)
+![game-gif](/docs/images/game-demo.gif | width=350)
 
 ## Overview
 
@@ -30,7 +32,11 @@ ___
 
 ### Validator Testing 
 
-Each of the Python scripts were validated against PEP8 validation, with the following validator used [PEP8 Validator](http://pep8online.com/). No issues were detected. Results from the validation were as follows:
+Each of the Python scripts were validated against PEP8 validation, with the following validator used [PEP8 Validator](http://pep8online.com/). 
+
+For the `layout.py` file, the PEP8 validator indicated that several lines exceeded the recommended length of 80 characters. However, this file is solely used to store the string constants which define the game boards and instruction text that is printed during the game. It was decided not to modify this file to resolve the validator errors. 
+
+No issues were detected. Results from the validation were as follows:
 
 - <details>
   <summary><strong style="color:skyblue">run.py:</strong></summary>
@@ -97,7 +103,8 @@ cdnjs was used as the reference for the `jQuery` and `xterm` libraries.
 Potential site palettes were tested with Coolors.  
 - **[gauger.io](https://gauger.io/fonticon/)**  
 This website was used to generate the favicon using an icon from Font Awesome.
-
+- **[Chrome Capture - Screenshots & Gifs](https://chrome.google.com/webstore/detail/chrome-capture-screenshot/ggaabchcecdbomdcnbahdfddfikjmphe)**
+This was used to create the animated gif showing the game functionality.
 - **[https://ecotrust-canada.github.io/](https://ecotrust-canada.github.io/markdown-toc/)**  
 For generating the formatted table of contents in markdown
 - **[Google Fonts](https://fonts.google.com/)**  

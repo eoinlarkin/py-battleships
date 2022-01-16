@@ -68,8 +68,9 @@ def target_invalid(xcoords, ycoords):
 
 def target_previously_selected(xcoords, ycoords):
     with term.location(x=xcoords, y=ycoords):
-        print(term.black_on_yellow + term.center(
-            'This target has already been selected; please select an alternative target.'))
+        print(term.black_on_yellow +
+              term.center("This target has already been selected; please " +
+                          "select an alternative target."))
 
 
 def confirm_hit(xcoords, ycoords, hit_type):
@@ -107,7 +108,7 @@ def print_checking_move(xcoords, ycoords, target):
 
 
 def boards():
-    xy(layout.player_board, 1, 0, term.green)
+    xy(layout.player_board, 1, 0, term.lawngreen)
     xy(layout.computer_board, 1, 20, term.orange)
 
 
@@ -127,7 +128,7 @@ def instruct():
         print(term.green + term.center(line))
     for line in layout.instruct_text.split('\n'):
         print(term.orangered + term.center(line))
-    xy(term.center(layout.goodluck_text), 0, 39, term.black_on_green)        
+    xy(term.center(layout.goodluck_text), 0, 39, term.black_on_green)
     xy(term.center('press and key to continue'), 0, 40, term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
         term.inkey()
