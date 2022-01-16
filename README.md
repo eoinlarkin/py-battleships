@@ -30,7 +30,31 @@ ___
 
 ### Validator Testing 
 
-Each of the Python scripts were validated with the PEP8 validation. No issues were detected. Results from the validation were as follows:
+Each of the Python scripts were validated against PEP8 validation, with the following validator used [PEP8 Validator](http://pep8online.com/). No issues were detected. Results from the validation were as follows:
+
+
+
+
+- <details>
+  <summary><strong style="color:skyblue">run.py:</strong></summary>
+  <img src="./docs/images/pep8-run.png" alt="pep8-run-png"/>
+  </details>
+- <details>
+  <summary><strong style="color:skyblue">battleship.py:</strong></summary>
+  <img src="./docs/images/pep8-battleship.png" alt="pep8-battleship-image"/>
+  </details>
+- <details>
+  <summary><strong style="color:skyblue">game.py:</strong></summary>
+  <img src="./docs/images/pep8-game.png" alt="pep8-game-image"/>
+  </details>
+- <details>
+  <summary><strong style="color:skyblue">layout.py:</strong></summary>
+  <img src="./docs/images/pep8-layout.png" alt="pep8-layout-png"/>
+  </details>
+- <details>
+  <summary><strong style="color:skyblue">termprint.py:</strong></summary>
+  <img src="./docs/images/pep8-termprint.png" alt="pep8-termprint-png"/>
+  </details>
 
 
 ___
