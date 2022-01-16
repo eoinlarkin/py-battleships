@@ -58,7 +58,12 @@ def rungame(board):
     """
     Function to run Battleship game with output printed to the terminal
     """
-    board.gen_board(8)
+
+    # *******************************
+    # Step 1: Draw the Board
+    # *******************************
+
+    board.gen_target_list(8)
     board.place_ships()
     board.gen_loc('p1', size=8, start_x=21, start_y=4, ygap=2, xgap=4)
     board.gen_loc('p2', size=8, start_x=49, start_y=24, ygap=2, xgap=4)

@@ -1,6 +1,5 @@
 # Battleships Game
 ![game-gif](/docs/images/game-demo.gif)
-![game-gif](/docs/images/game-demo.gif | width=350)
 
 ## Overview
 
@@ -21,6 +20,10 @@ ___
 
 ## Features
 
+- A dynamically updated Terminal window, implemented using the `blessed` Python library
+- Error checking and validation of user input
+- A clear interface that is easy to understand and use
+- A robust data model; the Board class is implemented in line with Object Orientated Programming principles and is portable to other implementations of 
 ___
 
 ## Data Model
@@ -94,19 +97,23 @@ ___
 - **[VScode](https://code.visualstudio.com/)**  
 All coding was completed in VS Code.
 - **[Heroku](http://heroku.com/)**
-Heroku was used for the deployment of the app..
+Heroku was used for the deployment of the app.
 - **[node-pty](https://github.com/microsoft/node-pty) and [xterm.js](https://github.com/xtermjs/xterm.js)**
 These open source libraries were used to generate the web based terminal; these are integrated using a modified version of the CodeInstitute template
-- **[cdnjs](https://cdnjs.com/libraries/jquery)**  
-cdnjs was used as the reference for the `jQuery` and `xterm` libraries.
+- **[blessed](https://github.com/jquast/blessed)
+This Python library was used to dynamically update the Terminal window.
 - **[coolors.co](https://coolors.co/)**  
 Potential site palettes were tested with Coolors.  
+- **[ASCII Art Generator](http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Battleships)**
+This ASCII generator was used to create the game logo and welcome message
 - **[gauger.io](https://gauger.io/fonticon/)**  
 This website was used to generate the favicon using an icon from Font Awesome.
 - **[Chrome Capture - Screenshots & Gifs](https://chrome.google.com/webstore/detail/chrome-capture-screenshot/ggaabchcecdbomdcnbahdfddfikjmphe)**
 This was used to create the animated gif showing the game functionality.
 - **[https://ecotrust-canada.github.io/](https://ecotrust-canada.github.io/markdown-toc/)**  
 For generating the formatted table of contents in markdown
+- **[cdnjs](https://cdnjs.com/libraries/jquery)**  
+cdnjs was used as the reference for the `jQuery` and `xterm` libraries.
 - **[Google Fonts](https://fonts.google.com/)**  
 Used to provide the custom fonts for the site
 
@@ -114,16 +121,14 @@ Used to provide the custom fonts for the site
 
 ## Credits & Attributions
 
-ASCII Art Generator [link](http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Battleships)
+- **[blessed Python library](https://github.com/jquast/blessed)
+Example applications and reference documentation for the `blessed` library was used to help implement the library features 
+- **[How to draw a continuous line in terminal?](https://unix.stackexchange.com/questions/559708/how-to-draw-a-continuous-line-in-terminal)
+The following StackExchange article was referenced to understand how to print complex characters to the Terminal
+- **[Disable xterm.js scroll bar](https://github.com/xtermjs/xterm.js/issues/3074)
+This issue was referenced to determine how to disable the scroll bar in the Terminal window
+- **[Setting xterm.js font size](https://github.com/xtermjs/xterm.js/blob/4.14.1/typings/xterm.d.ts#L1031)
+The `xterm.js` documentation was referenced to understand how to modify the Terminal font size
+- **[CSS Vertical Stripes](https://css-tricks.com/stripes-css/)
+The followign tutorial was used to help implement the vertical stripes for the Terminal background
 
-Vertical Line in terminal: [link](https://unix.stackexchange.com/questions/559708/how-to-draw-a-continuous-line-in-terminal)
-
-Setting font size: [link](https://github.com/xtermjs/xterm.js/blob/4.14.1/typings/xterm.d.ts#L1031)
-
-Tips on removing the scrollbar: [link](https://github.com/xtermjs/xterm.js/issues/3074)
-
-Tips on running code from run.py:
-https://github.com/MattBCoding/calico-jack
-
-Vertical stripes:
-https://css-tricks.com/stripes-css/

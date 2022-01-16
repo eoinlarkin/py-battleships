@@ -84,7 +84,7 @@ class Board():
                     self.coords_ships[player][chr(
                         j+65)+str(i+1)] = "S" + str(i+1)
 
-    def gen_board(self, gridsize):
+    def gen_target_list(self, gridsize):
         """
         Generates an empty dictionary of all potential targets
         """
