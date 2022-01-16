@@ -16,7 +16,7 @@
     + [Tools](#tools)
   * [Credits & Attributions](#credits---attributions)
     + [Attributions:](#attributions-)
-  * [Other](#other)
+    + [Other:](#other)
 
 ## Overview
 `py-battleships` is an interactive terminal based Battleships game implemented in Python.
@@ -307,7 +307,7 @@ The `xterm.js` documentation was referenced to understand how to modify the Term
 - **[CSS Vertical Stripes](https://css-tricks.com/stripes-css/)**
 The followign tutorial was used to help implement the vertical stripes for the Terminal background
 
-## Other
+### Other
 - The CodeInstitue Modules on Python and in particular cloud deployment to Heroku
 - My friends for supporting the testing of the game
 - [Jeff Quast](https://github.com/jquast) for developing the `blessed` package which made developing this application much easier !
