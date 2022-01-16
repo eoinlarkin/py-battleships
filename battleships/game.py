@@ -55,7 +55,9 @@ def confirm_ship_sunk(gameboard, active_player):
         if gameboard.ship_sunk[opponent][ship]:
             wait()
             ship_name = gameboard.ship_names_long[ship]
-            termprint.ship_sunk(xcoords=0, ycoords=TERM_STATUS_LINE, ship=ship_name)
+            termprint.ship_sunk(xcoords=0,
+                                ycoords=TERM_STATUS_LINE,
+                                ship=ship_name)
 
 
 def rungame(board):

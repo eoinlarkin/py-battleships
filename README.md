@@ -2,8 +2,31 @@
 ![game-gif](/docs/images/game-demo.gif)
 
 ## Overview
+`py-battleships` is an interactive terminal based Battleships game implemented in Python.
+
+The game has a number of features, including:
+- The `blessed` Python library for manipulation and control of the terminal
+- A rich data model with a flexible and modular `Board()` class to store both game parammeters and game state
+- Dashboard that provides an overview of the state of play of the current game
+- A UX which provides a clear overview of the state of play of the current game and delivers rich user interaction
 
 
+## Objective
+
+The objective of the game was to develop a rich and fully featured Python application. In developing the game, I carefully considered the user experience, which led to the following user stories:
+
+As a site user:
+
+- I want a game where the terminal output is dynamic and does not rely on scrolling through terminal output
+- I want a game that is easy to play with clear instructions
+- I want a game with clear visual cues indicating the status of the game and the outcome of each game event
+
+As a site owner:
+
+- I want to ensure that the terminal interaction is user friendly and does not rely on repeated use of `print()` statements
+- I want to ensure that the site has a strong visual identity
+- I am less concerned whether the website is responsive; the assumption is that the game will be played from either a desktop or laptop
+- I want to ensure that the underlying code leverages best practices and can be exteneded to other potential projects in the future
 
 ### Game Sequence:
 - Get user name
@@ -20,11 +43,26 @@ ___
 
 ## Features
 
+The key features of the application are outlined below:
+
+
+- Dynamic Terminal Output
+
+- Data Validation
+
+- User Friendly Interface
+
+- Robust Data Model
+
 - A dynamically updated Terminal window, implemented using the `blessed` Python library
 - Error checking and validation of user input
 - A clear interface that is easy to understand and use
 - A robust data model; the Board class is implemented in line with Object Orientated Programming principles and is portable to other implementations of 
+
+### Future
+
 ___
+
 
 ## Data Model
 
@@ -43,26 +81,28 @@ No issues were detected. Results from the validation were as follows:
 
 - <details>
   <summary><strong style="color:skyblue">run.py:</strong></summary>
-  [run.py PEP8 validation](./docs/pep8/pep8-run-py.txt)
-  <a href="./docs/pep8/pep8-run-py.txt" target="_blank">run.py PEP8 validation</a>
-  <img src="./docs/images/pep8-run.png" alt="pep8-run-png"/>
+     <a href="./docs/pep8/pep8-run-py.txt" target="_blank">run.py PEP8 validation</a>
+    <img src="./docs/images/pep8-run.png" alt="pep8-run-png"/>
   </details>
 - <details>
   <summary><strong style="color:skyblue">battleship.py:</strong></summary>
-  <a href="./docs/pep8/pep8-run-py.txt" target="_blank">run.py PEP8 validation</a>
-  <img src="./docs/images/pep8-battleship.png" alt="pep8-battleship-image"/>
+    <a href="./docs/pep8/pep8-battleship-py.txt" target="_blank">battleship.py PEP8 validation</a>
+    <img src="./docs/images/pep8-battleship.png" alt="pep8-battleship-image"/>
   </details>
 - <details>
   <summary><strong style="color:skyblue">game.py:</strong></summary>
-  <img src="./docs/images/pep8-game.png" alt="pep8-game-image"/>
+    <a href="./docs/pep8/pep8-battleship-py.txt" target="_blank">game.py PEP8 validation</a>
+    <img src="./docs/images/pep8-game.png" alt="pep8-game-image"/>
   </details>
 - <details>
   <summary><strong style="color:skyblue">layout.py:</strong></summary>
-
+    <a href="./docs/pep8/pep8-layout-py.txt" target="_blank">layout.py PEP8 validation</a>
   </details>
 - <details>
   <summary><strong style="color:skyblue">termprint.py:</strong></summary>
-  <img src="./docs/images/pep8-termprint.png" alt="pep8-termprint-png"/>
+    <a href="./docs/pep8/pep8-termprint-py.txt" target="_blank">termprint.py PEP8 validation</a>
+    <img src="./docs/images/pep8-termprint.png" alt="pep8-termprint-png"/>
+
   </details>
 
 
