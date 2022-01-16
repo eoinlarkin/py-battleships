@@ -111,16 +111,16 @@ class Board():
                 else:
                     orient = 'l2r'
 
-                # randomely setting the starting position
+                # randomly setting the starting position
                 # from which to draw the ship
                 start_pos = random.choice(self.coords_board[player])
                 coords = []
                 if orient == 't2b':
                     for i in range(ship_len):
-                        coords.append(chr(ord(start_pos[0])+i+1)+start_pos[1])
+                        coords.append(chr(ord(start_pos[0])+i)+start_pos[1])
                 if orient == 'l2r':
                     for i in range(ship_len):
-                        coords.append(start_pos[0]+str(int(start_pos[1])+i+1))
+                        coords.append(start_pos[0]+str(int(start_pos[1])+i))
 
                 # checking the fit; the ship needs to fit in
                 # both the board  and not occupy an existing gird

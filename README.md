@@ -45,7 +45,6 @@ ___
 
 The key features of the application are outlined below:
 
-
 - Dynamic Terminal Output
     - For the game, the [blessed](https://github.com/jquast/blessed) Python library was used to dynamically update the terminal and deliver a richer user experience
     - Within the code the `termprint` module is used to define the various `print` statments that generate the output to the terminal
@@ -60,18 +59,25 @@ The key features of the application are outlined below:
     - In order to support the validation of the user input, two `attributes` were defined in the `Board()` class:
         - _`active_target_invalid`_  
             Used to record whether a user input is in the format of a valid coordiate (capital letter followed by a number)
-        - 
+        - _`active_target_previous`_  
+            Used to record whether the target selected by the user has already been selected
 
 - User Friendly Interface
+- Care was taken the ensure that the user interface of the game provides unambiguous information to the user in order to deliver a more immersive experience
+- Instructions are provided at the start of the game:
+- During the game, the status dashboard provides details of the current status of each ship:
+- Status messages are displayed to the user indicating the outcome of each move:
+- Depending on whether the user is victorious or defeated, different game over status messages are displayed at the end of the game:
 
 - Robust Data Model
+    - The game used Object Orienttated Programming to ensure there is a robust data model that is flexible enough to extend to future projects. Further detail is provided in the _Data Model_ section
 
-- A dynamically updated Terminal window, implemented using the `blessed` Python library
-- Error checking and validation of user input
-- A clear interface that is easy to understand and use
-- A robust data model; the Board class is implemented in line with Object Orientated Programming principles and is portable to other implementations of 
+### Future Features
+Having developed the game, there are a number of additional features that could potentially be implemented:
 
-### Future
+- *Different versions of the Computer AI*: At the moment, the computer moves are selected by random; this could be extended so that the computer makes _'smarter'_ moves immediately after scoring a hit
+- *Manual Placement of Ships*: Implementing manual placement of user ships would be a significant enhancement to the current version of the game.
+- *Game stats on victory / defeat*: On defeat or victory a status report could be provided to the user summarising the number of shots, ships sank etc.
 
 ___
 
