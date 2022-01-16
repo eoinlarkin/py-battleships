@@ -151,7 +151,7 @@ def defeat_message():
 
 def printships(board, player):
     ship_pos = board.loc_ships[player]
-    grid_pos = board.loc[player]
+    grid_pos = board.loc_terminal[player]
 
     for ship in ship_pos:
         start_pos = grid_pos[ship_pos[ship]['start']]

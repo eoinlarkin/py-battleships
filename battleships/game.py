@@ -64,9 +64,10 @@ def rungame(board):
     # *******************************
 
     board.gen_target_list(8)
-    board.place_ships()
-    board.gen_loc('p1', size=8, start_x=21, start_y=4, ygap=2, xgap=4)
-    board.gen_loc('p2', size=8, start_x=49, start_y=24, ygap=2, xgap=4)
+    board.place_ships('p1')
+    board.place_ships('p2')
+    board.gen_terminal_mapping('p1', size=8, start_x=21, start_y=4, ygap=2, xgap=4)
+    board.gen_terminal_mapping('p2', size=8, start_x=49, start_y=24, ygap=2, xgap=4)
 
     termprint.intro()
     termprint.instruct()
