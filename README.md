@@ -43,10 +43,13 @@ No issues were detected. Results from the validation were as follows:
 
 - <details>
   <summary><strong style="color:skyblue">run.py:</strong></summary>
+  [run.py PEP8 validation](./docs/pep8/pep8-run-py.txt)
+  <a href="./docs/pep8/pep8-run-py.txt" target="_blank">run.py PEP8 validation</a>
   <img src="./docs/images/pep8-run.png" alt="pep8-run-png"/>
   </details>
 - <details>
   <summary><strong style="color:skyblue">battleship.py:</strong></summary>
+  <a href="./docs/pep8/pep8-run-py.txt" target="_blank">run.py PEP8 validation</a>
   <img src="./docs/images/pep8-battleship.png" alt="pep8-battleship-image"/>
   </details>
 - <details>
@@ -55,7 +58,7 @@ No issues were detected. Results from the validation were as follows:
   </details>
 - <details>
   <summary><strong style="color:skyblue">layout.py:</strong></summary>
-  <img src="./docs/images/pep8-layout.png" alt="pep8-layout-png"/>
+
   </details>
 - <details>
   <summary><strong style="color:skyblue">termprint.py:</strong></summary>
