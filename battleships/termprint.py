@@ -139,14 +139,16 @@ def victory_message():
     clear()
     for line in layout.victory_text.split('\n'):
         print(term.green + term.center(line))
-    xy(term.center('press the RESTART GAME button to play again'), 0, 40, term.black_on_green)
+    xy(term.center('press the RESTART GAME button to play again'),
+       0, 40, term.black_on_green)
 
 
 def defeat_message():
     clear()
     for line in layout.defeat_text.split('\n'):
         print(term.orangered + term.center(line))
-    xy(term.center('press the RESTART GAME button to play again'), 0, 40, term.black_on_green)
+    xy(term.center('press the RESTART GAME button to play again'),
+       0, 40, term.black_on_green)
 
 
 def printships(board, player):
@@ -155,11 +157,11 @@ def printships(board, player):
 
     for ship in ship_pos:
         start_pos = grid_pos[ship_pos[ship]['start']]
-        if ship_pos[ship]['direction'] == 't2b':
+        if ship_pos[ship]['orient'] == 't2b':
             for length in range(ship_pos[ship]['size']*2-1):
                 print(term.deepskyblue4 +
                       term.move(start_pos[1]+length, start_pos[0]) + "█")
-        elif ship_pos[ship]['direction'] == 'l2r':
+        elif ship_pos[ship]['orient'] == 'l2r':
             for length in range(ship_pos[ship]['size']*4-2):
                 print(term.deepskyblue4 +
                       term.move(start_pos[1], start_pos[0]+length) + "█")

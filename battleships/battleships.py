@@ -54,12 +54,12 @@ class Board():
 
         # Objects recording ship locaation
         self.loc_terminal = {'p1': {}, 'p2': {}}
-        self.loc_ships = {'p1': {'S1': {'direction': "", 'size': 0, 'start': ''},
-                                 'S2': {'direction': "", 'size': 0, 'start': ''},
-                                 'S3': {'direction': "", 'size': 0, 'start': ''}},
-                          'p2': {'S1': {'direction': "", 'size': 0, 'start': ''},
-                                 'S2': {'direction': "", 'size': 0, 'start': ''},
-                                 'S3': {'direction': "", 'size': 0, 'start': ''}}
+        self.loc_ships = {'p1': {'S1': {'orient': "", 'size': 0, 'start': ''},
+                                 'S2': {'orient': "", 'size': 0, 'start': ''},
+                                 'S3': {'orient': "", 'size': 0, 'start': ''}},
+                          'p2': {'S1': {'orient': "", 'size': 0, 'start': ''},
+                                 'S2': {'orient': "", 'size': 0, 'start': ''},
+                                 'S3': {'orient': "", 'size': 0, 'start': ''}}
                           }
         # obejct to record whether plany is victorious
         self.victory = {'p1': False, 'p2': False}
@@ -71,8 +71,8 @@ class Board():
         """
         for y_coord in range(size):
             for x_coord in range(size):
-                self.loc_terminal[player][chr(y_coord+65)+str(x_coord+1)
-                                 ] = [start_x + x_coord*xgap, start_y+y_coord*ygap]
+                self.loc_terminal[player][chr(y_coord+65)+str(x_coord+1)] \
+                    = [start_x + x_coord*xgap, start_y+y_coord*ygap]
 
     def place_ships_test_version(self):
         """
@@ -98,37 +98,41 @@ class Board():
             ship_len = self.ship_size[player][ship]
             check_fit = False
 
-            # while loop will run until the ship from the for loop can be placed
+            # while loop will run until the ship
+            # from the for loop can be placed
             while not check_fit:
-                # randomly setting the direction:
+                # randomly setting the orient:
                 if int(random.random()+0.5) == 1:
-                    direction = 't2b'
+                    orient = 't2b'
                 else:
-                    direction = 'l2r'
+                    orient = 'l2r'
 
-                # randomely setting the starting position from which to draw the ship
+                # randomely setting the starting position
+                # from which to draw the ship
                 start_pos = random.choice(self.coords_board[player])
                 coords = []
-                if direction == 't2b':
+                if orient == 't2b':
                     for i in range(ship_len):
-                        coords.append(chr(ord(start_pos[0])+i+1)+start_pos[1])     
-                if direction == 'l2r':
+                        coords.append(chr(ord(start_pos[0])+i+1)+start_pos[1])
+                if orient == 'l2r':
                     for i in range(ship_len):
                         coords.append(start_pos[0]+str(int(start_pos[1])+i+1))
-                
-                # checking the fit; the ship needs to fit in both the board 
-                # and not occupy an existing gird location taken by another ship
-                check_fit = all(item in self.coords_board[player] for item in coords) and \
-                        not(any(item in self.coords_ships[player].keys() for item in coords))
+
+                # checking the fit; the ship needs to fit in
+                # both the board  and not occupy an existing gird
+                # location taken by another ship
+                board_coords = self.coords_board[player]
+                ship_coords = self.coords_ships[player].keys()
+                check_fit = all(c in board_coords for c in coords) and \
+                    not(any(c in ship_coords for c in coords))
 
                 # if the ship fits it is added to the dictionary of coordinates
                 if check_fit:
                     for c in coords:
                         self.coords_ships[player][c] = ship
-                    self.loc_ships[player][ship]['direction'] = direction
+                    self.loc_ships[player][ship]['orient'] = orient
                     self.loc_ships[player][ship]['size'] = ship_len
                     self.loc_ships[player][ship]['start'] = start_pos
-
 
     def gen_target_list(self, gridsize):
         """
@@ -160,8 +164,9 @@ class Board():
         """
         for player in self.ship_integ:
             for ship in self.ship_integ[player]:
-                damage = int(
-                    100 * (self.ship_hits[player][ship] / self.ship_size[player][ship]))
+                num_hits = self.ship_hits[player][ship]
+                ship_size = self.ship_size[player][ship]
+                damage = int(100 * num_hits / ship_size)
                 self.ship_integ[player][ship] = max(100 - damage, 0)
 
     def generate_target(self, active_player):
@@ -188,7 +193,8 @@ class Board():
         """
         for player in self.ship_sunk:
             for ship in self.ship_sunk[player]:
-                status = self.ship_hits[player][ship] == self.ship_size[player][ship]
+                status = self.ship_hits[player][ship] == \
+                    self.ship_size[player][ship]
                 self.ship_sunk[player][ship] = status
 
     def validate_target(self):
