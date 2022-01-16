@@ -67,13 +67,11 @@ instruct_text = """
 The objective of Battleships is to defeat your computer opponent by
 correctly guessing the location of its ships before it can guess yours !
 
-
 On starting the game, your ships and those of the computer will be randomly
 placed on the board. You will need to guess the location of the
 computer's ships using your logic and cunning.
 
 Both you and your opponent have three classes of ships as follows:
-
 
   Cruiser:            Destroyer:         Battleship:
   (Size 2)             (Size 3)           (Size 4)
@@ -90,7 +88,9 @@ Both you and your opponent have three classes of ships as follows:
                     └───┴───┴───┘       ├───┼───┼───┤
                                         │ ~ │ ~ │ ~ │
                                         └───┴───┴───┘
-
+Targets are defined using coordinates and are in the format of
+capital letter followed by a number e.g. 'A1'. You and the Computer 
+will take it in turns to select targets until one of you is declared the victor.
 """
 goodluck_text = "Good Luck!"
 

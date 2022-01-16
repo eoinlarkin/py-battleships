@@ -1,4 +1,4 @@
-# Battleships Game
+# py-battleships
 ![game-gif](/docs/images/game-demo.gif)
 
 ## Overview
@@ -47,8 +47,20 @@ The key features of the application are outlined below:
 
 
 - Dynamic Terminal Output
+    - For the game, the [blessed](https://github.com/jquast/blessed) Python library was used to dynamically update the terminal and deliver a richer user experience
+    - Within the code the `termprint` module is used to define the various `print` statments that generate the output to the terminal
+    - The following `gif` provides an example of this dynamic updating:  
+        <details>
+        <summary><strong style="color:skyblue">Dynamic Terminal Output:</strong></summary>
+        <img src="./docs/images/game-demo.gif" alt="dynamic-terminal-output"/>
+        </details>
 
 - Data Validation
+    - Given the game is terminal based it was important to have robust validation of the user input. This prevents game breaking errors as well as ensuring the user has clear feedback on their input
+    - In order to support the validation of the user input, two `attributes` were defined in the `Board()` class:
+        - _`active_target_invalid`_  
+            Used to record whether a user input is in the format of a valid coordiate (capital letter followed by a number)
+        - 
 
 - User Friendly Interface
 
@@ -143,7 +155,7 @@ All coding was completed in VS Code.
 Heroku was used for the deployment of the app.
 - **[node-pty](https://github.com/microsoft/node-pty) and [xterm.js](https://github.com/xtermjs/xterm.js)**
 These open source libraries were used to generate the web based terminal; these are integrated using a modified version of the CodeInstitute template
-- **[blessed](https://github.com/jquast/blessed)
+- **[blessed](https://github.com/jquast/blessed)**
 This Python library was used to dynamically update the Terminal window.
 - **[coolors.co](https://coolors.co/)**  
 Potential site palettes were tested with Coolors.  
@@ -164,14 +176,14 @@ Used to provide the custom fonts for the site
 
 ## Credits & Attributions
 
-- **[blessed Python library](https://github.com/jquast/blessed)
+- **[blessed Python library](https://github.com/jquast/blessed)**
 Example applications and reference documentation for the `blessed` library was used to help implement the library features 
-- **[How to draw a continuous line in terminal?](https://unix.stackexchange.com/questions/559708/how-to-draw-a-continuous-line-in-terminal)
+- **[How to draw a continuous line in terminal?](https://unix.stackexchange.com/questions/559708/how-to-draw-a-continuous-line-in-terminal)**
 The following StackExchange article was referenced to understand how to print complex characters to the Terminal
-- **[Disable xterm.js scroll bar](https://github.com/xtermjs/xterm.js/issues/3074)
+- **[Disable xterm.js scroll bar](https://github.com/xtermjs/xterm.js/issues/3074)**
 This issue was referenced to determine how to disable the scroll bar in the Terminal window
-- **[Setting xterm.js font size](https://github.com/xtermjs/xterm.js/blob/4.14.1/typings/xterm.d.ts#L1031)
+- **[Setting xterm.js font size](https://github.com/xtermjs/xterm.js/blob/4.14.1/typings/xterm.d.ts#L1031)**
 The `xterm.js` documentation was referenced to understand how to modify the Terminal font size
-- **[CSS Vertical Stripes](https://css-tricks.com/stripes-css/)
+- **[CSS Vertical Stripes](https://css-tricks.com/stripes-css/)**
 The followign tutorial was used to help implement the vertical stripes for the Terminal background
 
