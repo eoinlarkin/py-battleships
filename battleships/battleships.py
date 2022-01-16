@@ -18,7 +18,7 @@ class Board():
 
         # Coordinate objects
         self.coords_board = {'p1': [], 'p2': []}
-        self.coords_targets = {'p1': {}, 'p2': {}}
+        self.coords_targets = {'p1': [], 'p2': []}
         self.coords_ships = {'p1': {}, 'p2': {}}
 
         # Objects detailing ship sizes, hits and status
@@ -43,7 +43,7 @@ class Board():
         }
 
         # Objects recording status of the active target
-        self.active_target = {'p1': (), 'p2': ()}
+        self.active_target = {'p1': "", 'p2': ""}
         self.active_target_invalid = {'p1': False, 'p2': False}
         self.active_target_previous = {'p1': False, 'p2': False}
         self.active_target_status = {'p1': [], 'p2': []}
@@ -134,8 +134,6 @@ class Board():
             target = random.choice(self.coords_board[opponent])
         # adding the value to the dictionary of shots
         self.active_target[player] = target
-        # adding the value to the dictionary of shots
-        self.coords_targets[player][target] = 'X'
 
     def update_ship_sunk_status(self):
         """
@@ -161,7 +159,7 @@ class Board():
             self.active_target_previous['p1'] = True
         else:
             # adding the value to the dictionary of shots
-            self.coords_targets['p1'][self.active_target['p1']] = 'X'
+            self.coords_targets['p1'].append(self.active_target['p1'])
 
     def check_target_hit(self, active_player):
         """
