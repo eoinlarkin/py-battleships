@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 """
+battleship.py
 Module to define the Board class; this contains all
 relevant data attributes required to run the Battleship game
 """
@@ -20,9 +21,9 @@ class Board():
         self.coords_board = {'p1': [], 'p2': []}
         self.coords_targets = {'p1': [], 'p2': []}
         self.coords_ships = {'p1': {}, 'p2': {}}
-        self.ship_names_long = {'S1':'Cruiser',
-                                'S2':'Destroyer',
-                                'S3':'Battleship'}
+        self.ship_names_long = {'S1': 'Cruiser',
+                                'S2': 'Destroyer',
+                                'S3': 'Battleship'}
 
         # Objects detailing ship sizes, hits and status
         self.ship_size = {

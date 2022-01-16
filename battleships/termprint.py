@@ -1,9 +1,9 @@
-# pylint: disable=missing-function-docstring
 # pylint: disable=no-name-in-module
 # pylint: disable=unexpected-keyword-arg
 # pylint: disable=invalid-name
 # pylint: disable=consider-using-dict-items
 """
+termprint.py
 Module to define functions for printing and updating the terminal
 Module leverages the blessed library for printing functions
 """
