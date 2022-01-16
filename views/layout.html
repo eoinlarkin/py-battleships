@@ -18,11 +18,11 @@
         :root {
             /* Defining colors as variables */
             --color-green: #32CD32;
-            --color-blue: #FFFAFF;
+            --color-credits: #E0FFFF;
             --color-burnt-orange: #B22222;
             --color-stripe1: #1D3749;
             --color-stripe2: #62707F;
-            --color-white: #FFF;
+            --color-blue: 	#00FFFF;
         }
 
         body {
@@ -185,8 +185,8 @@
         button {
             width: 150px;
             height: 40px;
-            background-color: var(--color-stripe2);
-            border: 1px solid grey;
+            background-color: var(--color-stripe1);
+            border: 1px solid var(--color-green);
             color: white;
             text-transform: uppercase;
             margin: 10px auto 10px auto;
@@ -198,6 +198,7 @@
             transform: translateY(-3px);
             /* making the button move up*/
             box-shadow: 0 5px 7.5px var(--color-stripe1);
+            background-color: var(--color-burnt-orange);
             /* x, y and blur values */
         }
 
@@ -207,9 +208,9 @@
 
         #credits {
             text-align: center;
-            color: var(--color-blue);
-            font-size: 12px;
-            line-height: 17.5px;
+            color: var(--color-credits);
+            font-size: 13px;
+            line-height: 20px;
         }
 
         #credits i {
@@ -224,8 +225,8 @@
         }
 
         footer {
-            margin-top: 30px;
-            margin-bottom: 30px;
+            margin-top: 15px;
+            margin-bottom: 15px;
         }
 
         /* **************************************** */
@@ -240,7 +241,7 @@
 
         /* visited link */
         a:visited {
-            color: var(--color-white);
+            color: var(--color-blue);
             text-decoration: none;
         }
 
