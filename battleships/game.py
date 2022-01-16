@@ -48,7 +48,7 @@ def confirm_ship_sunk(gameboard, active_player):
         ship = gameboard.active_target_shipname[player]
         if gameboard.ship_sunk[opponent][ship]:
             wait()
-            termprint.ship_sunk(x=0, y=TERM_STATUS_LINE, ship=ship)
+            termprint.ship_sunk(xcoords=0, ycoords=TERM_STATUS_LINE, ship=ship)
 
 
 def rungame(board):
@@ -90,6 +90,7 @@ def rungame(board):
             confirm_ship_sunk(board, 'p1')
 
             wait()
+            termprint.clear_line(TERM_STATUS_LINE)
             termprint.ship_status(board)
             if board.check_victory():
                 break
