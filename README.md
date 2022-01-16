@@ -63,11 +63,29 @@ The key features of the application are outlined below:
             Used to record whether the target selected by the user has already been selected
 
 - User Friendly Interface
-- Care was taken the ensure that the user interface of the game provides unambiguous information to the user in order to deliver a more immersive experience
-- Instructions are provided at the start of the game:
-- During the game, the status dashboard provides details of the current status of each ship:
-- Status messages are displayed to the user indicating the outcome of each move:
-- Depending on whether the user is victorious or defeated, different game over status messages are displayed at the end of the game:
+    - Care was taken the ensure that the user interface of the game provides unambiguous information to the user in order to deliver a more immersive experience
+    - Instructions are provided at the start of the game:
+        - <details>
+            <summary><strong style="color:skyblue">Game Instructions:</strong></summary>
+            <img src="./docs/images/screenshots-instructions.png" alt="screenshot-instructions"/>
+            </details>
+    - Input validation messages are displayed for invalid moves:
+    - <details>
+        <summary><strong style="color:skyblue">Input Validation:</strong></summary>
+        <img src="./docs/images/screenshots-input-validation.png" alt="screenshot input validations"/>
+        </details>
+    - During the game, the status dashboard provides details of the current status of each ship:
+        - <details>
+            <summary><strong style="color:skyblue">Status Dashbaord:</strong></summary>
+            <img src="./docs/images/screenshots-ship-status.png" alt="screenshot-ship-status"/>
+            </details>
+    - Depending on whether the user is victorious or defeated, different game over status messages are displayed at the end of the game:
+           - <details>
+            <summary><strong style="color:skyblue">Victory / Defeat Messages:</strong></summary>
+            <img src="./docs/images/screenshot-defeat-message.png" alt="screenshot-defeat"/>
+            <img src="./docs/images/screenshot-victory-message.png" alt="screenshot-victory"/>
+            </details>
+
 
 - Robust Data Model
     - The game used Object Orienttated Programming to ensure there is a robust data model that is flexible enough to extend to future projects. Further detail is provided in the _Data Model_ section
