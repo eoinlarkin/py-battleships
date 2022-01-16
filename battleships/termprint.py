@@ -84,7 +84,7 @@ def confirm_hit(xcoords, ycoords, hit_type):
 def ship_sunk(xcoords, ycoords, ship):
     with term.location(x=xcoords, y=ycoords):
         print(term.black_on_green +
-              term.center(f"Ship {ship} is sunk...!"))
+              term.center(f"The {ship} is sunk...!"))
 
 
 def update_board(xcoords, ycoords, hit_type):

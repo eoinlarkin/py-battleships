@@ -77,7 +77,7 @@ Both you and your opponent have three classes of ships as follows:
 
 
   Cruiser:            Destroyer:         Battleship:
-  (Size 2)             (Size 3)            (Size 4)    
+    (Size 2)             (Size 3)            (Size 4)    
 ┌───┬───┬───┐       ┌───┬───┬───┐       ┌───┬───┬───┐
 │ ~ │ ~ │ ~ │       │ ~ │ ~ │ ~ │       │ ~ │ ~ │ ~ │
 ├───┼───┼───┤       ├───┼───┼───┤       ├───┼───┼───┤
