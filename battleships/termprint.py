@@ -113,8 +113,9 @@ def boards():
 
 def intro():
     clear()
-    xy(term.center(layout.logo), 1, 5, term.orangered)
-    xy(term.center('press and key to continue'), 0, 30, term.black_on_green)
+    for line in layout.logo.split('\n'):
+        print(term.orangered + term.center(line))
+    xy(term.center('press and key to continue'), 0, 40, term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
         term.inkey()
     clear()
@@ -122,8 +123,12 @@ def intro():
 
 def instruct():
     clear()
-    xy(term.center(layout.instruct_text), 1, 5, term.orangered)
-    xy(term.center('press and key to continue'), 0, 30, term.black_on_green)
+    for line in layout.welcome_text.split('\n'):
+        print(term.green + term.center(line))
+    for line in layout.instruct_text.split('\n'):
+        print(term.orangered + term.center(line))
+    xy(term.center(layout.goodluck_text), 0, 39, term.black_on_green)        
+    xy(term.center('press and key to continue'), 0, 40, term.black_on_green)
     with term.cbreak(), term.hidden_cursor():
         term.inkey()
     clear()

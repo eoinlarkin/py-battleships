@@ -32,9 +32,6 @@ ___
 
 Each of the Python scripts were validated against PEP8 validation, with the following validator used [PEP8 Validator](http://pep8online.com/). No issues were detected. Results from the validation were as follows:
 
-
-
-
 - <details>
   <summary><strong style="color:skyblue">run.py:</strong></summary>
   <img src="./docs/images/pep8-run.png" alt="pep8-run-png"/>
