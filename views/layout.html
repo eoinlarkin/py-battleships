@@ -14,29 +14,27 @@
         /* Parameters to define the colors */
         /* **************************************** */
         :root {
-        /* Defining colors as variables */
-        --color-green: #32CD32;
-        --color-blue:#FFFAFF;
-        --color-burnt-orange: #B22222;
-        --color-stripe1: #1D3749;
-        --color-stripe2: #62707F;
-        --color-white: #FFF;
+            /* Defining colors as variables */
+            --color-green: #32CD32;
+            --color-blue: #FFFAFF;
+            --color-burnt-orange: #B22222;
+            --color-stripe1: #1D3749;
+            --color-stripe2: #62707F;
+            --color-white: #FFF;
         }
 
         body {
             font-family: 'Titillium Web', sans-serif;
-            background: repeating-linear-gradient(
-            to right,
-            var(--color-stripe1),
-            var(--color-stripe1) 10px,
-            var(--color-stripe2) 10px,
-            var(--color-stripe2) 20px
-            );
-         }
+            background: repeating-linear-gradient(to right,
+                    var(--color-stripe1),
+                    var(--color-stripe1) 10px,
+                    var(--color-stripe2) 10px,
+                    var(--color-stripe2) 20px);
+        }
 
-         .terminal {
-             margin: 0 auto;
-         }
+        .terminal {
+            margin: 0 auto;
+        }
 
         /**
         * Default styles for xterm.js
@@ -99,7 +97,8 @@
         .xterm .xterm-viewport {
             /* On OS X this is required in order for the scroll bar to appear fully opaque */
             background-color: #000;
-            overflow-y: auto; /* this was hidden */
+            overflow-y: auto;
+            /* this was hidden */
             cursor: default;
             position: absolute;
             right: 0;
@@ -178,7 +177,7 @@
         }
 
         .xterm-strikethrough {
-           text-decoration: line-through;
+            text-decoration: line-through;
         }
 
         button {
@@ -194,8 +193,10 @@
         }
 
         button:hover {
-            transform: translateY(-3px); /* making the button move up*/
-            box-shadow: 0 5px 7.5px var(--color-stripe1); /* x, y and blur values */
+            transform: translateY(-3px);
+            /* making the button move up*/
+            box-shadow: 0 5px 7.5px var(--color-stripe1);
+            /* x, y and blur values */
         }
 
         /* **************************************** */
@@ -203,20 +204,21 @@
         /* **************************************** */
 
         #credits {
-        text-align: center;
-        color:var(--color-blue);
-        font-size: 12px;
-        line-height: 17.5px;
+            text-align: center;
+            color: var(--color-blue);
+            font-size: 12px;
+            line-height: 17.5px;
         }
 
         #credits i {
-        color: var(--color-burnt-orange)
+            color: var(--color-burnt-orange)
         }
 
         #credits p {
-        margin-bottom: 0rem; /* removing the margin bottom styling */
-        margin-block-end: 0px;
-        margin-block-start: 0px;
+            margin-bottom: 0rem;
+            /* removing the margin bottom styling */
+            margin-block-end: 0px;
+            margin-block-start: 0px;
         }
 
         footer {
@@ -230,23 +232,23 @@
 
         /* unvisited link */
         a:link {
-        color:var(--color-blue);
-        text-decoration: none;
+            color: var(--color-blue);
+            text-decoration: none;
         }
 
         /* visited link */
         a:visited {
-        color:var(--color-white);
-        text-decoration: none;
+            color: var(--color-white);
+            text-decoration: none;
         }
 
         /* mouse over link */
         a:hover {
-        color:var(--color-green);
-        text-decoration: underline;
+            color: var(--color-green);
+            text-decoration: underline;
         }
-
     </style>
-</head>   
-    @{body}
+</head>
+@{body}
+
 </html>

@@ -47,16 +47,18 @@ def print_target_request(ycoord):
             i += 1
             if i <= 2:
                 print(term.move(ycoord, 58+i)+inp)
-        print(term.move(ycoord-1,0))
+        print(term.move(ycoord-1, 0))
         return target
 
 
 def clear():
     print(term.home + term.clear)
 
+
 def clear_line(ycoords):
     with term.location(x=0, y=ycoords), term.cbreak():
         print(term.clear_eol)
+
 
 def target_invalid(xcoords, ycoords):
     with term.location(x=xcoords, y=ycoords):
@@ -128,7 +130,7 @@ def instruct():
 
 
 def victory_message():
-    print(term.clear+
+    print(term.clear +
           term.center('You have defeated the computer!'))
 
 
