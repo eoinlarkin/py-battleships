@@ -15,8 +15,8 @@
     + [Languages](#languages)
     + [Tools](#tools)
   * [Credits & Attributions](#credits---attributions)
-    + [Attributions:](#attributions-)
-    + [Other:](#other)
+    + [Attribution](#attributions-)
+    + [Other](#other)
 
 ## Overview
 `py-battleships` is an interactive terminal based Battleships game implemented in Python.
