@@ -10,6 +10,7 @@ The game has a number of features, including:
 - Dashboard that provides an overview of the state of play of the current game
 - A UX which provides a clear overview of the state of play of the current game and delivers rich user interaction
 
+___
 
 ## Objective
 
@@ -28,19 +29,7 @@ As a site owner:
 - I am less concerned whether the website is responsive; the assumption is that the game will be played from either a desktop or laptop
 - I want to ensure that the underlying code leverages best practices and can be exteneded to other potential projects in the future
 
-### Game Sequence:
-- Get user name
-- Get board size
-- Place ships on board
-- Display board to user
-- Ask user for shot
-- Display board with shot
-- Iterate through game
-
 ___
-
-
-
 ## Features
 
 The key features of the application are outlined below:
@@ -104,10 +93,50 @@ ___
 
 ## Data Model
 
+The following schematic provides an overview of the game Data Model:
+
+![data-model](./docs/images/screenshot-data-model.png)
 ___
 
 ## Testing
 
+In testing the application a number of bugs were discovered:
+
+- - - 
+**Bug: Shipping Mapping Error** When testing the application it was discovered that the function that prints the ship indicators (`termprint.printships()`) to the board was not printing the ships to the correct locations (e.g. ship was being mapped to cell A1 instead of A2). 
+
+**Fix**: It was discovered that the `termprint.printships()` was working as intended however there was an error in the value of the attribute for the starting position of each ship. Each ship was being offset by one unit on the grid. This was due to a logic error in the loop that was randomly placing the ships and was fixed by amending the loop.
+
+- - - 
+**Bug: Favicon Not Displaying** When testing the application was deployed to Heroku, it was discovered that the `favicon.ico` would not correctly display. 
+
+**Fix**: A number of differnet approaches were tired to resolve this problem. Ultimately the link for the `favicon.ico` in the GitHub repo was linked to directly in the index.html file.
+- - - 
+
+- - - 
+**Bug: Hidden Cursor Not Hidden** The `blessed` library performs functionality to hide the input cursor, however initially this was not working consistently.  
+
+**Fix**: After referencing the documentation, it was noted that this functionality should only be initialised once and should not be nested. As a result this function call `termprint.term.hidden_cursor()` was moved from individual functions to sit directly in the `game.py` file.
+- - - 
+
+- - - 
+**Bug: Broken Scrolling** It was found that mouse scrolling was broken on the webpage in the area of the page where the Terminal window as displayed. 
+
+**Fix**: After some investigation it was determined that each side of the Terminal was being masked with overlaid containers in the xterm.js CSS code. This was corrected by setting each of the containers to the same width..
+- - - 
+
+- - - 
+**Bug: Code Logic Errors** A number of logic error and reference errors were discovered during the testing process. 
+
+**Fix**: These were resolved through corrections to the code and where necessary referencing the Python documentation for the correct methods to iterate through / access the various classes, and attributes used in the application.
+- - - 
+
+
+### Unfixed Bugs
+
+There are no known bugs present in the final site deployment.
+
+- - - 
 
 ### Validator Testing 
 
@@ -161,9 +190,6 @@ The repoitory can be deployed as follows:
 
 ___
 
-
-___
-
 ## Development
 In developing this application, the following programming languages, tools and libraries were used:
 
@@ -178,11 +204,11 @@ In developing this application, the following programming languages, tools and l
 
 - **[VScode](https://code.visualstudio.com/)**  
 All coding was completed in VS Code.
-- **[Heroku](http://heroku.com/)**
+- **[Heroku](http://heroku.com/)**  
 Heroku was used for the deployment of the app.
-- **[node-pty](https://github.com/microsoft/node-pty) and [xterm.js](https://github.com/xtermjs/xterm.js)**
+- **[node-pty](https://github.com/microsoft/node-pty) and [xterm.js](https://github.com/xtermjs/xterm.js)**  
 These open source libraries were used to generate the web based terminal; these are integrated using a modified version of the CodeInstitute template
-- **[blessed](https://github.com/jquast/blessed)**
+- **[blessed](https://github.com/jquast/blessed)**  
 This Python library was used to dynamically update the Terminal window.
 - **[coolors.co](https://coolors.co/)**  
 Potential site palettes were tested with Coolors.  
@@ -199,7 +225,7 @@ cdnjs was used as the reference for the `jQuery` and `xterm` libraries.
 - **[Google Fonts](https://fonts.google.com/)**  
 Used to provide the custom fonts for the site
 
-
+___
 
 ## Credits & Attributions
 
