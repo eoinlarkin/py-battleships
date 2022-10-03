@@ -8,3 +8,4 @@ battleships/__pycache__/**
 node_modules/**
 index.js.json
 package-lock.json
+venv/
