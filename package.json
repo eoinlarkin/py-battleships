@@ -4,7 +4,7 @@
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build:css": "npx tailwindcss -i ./assets/input.css -o ./assets/output.css --watch"
+        "build:css": "npx tailwindcss -i ./public/assets/input.css -o ./public/assets/output.css --watch"
     },
     "repository": {
         "type": "git",
