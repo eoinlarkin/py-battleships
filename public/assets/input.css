@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .box {
+      @apply bg-retro-green fixed rounded-none z-[-1];
+    }
+  
+    .terminal {
+      @apply mx-auto;
+    }
+  
+    .xterm {
+      @apply relative select-none w-xterm;
+      cursor: text;
+    }
+  
+    .xterm.focus,
+    .xterm:focus {
+      outline: none;
+    }
+  
+    .xterm .xterm-helpers {
+      @apply absolute top-0 z-[5];
+    }
+  
+    .xterm .xterm-helper-textarea {
+      @apply absolute opacity-0 left-[-9999em] top-0 w-0 h-0 z-[-5];
+      white-space: nowrap;
+      overflow: auto;
+      resize: none;
+    }
+  
+    .xterm .composition-view {
+      @apply hidden absolute bg-black text-white whitespace-nowrap z-[1];
+    }
+  
+    .xterm .composition-view.active {
+      @apply block;
+    }
+  
+    .xterm .xterm-viewport {
+      @apply absolute right-0 left-0 top-0 bottom-0 bg-black overflow-y-auto cursor-default;
+    }
+  
+    .xterm .xterm-screen {
+      @apply relative;
+    }
+  
+    .xterm .xterm-screen canvas {
+      @apply absolute left-0 top-0;
+    }
+  
+    .xterm .xterm-scroll-area {
+      visibility: hidden;
+    }
+  
+    .xterm-char-measure-element {
+      @apply inline-block absolute top-0 left-[-9999em];
+      visibility: hidden;
+      line-height: normal;
+    }
+  
+    .xterm.enable-mouse-events {
+      cursor: default;
+    }
+  
+    .xterm.xterm-cursor-pointer {
+      cursor: pointer;
+    }
+  
+    .xterm.column-select.focus {
+      cursor: crosshair;
+    }
+  
+    .xterm .xterm-accessibility,
+    .xterm .xterm-message {
+      @apply absolute left-0 top-0 bottom-0 right-0 z-[10];
+      color: transparent;
+    }
+  
+    .xterm .live-region {
+      @apply absolute left-[-9999px] w-[1px] h-[1px] overflow-auto;
+    }
+  
+    .xterm-dim {
+      opacity: 0.5;
+    }
+  
+    .xterm-underline {
+      text-decoration: underline;
+    }
+  
+    .xterm-strikethrough {
+      text-decoration: line-through;
+    }
+  }
