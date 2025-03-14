@@ -15,26 +15,26 @@
     <title>Py Battleships</title>
 </head>
 
-<body class="bg-retro-black text-retro-green font-retro min-h-screen flex flex-col items-center justify-center">
+<body class="bg-gray-900 text-green-500 font-retro min-h-screen flex flex-col items-center justify-center">
     <!-- Header -->
     <header class="text-center mb-8 pt-8">
-        <h1 class="text-5xl font-bold text-retro-green font-retro_title border-b-4 border-retro-orange pb-2">
+        <h1 class="text-5xl font-bold text-green-500 font-retro_title border-b-4 border-red-700 pb-2">
             Py Battleships
         </h1>
-        <p class="text-retro-gray mt-4 text-lg">A terminal-style battleship game</p>
+        <p class="text-cyan-100 mt-4 text-lg">A terminal-style battleship game</p>
     </header>
 
     <!-- Main Content -->
-    <main class="w-full max-w-4xl bg-retro-black border-4 border-retro-orange rounded-lg shadow-lg p-8">
-        <div class="terminal bg-gray-900 text-retro-green p-6 rounded-lg shadow-inner border-2 border-retro-blue">
+    <main class="w-full max-w-4xl bg-gray-900 border-4 border-red-700 rounded-lg shadow-lg p-8">
+        <div class="terminal bg-gray-900 text-green-500 p-6 rounded-lg shadow-inner border-2 border-cyan-400">
             <!-- Terminal Window -->
-            <div id="terminal" class="xterm bg-black w-full h-[748px] border-2 border-retro-green flex items-center justify-center mx-auto"></div>
+            <div id="terminal" class="xterm bg-black w-full h-full border-2 border-green-500 flex items-center justify-center mx-auto"></div>
 
             <!-- Restart Button -->
             <div class="flex justify-center mt-6">
                 <button 
                     onclick="window.location.reload()" 
-                    class="px-8 py-3 bg-retro-blue text-retro-black font-bold rounded hover:bg-retro-orange transition-all">
+                    class="px-8 py-3 bg-cyan-400 text-gray-900 font-bold rounded hover:bg-red-700 transition-all">
                     Restart Game
                 </button>
             </div>
@@ -42,9 +42,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-8 text-center text-retro-gray text-sm pb-8">
-        <p>Credits and attributions in <a href="https://github.com/eoinlarkin/battleships/" target="_blank" rel="noopener" class="text-retro-blue hover:underline">README.md</a></p>
-        <p>Design and code by <a href="https://github.com/eoinlarkin/" target="_blank" rel="noopener" class="text-retro-blue hover:underline">Eoin Larkin</a></p>
+    <footer class="mt-8 text-center text-cyan-100 text-sm pb-8">
+        <p>Credits and attributions in <a href="https://github.com/eoinlarkin/battleships/" target="_blank" rel="noopener" class="text-cyan-400 hover:underline">README.md</a></p>
+        <p>Design and code by <a href="https://github.com/eoinlarkin/" target="_blank" rel="noopener" class="text-cyan-400 hover:underline">Eoin Larkin</a></p>
         <p>Made with <i class="fa fa-heart text-green-500"></i> in D7</p>
     </footer>
 
