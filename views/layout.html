@@ -5,260 +5,74 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Linking to favicon directly on github; relative referencing not working for Heroku deployment-->
-    <link rel="icon" href="https://raw.githubusercontent.com/eoinlarkin/py-battleships/e8f52c7400638e02c7c2008a23340a703288102b/assets/favicon.ico" type="image/x-icon" /> 
+    <link href="/assets/output.css" rel="stylesheet">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/attach/attach.js"></script>
+    <script src="https://kit.fontawesome.com/d375cce442.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>Py Battleships</title>
-    <style>
-        /* **************************************** */
-        /* Parameters to define the colors */
-        /* **************************************** */
-        :root {
-            /* Defining colors as variables */
-            --color-green: #32CD32;
-            --color-credits: #E0FFFF;
-            --color-burnt-orange: #B22222;
-            --color-stripe1: #1D3749;
-            --color-stripe2: #0E4958;
-            --color-blue: 	#00FFFF;
-            --color-black: #18181b
-        }
-
-        body {
-            font-family: 'Titillium Web', sans-serif;
-            background: var(--color-black);
-        }
-
-
-        .box {
-            background-color: #32CD32;
-            position: fixed;
-            border-radius: 0%;
-            z-index: -1;
-        }
-
-        .terminal {
-            margin: 0 auto;
-        }
-
-        /**
-        * Default styles for xterm.js
-        */
-        .xterm {
-            position: relative;
-            user-select: none;
-            -ms-user-select: none;
-            -webkit-user-select: none;
-            width: 710px;
-        }
-
-        .xterm.focus,
-        .xterm:focus {
-            outline: none;
-        }
-
-        .xterm .xterm-helpers {
-            position: absolute;
-            top: 0;
-            /**
-        * The z-index of the helpers must be higher than the canvases in order for
-        * IMEs to appear on top.
-        */
-            z-index: 5;
-        }
-
-        .xterm .xterm-helper-textarea {
-            padding: 0;
-            border: 0;
-            margin: 0;
-            /* Move textarea out of the screen to the far left, so that the cursor is not visible */
-            position: absolute;
-            opacity: 0;
-            left: -9999em;
-            top: 0;
-            width: 0;
-            height: 0;
-            z-index: -5;
-            /** Prevent wrapping so the IME appears against the textarea at the correct position */
-            white-space: nowrap;
-            overflow: auto;
-            resize: none;
-        }
-
-        .xterm .composition-view {
-            /* TODO: Composition position got messed up somewhere */
-            background: #000;
-            color: #FFF;
-            display: none;
-            position: absolute;
-            white-space: nowrap;
-            z-index: 1;
-        }
-
-        .xterm .composition-view.active {
-            display: block;
-        }
-
-        .xterm .xterm-viewport {
-            /* On OS X this is required in order for the scroll bar to appear fully opaque */
-            background-color: #000;
-            overflow-y: auto;
-            /* this was hidden */
-            cursor: default;
-            position: absolute;
-            right: 0;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            background-color: rgb(0, 0, 0);
-        }
-
-        .xterm .xterm-screen {
-            position: relative;
-        }
-
-        .xterm .xterm-screen canvas {
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        .xterm .xterm-scroll-area {
-            visibility: hidden;
-        }
-
-        .xterm-char-measure-element {
-            display: inline-block;
-            visibility: hidden;
-            position: absolute;
-            top: 0;
-            left: -9999em;
-            line-height: normal;
-        }
-
-        .xterm {
-            cursor: text;
-        }
-
-        .xterm.enable-mouse-events {
-            /* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
-            cursor: default;
-        }
-
-        .xterm.xterm-cursor-pointer {
-            cursor: pointer;
-        }
-
-        .xterm.column-select.focus {
-            /* Column selection mode */
-            cursor: crosshair;
-        }
-
-        .xterm .xterm-accessibility,
-        .xterm .xterm-message {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            z-index: 10;
-            color: transparent;
-        }
-
-        .xterm .live-region {
-            position: absolute;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
-            overflow: auto;
-        }
-
-        .xterm-dim {
-            opacity: 0.5;
-        }
-
-        .xterm-underline {
-            text-decoration: underline;
-        }
-
-        .xterm-strikethrough {
-            text-decoration: line-through;
-        }
-
-        button {
-            width: 150px;
-            height: 40px;
-            background-color: var(--color-stripe1);
-            border: 4px solid var(--color-green);
-            color: white;
-            text-transform: uppercase;
-            margin: 10px auto 10px auto;
-            border-radius: 8px;
-            display: block;
-        }
-
-        button:hover {
-            transform: translateY(-3px);
-            /* making the button move up*/
-            box-shadow: 0 5px 7.5px var(--color-stripe1);
-            background-color: var(--color-stripe2);
-            border: 4px solid var(--color-green)
-        }
-
-
-
-        /* **************************************** */
-        /* Credits, located below Footer */
-        /* **************************************** */
-
-        #credits {
-            text-align: center;
-            color: var(--color-credits);
-            font-size: 13px;
-            line-height: 20px;
-        }
-
-        #credits i {
-            color: var(--color-burnt-orange)
-        }
-
-        #credits p {
-            margin-bottom: 0rem;
-            /* removing the margin bottom styling */
-            margin-block-end: 0px;
-            margin-block-start: 0px;
-        }
-
-        footer {
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-
-        /* **************************************** */
-        /* Styling the links */
-        /* **************************************** */
-
-        /* unvisited link */
-        a:link {
-            color: var(--color-green);
-            text-decoration: none;
-        }
-
-        /* visited link */
-        a:visited {
-            color: var(--color-green);
-            text-decoration: none;
-        }
-
-        /* mouse over link */
-        a:hover {
-            color: var(--color-burnt-orange);
-            text-decoration: underline;
-        }
-    </style>
 </head>
-@{body}
+
+<body class="bg-gray-900 text-green-500 font-retro min-h-screen flex flex-col items-center justify-center">
+    <!-- Header -->
+    <header class="text-center mb-8 pt-8">
+        <h1 class="text-5xl font-bold text-green-500 font-retro_title border-b-4 border-red-700 pb-2">
+            Py Battleships
+        </h1>
+        <p class="text-cyan-100 mt-4 text-lg">A terminal-style battleship game</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-4xl bg-gray-900 border-4 border-red-700 rounded-lg shadow-lg p-8">
+        <div class="terminal bg-gray-900 text-green-500 p-6 rounded-lg shadow-inner border-2 border-cyan-400">
+            <!-- Terminal Window -->
+            <div id="terminal" class="xterm bg-black w-full h-full border-2 border-green-500 flex items-center justify-center mx-auto"></div>
+
+            <!-- Restart Button -->
+            <div class="flex justify-center mt-6">
+                <button 
+                    onclick="window.location.reload()" 
+                    class="px-8 py-3 bg-cyan-400 text-gray-900 font-bold rounded hover:bg-red-700 transition-all">
+                    Restart Game
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-8 text-center text-cyan-100 text-sm pb-8">
+        <p>Credits and attributions in <a href="https://github.com/eoinlarkin/battleships/" target="_blank" rel="noopener" class="text-cyan-400 hover:underline">README.md</a></p>
+        <p>Design and code by <a href="https://github.com/eoinlarkin/" target="_blank" rel="noopener" class="text-cyan-400 hover:underline">Eoin Larkin</a></p>
+        <p>Made with <i class="fa fa-heart text-green-500"></i> in D7</p>
+    </footer>
+
+    <!-- Terminal Script -->
+    <script>
+        var term = new Terminal({
+            cols: 90,
+            rows: 44,
+            cursorBlink: true
+        });
+        term.setOption('fontSize', 14);
+        term.open(document.getElementById('terminal'));
+        term.writeln('Running startup command: python3 run.py');
+        term.writeln('');
+
+        var ws = new WebSocket(location.protocol.replace('http', 'ws') + '//' + location.hostname + (location.port ? (':' + location.port) : '') + '/');
+
+        ws.onopen = function () {
+            new attach.attach(term, ws);
+        };
+
+        ws.onerror = function (e) {
+            console.log(e);
+        };
+
+        // Set focus in the terminal
+        document.getElementById("terminal").focus();
+    </script>
+</body>
 
 </html>

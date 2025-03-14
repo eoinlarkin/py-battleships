@@ -9,3 +9,6 @@ node_modules/**
 index.js.json
 package-lock.json
 venv/
+
+# Ignoring temp files
+tmp/*
