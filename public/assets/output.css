@@ -576,6 +576,8 @@ video {
   position: absolute;
   top: 0px;
   z-index: 5;
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 
 .xterm .xterm-helper-textarea {

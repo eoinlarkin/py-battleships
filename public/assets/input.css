@@ -23,7 +23,7 @@
     }
   
     .xterm .xterm-helpers {
-      @apply absolute top-0 z-[5];
+      @apply absolute top-0 z-[5] text-black;
     }
   
     .xterm .xterm-helper-textarea {
