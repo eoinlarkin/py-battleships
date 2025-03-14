@@ -24,12 +24,19 @@ USER root
 RUN micromamba run -n myenv npm install
 
 # Copy the rest of your application code
-COPY assets/ ./assets/
+COPY public/assets/ ./public/assets/
 COPY battleships/ ./battleships/
 COPY controllers/ ./controllers/
 COPY views/ ./views/
 COPY index.js ./
 COPY run.py ./
+COPY tailwind.config.js ./
+
+# Update permissions for css files 
+RUN chmod -R 777 public/assets
+
+# Build the Tailwind CSS files
+RUN micromamba run -n myenv npx tailwindcss -i ./public/assets/input.css -o ./public/assets/output.css --minify
 
 # Expose the port your game runs on (if applicable)
 EXPOSE 8000
