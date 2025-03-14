@@ -59,6 +59,13 @@ echo "Docker image built successfully: $IMAGE_NAME:$TAG"
 
 # Optionally run the container
 if [ "$RUN_CONTAINER" = true ]; then
+    # Check if a container with the same name already exists
+    if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
+        echo "Stopping and removing existing container: $CONTAINER_NAME"
+        docker stop $CONTAINER_NAME
+        docker rm $CONTAINER_NAME
+    fi
+
     echo "Starting the container..."
     docker run -d --name $CONTAINER_NAME -p $PORT:$PORT $IMAGE_NAME:$TAG
 
