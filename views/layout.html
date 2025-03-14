@@ -17,22 +17,24 @@
 
 <body class="bg-retro-black text-retro-green font-retro min-h-screen flex flex-col items-center justify-center">
     <!-- Header -->
-    <header class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-retro-green font-retro_title">Py Battleships</h1>
-        <p class="text-retro-gray">A retro terminal-style battleship game</p>
+    <header class="text-center mb-8 pt-8">
+        <h1 class="text-5xl font-bold text-retro-green font-retro_title border-b-4 border-retro-orange pb-2">
+            Py Battleships
+        </h1>
+        <p class="text-retro-gray mt-4 text-lg">A terminal-style battleship game</p>
     </header>
 
     <!-- Main Content -->
-    <main class="w-full max-w-4xl bg-retro-black border-2 border-retro-green rounded-lg shadow-lg p-6">
-        <div class="terminal bg-retro-black text-retro-green p-4 rounded-lg shadow-inner">
+    <main class="w-full max-w-4xl bg-retro-black border-4 border-retro-orange rounded-lg shadow-lg p-8">
+        <div class="terminal bg-gray-900 text-retro-green p-6 rounded-lg shadow-inner border-2 border-retro-blue">
             <!-- Terminal Window -->
-            <div id="terminal" class="xterm bg-black w-auto h-auto border-2 border-retro-green flex items-center justify-center mx-auto"></div>
+            <div id="terminal" class="xterm bg-black w-full h-[748px] border-2 border-retro-green flex items-center justify-center mx-auto"></div>
 
             <!-- Restart Button -->
-            <div class="flex justify-center mt-4">
+            <div class="flex justify-center mt-6">
                 <button 
                     onclick="window.location.reload()" 
-                    class="px-6 py-2 bg-retro-blue text-retro-black font-bold rounded hover:bg-retro-orange transition-all">
+                    class="px-8 py-3 bg-retro-blue text-retro-black font-bold rounded hover:bg-retro-orange transition-all">
                     Restart Game
                 </button>
             </div>
@@ -40,10 +42,10 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-8 text-center text-retro-gray text-sm">
-        <p>Credits and attributions in <a href="https://github.com/eoinlarkin/battleships/" target="_blank" rel="noopener">README.md</a></p>
-        <p>Design and code by <a href="https://github.com/eoinlarkin/" target="_blank" rel="noopener">Eoin Larkin</a></p>
-        <p>Made with <i class="fa fa-heart"></i> in D7</p>
+    <footer class="mt-8 text-center text-retro-gray text-sm pb-8">
+        <p>Credits and attributions in <a href="https://github.com/eoinlarkin/battleships/" target="_blank" rel="noopener" class="text-retro-blue hover:underline">README.md</a></p>
+        <p>Design and code by <a href="https://github.com/eoinlarkin/" target="_blank" rel="noopener" class="text-retro-blue hover:underline">Eoin Larkin</a></p>
+        <p>Made with <i class="fa fa-heart text-green-500"></i> in D7</p>
     </footer>
 
     <!-- Terminal Script -->
