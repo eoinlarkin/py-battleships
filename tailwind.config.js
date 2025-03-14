@@ -6,18 +6,11 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        'retro-green': '#32CD32',
-        'retro-orange': '#B22222',
-        'retro-blue': '#00FFFF',
-        'retro-black': '#18181b',
-        'retro-gray': '#E0FFFF',
-      },
       fontFamily: {
         retro: ['Courier New', 'monospace'], // Retro terminal font
         retro_title: ['"Press Start 2P"', 'monospace'],
       },
-      
+     
     },
   },
   plugins: [],
