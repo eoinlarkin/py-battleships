@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        // tailwind watcher
+        "label": "Tailwind Watcher",
+        "type": "shell",
+        "command": "npx tailwindcss -i ./public/assets/input.css -o ./public/assets/output.css --watch",
+        "group": "build",
+        "problemMatcher": []
+      },
+      {
+        // nodemon used to dynamically rebuild site
+        "label": "Nodemon",
+        "type": "shell",
+        "command": "npx nodemon",
+        "group": "build",
+        "problemMatcher": []
+      }
+    ]
+  }
