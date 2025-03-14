@@ -15,6 +15,7 @@ module.exports = {
       },
       fontFamily: {
         retro: ['Courier New', 'monospace'], // Retro terminal font
+        retro_title: ['"Press Start 2P"', 'monospace'],
       },
       
     },

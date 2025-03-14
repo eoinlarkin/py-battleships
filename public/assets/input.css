@@ -1,3 +1,4 @@
+/* stylelint-disable */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,7 +13,7 @@
     }
   
     .xterm {
-      @apply relative select-none w-xterm;
+      @apply relative select-none;
       cursor: text;
     }
   
@@ -57,9 +58,7 @@
     }
   
     .xterm-char-measure-element {
-      @apply inline-block absolute top-0 left-[-9999em];
-      visibility: hidden;
-      line-height: normal;
+      @apply inline-block absolute top-0 left-[-9999em] invisible line-height-normal;
     }
   
     .xterm.enable-mouse-events {
@@ -77,7 +76,7 @@
     .xterm .xterm-accessibility,
     .xterm .xterm-message {
       @apply absolute left-0 top-0 bottom-0 right-0 z-[10];
-      color: transparent;
+      color: transparent; /* No Tailwind utility for this */
     }
   
     .xterm .live-region {
@@ -85,14 +84,14 @@
     }
   
     .xterm-dim {
-      opacity: 0.5;
+      @apply opacity-50;
     }
   
     .xterm-underline {
-      text-decoration: underline;
+      @apply underline;
     }
   
     .xterm-strikethrough {
-      text-decoration: line-through;
+      @apply line-through;
     }
   }

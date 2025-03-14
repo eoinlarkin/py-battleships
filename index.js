@@ -6,7 +6,8 @@
 const options = {};
 
 // options.ip = '127.0.0.1';
-options.port = parseInt(process.env.PORT);
+options.port = parseInt(process.env.PORT) || 8000;
+options.livereload = true; // Enable live-reloading
 // options.unixsocket = require('path').join(require('os').tmpdir(), 'app_name');
 // options.config = { name: 'Total.js' };
 // options.sleep = 3000;

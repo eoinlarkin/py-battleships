@@ -1,0 +1,5 @@
+{
+    "watch": ["views", "public/assets"],
+    "ext": "js,html,css",
+    "exec": "node index.js"
+  }

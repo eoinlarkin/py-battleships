@@ -1,32 +1,8 @@
 <body>
   <section>
-    <button onclick="window.location.reload()">Restart Game !</button>
-    <script>
-      var term = new Terminal({
-        cols: 90,
-        rows: 44,
-        cursorBlink: true
-      });
-      //self.term.setOption('theme', theme);
-      term.setOption('fontSize', 14);
-      //term.setOption('fontFamily', 'Courier' );
-      term.open(document.getElementById('terminal'));
-      term.writeln('Running startup command: python3 run.py');
-      term.writeln('');
 
-      var ws = new WebSocket(location.protocol.replace('http', 'ws') + '//' + location.hostname + (location.port ? (
-        ':' + location.port) : '') + '/');
 
-      ws.onopen = function () {
-        new attach.attach(term, ws);
-      };
 
-      ws.onerror = function (e) {
-        console.log(e);
-      };
-      // Set focus in the terminal
-      document.getElementsByClassName("xterm-helper-textarea")[0].focus();
-    </script>
 
   </section>
 
